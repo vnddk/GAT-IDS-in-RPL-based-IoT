@@ -552,8 +552,7 @@ Phần này liệt kê những gì khung này **chưa** chứng minh được. �
 
 ## Tác giả
 
-**Đồng Duy Khang** — MSHV 2470165, Kỹ thuật Viễn thông
-Hướng dẫn: **TS. Võ Quế Sơn**
+Hướng dẫn: **TS. Võ Quế Sơn và cộng sự**
 Khoa Điện – Điện tử, Trường Đại học Bách khoa, ĐHQG TP.HCM
 
 ---
