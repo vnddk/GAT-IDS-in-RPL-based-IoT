@@ -1,0 +1,89 @@
+# ════════════════════════════════════════════════════════════════
+#  FedEdge-GAT-IDS — Cấu hình (v3-clean: đặc trưng SẠCH 21/10, không rò rỉ)
+# ════════════════════════════════════════════════════════════════
+seed: 42
+device: auto            # auto | cpu | cuda
+
+# ── DỮ LIỆU ────────────────────────────────────────────────────
+data:
+  source: auto          # auto | synthetic | csv
+  dataset: radar        # uos | radar
+  csv_dir: ./data/radar
+  window_seconds: 5
+  use_power: true        # Yeo-Johnson ổn định phương sai (Cải tiến v3). false=z-score
+  synthetic:
+    n_graphs: 1200
+    nodes_per_graph: [4, 8]
+    n_node_features: 10
+    n_edge_features: 5
+  classes: [Normal, Sinkhole, Blackhole, Flooding, Version, Rank]
+  split: [0.7, 0.15, 0.15]
+
+# ── MÔ HÌNH (Edge-aware GAT) ───────────────────────────────────
+model:
+  hidden_dim: 48            # Cải tiến v3: giảm 64->48 (chống overfit graph nhỏ)
+  out_dim: 32
+  heads: 3                  # giảm 4->3
+  dropout: 0.3
+  use_edge_features: true   # cờ ablation KC-2
+  use_dyt: true             # Dynamic Tanh thay BatchNorm
+  use_input_skip: true      # ⚑ raw-skip CHỈ cho EdgeGAT (baselines KHÔNG có)
+  skip_mode: raw            # ⚑ none | raw | hybrid
+                            #   raw = KHUYẾN NGHỊ. hybrid đã bị loại (v3.10):
+                            #   silhouette final 0,2216 < h2 0,2555 -> nối thêm
+                            #   nhánh JK làm GIẢM khả năng tách cụm.
+  edge_dim: 10              # tự khớp dữ liệu (đặc trưng cạnh sạch = 10)
+  num_layers: 2             # ⚑ số tầng GAT = bán kính thu nhận (hop)
+                            #   2 = mặc định | 3 = thử nghiệm 3-hop
+                            #   CẢNH BÁO: 2-hop đã phủ 86,4% đồ thị RADAR,
+                            #   3-hop phủ 95,7% -> rủi ro làm mịn quá mức cao
+  layer_residual: false     # phần dư từng tầng, chỉ có tác dụng khi num_layers ≥ 3
+  use_main_residual: true   # ⚑ phần dư CHÍNH: h_L ← ELU(h_L + W_res·h⁰)
+                            #   false = tắt (ablation). ĐỘC LẬP với use_input_skip:
+                            #   phần dư chính CỘNG h⁰; kết nối tắt NỐI X thô.
+  classifier_type: linear   # ⚑ linear | mlp | lstm
+                            #   linear = Linear(clf_in→C), ít tham số nhất
+                            #   mlp    = Linear→ELU→Dropout→Linear, ranh giới phi tuyến
+                            #   lstm   = LSTM đọc chuỗi TẦNG h¹→h²→h³ (JK-LSTM,
+                            #            Xu và cs. ICML 2018), mỗi node tự chọn bán kính
+  clf_hidden: 128           # chiều ẩn tầng 1 của mlp (tầng 2 = một nửa) / lstm
+
+# ── HUẤN LUYỆN ─────────────────────────────────────────────────
+train:
+  epochs: 120
+  lr: 0.002                 # Cải tiến v3: giảm 0.005->0.002 (ổn định)
+  weight_decay: 0.0005
+  batch_size: 32
+  loss: cb_focal            # cb_focal | ldam | logit_adj | focal | weighted_ce
+  focal_gamma: 1.0
+  cb_beta: 0.9999
+  label_smoothing: 0.05
+  weight_cap: 5.0           # ⚑ TRẦN tỉ lệ trọng số lớp max/min.
+                            #   Thô (tắt trần) = 18,0 -> bù quá đà.
+                            #   3=cân bằng nhất | 5=KHUYẾN NGHỊ | 0=tắt     # ⚑ MỚI: làm mềm nhãn, giảm nhầm lẫn nhóm họ-rank
+                            #   (SAGEConv-GNN+Transformer, MDPI Electronics 2026)
+  warmup_epochs: 6          # warmup + cosine
+  min_lr_ratio: 0.05
+  use_ema: true             # EMA trọng số -> val mượt
+  ema_decay: 0.995
+  grad_clip: 1.0
+  val_smooth_beta: 0.6
+  early_stopping_patience: 30
+  ckpt_dir: ./checkpoints
+
+# ── FEDERATED ──────────────────────────────────────────────────
+federated:
+  enabled: false
+  num_clients: 4
+  rounds: 60
+  local_epochs: 5
+  partition: dirichlet
+  dirichlet_alpha: 1.5
+  aggregator: fedprox
+  fedprox_mu: 0.01
+
+# ── XAI ────────────────────────────────────────────────────────
+explain:
+  enabled: true
+  gnnexplainer_epochs: 100
+  top_k_edges: 8
