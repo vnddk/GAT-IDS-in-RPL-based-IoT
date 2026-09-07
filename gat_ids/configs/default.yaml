@@ -27,21 +27,21 @@ model:
   dropout: 0.3
   use_edge_features: true   # cờ ablation KC-2
   use_dyt: true             # Dynamic Tanh thay BatchNorm
-  use_input_skip: true      # ⚑ raw-skip CHỈ cho EdgeGAT (baselines KHÔNG có)
-  skip_mode: raw            # ⚑ none | raw | hybrid
+  use_input_skip: false      # ⚑ raw-skip CHỈ cho EdgeGAT (baselines KHÔNG có)
+  skip_mode: none            # ⚑ none | raw | hybrid
                             #   raw = KHUYẾN NGHỊ. hybrid đã bị loại (v3.10):
                             #   silhouette final 0,2216 < h2 0,2555 -> nối thêm
                             #   nhánh JK làm GIẢM khả năng tách cụm.
   edge_dim: 10              # tự khớp dữ liệu (đặc trưng cạnh sạch = 10)
-  num_layers: 2             # ⚑ số tầng GAT = bán kính thu nhận (hop)
+  num_layers: 3             # ⚑ số tầng GAT = bán kính thu nhận (hop)
                             #   2 = mặc định | 3 = thử nghiệm 3-hop
                             #   CẢNH BÁO: 2-hop đã phủ 86,4% đồ thị RADAR,
                             #   3-hop phủ 95,7% -> rủi ro làm mịn quá mức cao
-  layer_residual: false     # phần dư từng tầng, chỉ có tác dụng khi num_layers ≥ 3
-  use_main_residual: true   # ⚑ phần dư CHÍNH: h_L ← ELU(h_L + W_res·h⁰)
+  layer_residual: true     # phần dư từng tầng, chỉ có tác dụng khi num_layers ≥ 3
+  use_main_residual: false   # ⚑ phần dư CHÍNH: h_L ← ELU(h_L + W_res·h⁰)
                             #   false = tắt (ablation). ĐỘC LẬP với use_input_skip:
                             #   phần dư chính CỘNG h⁰; kết nối tắt NỐI X thô.
-  classifier_type: linear   # ⚑ linear | mlp | lstm
+  classifier_type: mlp   # ⚑ linear | mlp | lstm
                             #   linear = Linear(clf_in→C), ít tham số nhất
                             #   mlp    = Linear→ELU→Dropout→Linear, ranh giới phi tuyến
                             #   lstm   = LSTM đọc chuỗi TẦNG h¹→h²→h³ (JK-LSTM,
@@ -58,7 +58,7 @@ train:
   focal_gamma: 1.0
   cb_beta: 0.9999
   label_smoothing: 0.05
-  weight_cap: 5.0           # ⚑ TRẦN tỉ lệ trọng số lớp max/min.
+  weight_cap: 3.0           # ⚑ TRẦN tỉ lệ trọng số lớp max/min.
                             #   Thô (tắt trần) = 18,0 -> bù quá đà.
                             #   3=cân bằng nhất | 5=KHUYẾN NGHỊ | 0=tắt     # ⚑ MỚI: làm mềm nhãn, giảm nhầm lẫn nhóm họ-rank
                             #   (SAGEConv-GNN+Transformer, MDPI Electronics 2026)
