@@ -1,182 +1,269 @@
-# FedEdge-GAT-IDS — Framework Phát hiện Xâm nhập RPL-IoT
+# LỆNH CHẠY TOÀN BỘ PIPELINE — GAT-IDS · NE-GAT-IDS · ATA
 
-Framework hoàn chỉnh cho luận văn: **Edge-aware Graph Attention Network + Federated Learning** để phát hiện xâm nhập trong mạng RPL-IoT. Hỗ trợ train / validation / test, chạy được cả centralized lẫn federated qua một cờ cấu hình, có sẵn synthetic data để chạy ngay và khung cắm dataset thật (UOS_IOTSH_2024, ROUT-4-2023, IoT-RPL).
-
----
-
-## 1. Cấu trúc thư mục
-
-```
-fededge_gat_ids/
-├── configs/default.yaml         # MỌI tham số tập trung ở đây
-├── main.py                      # điểm vào: train/test/xai
-├── requirements.txt
-├── scripts/
-│   └── run_ablation.py          # so sánh edge vs no-edge vs federated (KC-2)
-├── src/
-│   ├── data/
-│   │   ├── synthetic.py         # sinh cluster-graph có chữ ký tấn công
-│   │   └── loader.py            # loader linh hoạt + chia tập + chuẩn hóa
-│   ├── models/
-│   │   └── edge_gat.py          # Edge-aware GAT (GATv2Conv + edge_dim)
-│   ├── federated/
-│   │   └── fed.py               # partition non-IID + FedAvg/FedProx
-│   ├── explain/
-│   │   └── xai.py               # attention + GNNExplainer
-│   └── utils/
-│       ├── common.py            # config, seed, device, early-stopping
-│       ├── metrics.py           # F1 per-class, macro-F1, confusion matrix
-│       └── engine.py            # vòng train/eval dùng chung
-└── tests/
-```
+Phiên bản v3.33. Mọi lệnh chạy từ thư mục gốc framework.
 
 ---
 
-## 2. Cài đặt
+## 0. Điều kiện tiên quyết
 
 ```bash
-cd fededge_gat_ids
-python -m venv .venv && source .venv/bin/activate    # khuyến nghị
-pip install -r requirements.txt
+pip install torch torch_geometric xgboost lightgbm scikit-learn pandas matplotlib
 ```
 
-Nếu cài `torch-geometric` gặp lỗi, cài torch trước rồi mới cài PyG theo hướng dẫn chính thức của PyG cho đúng phiên bản CUDA.
+Cấu trúc thư mục dữ liệu:
+
+```
+data/radar/     <- các thư mục kịch bản tấn công, mỗi thư mục chứa *.csv
+data/uos/       <- các tệp log của bộ UOS_IOTSH_2024
+data/rplbeh/    <- RPL-IDS-Beh.csv  (tải từ kho HUNSR/RPL-IDS-Behavior-Dataset)
+```
 
 ---
 
-## 3. Chạy nhanh (3 lệnh đầu tiên)
+## 1. BƯỚC 1 — Chuyển dữ liệu sang đồ thị, chia theo THỨ TỰ THỜI GIAN
+
+Ba bộ dữ liệu dùng **cùng một chiến lược chia** để so sánh được với nhau.
 
 ```bash
-# (1) Centralized + edge features (mặc định) — chạy ngay với synthetic
-python main.py --config configs/default.yaml
+# ── RADAR (16 lớp) ──
+python scripts/convert_data.py --dataset radar --data-dir data/radar --split chrono --alpha 1.0 --out-dir data/radar_chrono
 
-# (2) Federated (bật FL)
-python main.py --config configs/default.yaml --federated
+# ── UOS (2 lớp) ──
+python scripts/convert_data.py --dataset uos --data-dir data/uos --split chrono --alpha 1.0 --out-dir data/uos_chrono
 
-# (3) Ablation: tắt edge features để so sánh
-python main.py --config configs/default.yaml --no-edge
+# ── RPL-Beh (5 lớp) ──
+python scripts/convert_data.py --dataset rplbeh --data-dir data/rplbeh --split chrono --alpha 1.0 --out-dir data/rplbeh_chrono
 ```
 
-Mỗi lần chạy in báo cáo test (accuracy, macro-F1, F1 từng lớp) và lưu `results.json`.
+**Ba điều cần kiểm ngay trong log:**
 
-Kết quả tham khảo trên synthetic (CPU, ~1 phút mỗi cấu hình):
+1. `Chẩn đoán rò rỉ thời gian: δ̄ = …` — giá trị phải **lớn hơn 2** rõ rệt. Nếu gần 0 thì phép chia vẫn đang là ngẫu nhiên và mọi kết quả ATA sau đó sẽ không đo được thứ cần đo.
+2. `Không phát hiện rò rỉ` hoặc `WARNING — Đặc trưng RÒ RỈ` — nếu có cảnh báo, phải xử lý trước khi huấn luyện.
+3. Tỉ lệ đồ thị train/val/test **không** khớp chính xác 7:1:2 là bình thường, vì mỗi tệp sinh số cửa sổ khác nhau.
 
-| Cấu hình | Macro-F1 | Accuracy |
-|---|---|---|
-| A — node-only, centralized | ~0.90 | ~0.97 |
-| B — edge-aware, centralized | ~0.90 | ~0.97 |
-| C — edge-aware, **federated** | ~0.92 | ~0.98 |
-
-> Trên synthetic, chênh lệch edge vs no-edge nhỏ vì chữ ký tấn công được đặt phần lớn ở node features. Trên **dữ liệu thật**, blackhole/selective-forwarding có tín hiệu mạnh trên cạnh → kỳ vọng edge features cải thiện rõ hơn. Đó là lý do KC-2 là một kiểm tra thực sự.
-
-### Kết quả tối ưu trên dữ liệu UOS_IOTSH_2024 thật
-
-Sau khi áp dụng **Dynamic Tanh (DyT, CVPR 2025)** + **Focal Loss** (gamma=1, không kèm class weight) + **residual connection**:
-
-| Cấu hình | Accuracy | Macro-F1 | Sinkhole F1 |
-|---|---|---|---|
-| Ban đầu (Weighted CE + BatchNorm) | 0.970 | 0.923 | 0.863 |
-| Focal nhưng dùng BatchNorm | 0.983 | 0.953 | 0.915 |
-| **DyT + Focal (cấu hình mặc định)** | **0.987** | **0.965** | **0.936** |
-
-Bài học tối ưu quan trọng:
-- **KHÔNG dùng Focal Loss kèm class weight cùng lúc** — gây over-correction, precision lớp thiểu số tụt thê thảm (0.53). Chọn MỘT trong hai.
-- **gamma=1** tốt hơn gamma=2 cho mức mất cân bằng này (~7% Sinkhole).
-- **DyT** ổn định hơn BatchNorm với batch nhỏ / federated non-IID, +2% Sinkhole F1.
-- **Làm giàu edge features bằng RPL counter** (RDAO/RDIO/SDIO/SDAO theo cặp nút): node features d_n=13, edge features d_e=10. Đây là điểm then chốt — edge features thống kê traffic thuần (pkt_count, len) gần như vô dụng (B−A=+0.002), nhưng khi nhúng counter RPL thì giá trị edge tăng gấp ~4 lần (+0.009 Sinkhole F1). Lý do: nút sinkhole hút traffic → RDAO/SDIO bất thường trên cạnh của nó.
-- **Federated**: FedProx + dirichlet_alpha=1.5 (giảm non-IID) ổn định hơn FedAvg+alpha=0.5 nhiều.
-- Vấn đề thật không phải accuracy (vốn đã cao do Normal chiếm đa số) mà là **F1 lớp thiểu số** — luôn nhìn macro-F1 và per-class F1, đừng chỉ nhìn accuracy.
-
-> CẢNH BÁO về số liệu: bảng trên chạy trên một phần dataset (vài file, trộn graph rồi split ngẫu nhiên). Khi chạy đủ ~76 file và split NGẪU NHIÊN, macro-F1 thực tế khoảng 0.88–0.90. Để báo cáo trung thực trong luận văn, nên (1) split theo scenario (train/test khác file), (2) chạy nhiều seed báo cáo mean±std. Con số trên một phần dữ liệu thường lạc quan hơn thực tế.
-
----
-
-## 4. Quy trình train / validation / test (giải thích cơ chế)
-
-Đây là phần cốt lõi bạn cần nắm để trả lời hội đồng.
-
-### 4.1. Chia tập (chống rò rỉ dữ liệu)
-- Chia ở **mức graph**, không phải mức node — để không có nút nào của cùng một graph vừa nằm train vừa nằm test.
-- **Stratified** theo nhãn trội của graph → giữ tỷ lệ lớp cân bằng giữa 3 tập.
-- Tỷ lệ mặc định 70/15/15 (`data.split`).
-
-### 4.2. Chuẩn hóa (fit chỉ trên train)
-- `GraphScaler` tính mean/std **chỉ trên tập train**, rồi áp dụng cho val/test.
-- Đây là điểm hội đồng hay hỏi: chuẩn hóa trên toàn bộ dữ liệu = data leakage. Code đã làm đúng.
-
-### 4.3. Vòng huấn luyện
-- **Train**: mỗi epoch chạy qua train_loader, tính Weighted CrossEntropy (trọng số nghịch tần suất để xử lý lớp hiếm như Sinkhole/Blackhole), backprop.
-- **Validation**: sau mỗi epoch, đo macro-F1 trên val. Dùng để (a) early stopping, (b) chọn checkpoint tốt nhất.
-- **Test**: chỉ chạy MỘT lần cuối, trên model tốt nhất theo val. Không bao giờ dùng test để chọn model.
-
-### 4.4. Early stopping & checkpoint
-- `EarlyStopping(patience=12, mode=max)` theo val macro-F1.
-- Checkpoint tốt nhất lưu ở `checkpoints/best_centralized.pt`.
-
----
-
-## 5. Chế độ Federated
-
-Bật bằng `--federated` hoặc `federated.enabled: true`.
-
-- **Phân vùng client**: `partition: dirichlet` tạo non-IID (mỗi client lệch về vài lớp); `alpha` nhỏ = lệch mạnh. Đổi `iid` để so sánh.
-- **Vòng FL**: mỗi round = client train cục bộ `local_epochs` → server FedAvg → đánh giá val. Lặp `rounds` lần.
-- **FedProx**: đổi `aggregator: fedprox` + chỉnh `fedprox_mu` nếu non-IID khó hội tụ (đúng phương án giảm thiểu rủi ro trong đề cương).
-- **Client = edge gateway**, không phải sensor node (xem đề cương mục 4.x).
-
----
-
-## 6. Ablation tự động (cho Chương V luận văn)
+### 1b. Quét tỉ lệ giữ lại (tách ngân sách dữ liệu khỏi dịch chuyển thời gian)
 
 ```bash
-python scripts/run_ablation.py
+for A in 0.5 0.6 0.8 1.0; do
+  python scripts/convert_data.py --dataset radar --data-dir data/radar \
+         --split chrono --alpha $A --out-dir data/radar_a$A
+done
 ```
 
-Chạy 3 cấu hình A/B/C trên **cùng một split**, in bảng so sánh macro-F1, và tự kiểm tra KC-2 (edge features có cải thiện ≥ +0.02 không). Kết quả lưu `ablation_results.json` — đưa thẳng vào bảng so sánh trong luận văn.
+Nếu hiệu năng tăng **đơn điệu** theo α thì kích thước mẫu là nút thắt; nếu **đi ngang hoặc dao động** thì dịch chuyển thời gian mới là nguyên nhân chính.
+
+### 1c. Chế độ đối chứng để tái lập rò rỉ
+
+```bash
+python scripts/convert_data.py --dataset radar --data-dir data/radar \
+       --split random --out-dir data/radar_random
+```
+
+So hai giá trị δ̄ giữa `chrono` và `random` chính là bằng chứng định lượng cho khoảng trống nghiên cứu thứ hai.
 
 ---
 
-## 7. Cắm dataset thật (UOS_IOTSH_2024 / ROUT-4 / IoT-RPL)
+## 2. BƯỚC 2 — Huấn luyện
 
-Hiện `load_from_csv()` trong `src/data/loader.py` là **khung** (trả về rỗng → fallback synthetic). Để dùng dữ liệu thật:
+### 2a. Baseline dạng CÂY — không dùng được ATA
 
-1. Tải dataset, đặt các file `.csv` vào `data/raw/`.
-2. Mở `src/data/loader.py`, hoàn thiện `load_from_csv()`:
-   - Đọc CSV bằng pandas.
-   - Với mỗi (cửa sổ thời gian × cluster), gom các nút thành một graph.
-   - **Node features**: map các cột RPL (rank, ETX, PDR, RSSI, đếm DIO/DAO/DIS, version, parent_change, sibling) vào `x` (shape `[n, d_n]`).
-   - **Edge features**: từ quan hệ parent-child (cột `parent_id` nếu có), dựng `edge_index` và `edge_attr = [ETX_link, PDR_link, RSSI_link, hop, forward_ratio]`.
-   - **Nhãn**: map cột nhãn về chỉ số lớp theo `data.classes`.
-   - Trả về `list[torch_geometric.data.Data]`.
-3. Đổi `data.source: csv` trong config.
-4. Vì hai dataset có schema khác nhau, chuẩn hóa taxonomy nhãn về tập chung `{Normal, Sinkhole, Blackhole, Flooding, Version, Rank}`. Theo dõi **domain shift** (KC-4): nếu ghép hai nguồn làm F1 sụt > 10%, cân nhắc train riêng từng dataset trước.
+ATA là kỹ thuật dựa trên **hàm mất mát**, nên chỉ áp dụng được cho mô hình huấn luyện bằng hạ gradient. Rừng ngẫu nhiên, XGBoost và LightGBM **không** dùng được ATA; chúng vẫn được huấn luyện bằng `train_all.py` trên **cùng** tập chia theo thời gian, nên vẫn so sánh được.
 
-> Mẹo: chạy synthetic trước để chắc pipeline đúng, rồi mới cắm dữ liệu thật — như vậy nếu lỗi, bạn biết là do dữ liệu chứ không phải do code.
+```bash
+python scripts/train_all.py --data-dir data/radar_chrono --models RF,XGBoost,LightGBM --resample off --ckpt-dir ck_trees_radar
+python scripts/train_all.py --data-dir data/uos_chrono --models RF,XGBoost,LightGBM --resample off --ckpt-dir ck_trees_uos
+python scripts/train_all.py --data-dir data/rplbeh_chrono --models RF,XGBoost,LightGBM --resample off --ckpt-dir ck_trees_rplbeh_chrono
+```
+
+### 2b. Baseline mạng nơ-ron — CÓ ATA
+
+```bash
+for A in mlp gcn egraphsage; do
+  python scripts/train_ata.py --data-dir data/radar_chrono --arch $A --K 3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --epochs 120 --ckpt-dir ck_${A}_ata
+done
+```
+
+#--> For RADAR DATASET
+```
+python scripts/train_ata.py --data-dir data/radar_chrono --arch mlp --K 3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --epochs 120 --ckpt-dir ck_mlp_ata_radar
+python scripts/train_ata.py --data-dir data/radar_chrono --arch gcn --K 3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --epochs 120 --ckpt-dir ck_gcn_ata_radar
+python scripts/train_ata.py --data-dir data/radar_chrono --arch egraphsage --K 3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --epochs 120 --ckpt-dir ck_egraphsage_ata_radar
+```
+
+### 2c. Hai mô hình chính
+
+```bash
+# GAT-IDS + ATA
+python scripts/train_ata.py --data-dir data/radar_chrono --arch edgegat --K 3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --epochs 120 --ckpt-dir ck_gat_ata_radar
+
+# NE-GAT-IDS + ATA
+python scripts/train_ata.py --data-dir data/radar_chrono --arch negat --K 3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --epochs 120 --ckpt-dir ck_negat_ata_radar
+```
+
+### 2d. Nhánh đối chứng KHÔNG có ATA
+
+```bash
+python scripts/train_ata.py --data-dir data/radar_chrono --arch edgegat \
+       --K 1 --lambda-d 0 --epochs 120 --ckpt-dir ck_gat_noata
+python scripts/train_ata.py --data-dir data/radar_chrono --arch negat \
+       --K 1 --lambda-d 0 --epochs 120 --ckpt-dir ck_negat_noata
+```
+
+Đặt `--K 1 --lambda-d 0` là **có chủ ý**: cấu hình này thoái hoá về cực tiểu hoá rủi ro thực nghiệm thông thường nhưng **vẫn đi qua đúng một đường mã**, nên loại được mọi khác biệt cài đặt khỏi phép so sánh.
 
 ---
 
-## 8. Lộ trình theo Sprint (khớp đề cương)
+## 3. Ablation đặc trưng cạnh — hai câu hỏi khác nhau
 
-| Sprint | Việc với framework này |
-|---|---|
-| S1 | Hoàn thiện `load_from_csv()`, kiểm tra EDA, chạy synthetic để verify pipeline |
-| S2 | Train centralized (cờ mặc định), chạy `run_ablation.py` → kiểm KC-2 |
-| S3 | Bật `--federated`, thử `dirichlet` vs `iid`, fedavg vs fedprox → kiểm KC-3 |
-| S4 | Bật XAI, đánh giá attention + GNNExplainer → kiểm Fidelity |
-| S5 | Tổng hợp `ablation_results.json` + bảng so sánh vào luận văn |
+Anh hỏi hai điều khác nhau, và chúng cần hai cặp lệnh khác nhau.
+
+### 3a. "Có đặc trưng cạnh" so với "không có đặc trưng cạnh"
+
+Áp cho **GAT-IDS**. Khác biệt duy nhất là cờ `--no-edge`:
+
+```bash
+python scripts/train_ata.py --data-dir data/radar_chrono --arch edgegat \
+       --K 3 --lambda-d 0.1 --epochs 120 --ckpt-dir ck_gat_edge
+python scripts/train_ata.py --data-dir data/radar_chrono --arch edgegat \
+       --K 3 --lambda-d 0.1 --epochs 120 --no-edge --ckpt-dir ck_gat_noedge
+```
+
+*Lưu ý:* cờ `--no-edge` hiện chỉ có trong `train_all.py`. Nếu `train_ata.py` báo lỗi không nhận cờ, hãy đặt `use_edge_features: false` trong `configs/default.yaml` trước khi chạy nhánh thứ hai, rồi đặt lại `true`.
+
+### 3b. "Cạnh CÓ trong attention" so với "cạnh KHÔNG trong attention"
+
+Đây là câu hỏi khác và chỉ áp được cho **NE-GAT-IDS**, vì kiến trúc này tách riêng kênh cạnh:
+
+```bash
+# cạnh tham gia điểm chú ý cùng ngữ cảnh hai đầu mút (mặc định)
+python scripts/train_ata.py --data-dir data/radar_chrono --arch negat \
+       --edge-score full --K 3 --lambda-d 0.5 --disc mmd \
+       --epochs 120 --ckpt-dir ck_negat_full
+
+# điểm chú ý CHỈ tính từ trạng thái cạnh, cô lập khỏi biểu diễn nút
+python scripts/train_ata.py --data-dir data/radar_chrono --arch negat \
+       --edge-score edge_only --K 3 --lambda-d 0.5 --disc mmd \
+       --epochs 120 --ckpt-dir ck_negat_edgeonly
+```
+
+Cặp này là **phép thử trực tiếp** cho giả thuyết rằng tín hiệu cạnh bị lấn át khi trộn chung với đặc trưng nút. Nếu `edge_only` không tốt hơn `full`, giả thuyết không được ủng hộ và phần lập luận phải viết lại.
+
+### 3c. Hai ablation riêng của NE-GAT
+
+```bash
+# mất thông tin số lượng liên kết (tái lập thiết kế gốc)
+python scripts/train_ata.py --arch negat --edge-agg mean ... --ckpt-dir ck_negat_mean
+# tắt cập nhật trạng thái cạnh qua từng tầng
+python scripts/train_ata.py --arch negat --no-edge-update ... --ckpt-dir ck_negat_noeu
+```
 
 ---
 
-## 9. Mở rộng
+## 4. BƯỚC 3 — Đánh giá đa lớp VÀ nhị phân
 
-- **Thêm baseline**: tạo model mới trong `src/models/`, giữ nguyên interface `forward(x, edge_index, edge_attr)`.
-- **Đổi sang Flower**: thay `src/federated/fed.py` bằng client/server Flower; phần model/data giữ nguyên.
-- **Differential Privacy**: thêm Gaussian noise vào model update trước khi gửi server.
-- **GNNExplainer**: đã tích hợp; nếu phiên bản PyG khác API, xem `src/explain/xai.py` (đã bọc try/except).
+```bash
+python scripts/test_all.py --data-dir data/radar_chrono \
+       --ckpt-dir ck_gat_ata --binary --out kq_gat_ata.json
+python scripts/test_all.py --data-dir data/radar_chrono \
+       --ckpt-dir ck_negat_ata --binary --out kq_negat_ata.json
+```
+
+Cờ `--binary` in thêm bảng gộp mọi lớp tấn công thành một lớp dương, kèm **tỉ lệ báo động sai** và **tỉ lệ bỏ lọt** — hai đại lượng mà macro-F1 đa lớp không thể hiện trực tiếp.
+
+`train_ata.py` cũng tự in bảng nhị phân ở cuối mỗi lần chạy.
+
+**Cách đọc đúng.** Chỉ số nhị phân **luôn** cao hơn macro-F1 đa lớp, vì phép gộp xoá bỏ toàn bộ lỗi nhầm **giữa** các loại tấn công: một mô hình nhầm `rank` thành `sinkhole` bị phạt ở chế độ đa lớp nhưng được tính đúng ở chế độ nhị phân. Phải báo cáo cả hai cạnh nhau, không dùng riêng con số nhị phân.
 
 ---
 
-## 10. Lưu ý quan trọng
+## 5. Trực quan hoá và chứng minh
 
-- Con số tham số mô hình (~74K trên synthetic d_n=10) sẽ đổi theo `d_n`, `d_e`, `hidden_dim`, `heads` thật. Cập nhật lại trong luận văn sau khi chốt dữ liệu.
-- Mọi seed cố định (`seed: 42`) để thí nghiệm tái lập. Đổi seed và chạy nhiều lần để báo cáo mean ± std — hội đồng đánh giá cao điều này.
+### 5a. So sánh không gian đặc trưng CUỐI giữa các mô hình
+
+```bash
+python scripts/tsne_compare.py --data-dir data/radar_chrono \
+  --models "GAT-IDS=ck_gat_noata" "GAT-IDS+ATA=ck_gat_ata" \
+           "NE-GAT=ck_negat_noata" "NE-GAT+ATA=ck_negat_ata" \
+  --n-samples 4000 --out tsne_4models.png --csv silhouette.csv
+```
+
+Mọi mô hình dùng **chung** một tập mẫu con phân tầng và **chung** hạt giống t-SNE, nên khác biệt nhìn thấy là do mô hình chứ không do phép lấy mẫu. Điểm silhouette **luôn** tính trên không gian gốc.
+
+### 5b. Trực quan hoá theo TỪNG TẦNG
+
+```bash
+python scripts/tsne_layers.py --data-dir data/radar_chrono \
+       --ckpt-dir ck_gat_ata --n-samples 4000 --out tsne_layers_gat.png
+python scripts/tsne_layers.py --data-dir data/radar_chrono \
+       --ckpt-dir ck_negat_ata --n-samples 4000 --out tsne_layers_negat.png
+```
+
+*Một khác biệt cần nêu rõ khi trình bày:* GAT-IDS phơi ra bốn vị trí trích (sau mỗi tầng chú ý và trước bộ phân loại), còn NE-GAT-IDS chỉ phơi ra biểu diễn **trước bộ phân loại**. Đây là hệ quả của kiến trúc hai kênh — biểu diễn tầng giữa là hợp nhất của hai kênh nên không có nghĩa "một tầng chú ý" như ở GAT-IDS. Không nên trình bày sự khác biệt này như một thiếu sót.
+
+### 5c. Ma trận nhầm lẫn và khả diễn giải
+
+```bash
+python scripts/confusion_matrix.py --data-dir data/radar_chrono --ckpt-dir ck_gat_ata
+python scripts/attention_per_class.py --data-dir data/radar_chrono \
+       --ckpt-dir ck_gat_ata --top 10 --export-model-csv model_xai.csv
+python scripts/feature_importance_per_class.py --data-dir data/radar_chrono \
+       --top 10 --out dactrung_node.csv
+python scripts/xai_simple.py --model-csv model_xai.csv \
+       --rf-node-csv dactrung_node.csv --out-dir hinh_xai
+```
+
+---
+
+## 6. Quét siêu tham số ATA
+
+```bash
+for K in 2 3 4 5; do
+  for LD in 0.01 0.1 0.5 1.0; do
+    for D in coral mmd cosine; do
+      python scripts/train_ata.py --data-dir data/radar_chrono --arch negat \
+        --K $K --lambda-d $LD --disc $D --epochs 120 \
+        --ckpt-dir ck_K${K}_L${LD}_${D}
+    done
+  done
+done
+```
+
+Thêm `--domain-strategy tdc` để so với chiến lược chia miền theo phân vị.
+
+---
+
+## 7. Nhiều hạt giống — việc bắt buộc trước khi nộp
+
+```bash
+for S in 42 43 44 45 46; do
+  python scripts/train_ata.py --data-dir data/radar_chrono --arch negat \
+    --K 3 --lambda-d 0.5 --disc mmd --seed $S --epochs 120 \
+    --ckpt-dir ck_negat_s$S
+  python scripts/test_all.py --data-dir data/radar_chrono \
+    --ckpt-dir ck_negat_s$S --binary --out kq_negat_s$S.json
+done
+python scripts/aggregate_seeds.py --pattern "kq_negat_s*.json"
+```
+
+Với một hạt giống, không có cách nào biết một chênh lệch là thật hay chỉ là dao động ngẫu nhiên. Đây là lỗ hổng lớn nhất còn lại.
+
+---
+
+## 8. Trình tự tối thiểu cho một bộ dữ liệu
+
+```bash
+D=radar                      # đổi thành uos hoặc rplbeh
+python scripts/convert_data.py --dataset $D --data-dir data/$D \
+       --split chrono --alpha 1.0 --out-dir data/${D}_chrono
+python scripts/train_all.py --data-dir data/${D}_chrono \
+       --models RF,XGBoost,LightGBM --resample off --ckpt-dir ck_${D}_trees
+for A in mlp gcn egraphsage edgegat negat; do
+  python scripts/train_ata.py --data-dir data/${D}_chrono --arch $A \
+    --K 3 --lambda-d 0.1 --epochs 120 --ckpt-dir ck_${D}_${A}
+done
+python scripts/test_all.py --data-dir data/${D}_chrono \
+       --ckpt-dir ck_${D}_edgegat --binary
+python scripts/tsne_compare.py --data-dir data/${D}_chrono \
+  --models "GAT-IDS=ck_${D}_edgegat" "NE-GAT=ck_${D}_negat" \
+  --out tsne_${D}.png
+```
