@@ -1,0 +1,1278 @@
+Microsoft Windows [Version 10.0.26200.9278]
+(c) Microsoft Corporation. All rights reserved.
+
+F:\tham khao\sdh241\hk5\de an tot nghiep\GAT_NEGAT_IDS_ATA>pip install torch torch_geometric xgboost lightgbm scikit-learn pandas matplotlib
+Requirement already satisfied: torch in C:\Users\ADMIN\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages (2.12.0)
+Requirement already satisfied: torch_geometric in C:\Users\ADMIN\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages (2.8.0)
+Requirement already satisfied: xgboost in C:\Users\ADMIN\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages (3.3.0)
+Requirement already satisfied: lightgbm in C:\Users\ADMIN\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages (4.7.0)
+Requirement already satisfied: scikit-learn in C:\Users\ADMIN\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages (1.8.0)
+Requirement already satisfied: pandas in C:\Users\ADMIN\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages (3.0.2)
+Requirement already satisfied: matplotlib in C:\Users\ADMIN\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages (3.11.1)
+Requirement already satisfied: filelock in C:\Users\ADMIN\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages (from torch) (3.29.1)
+Requirement already satisfied: typing-extensions>=4.10.0 in C:\Users\ADMIN\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages(from torch) (4.15.0)
+Requirement already satisfied: setuptools<82 in C:\Users\ADMIN\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages (from torch) (81.0.0)
+Requirement already satisfied: sympy>=1.13.3 in C:\Users\ADMIN\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages (from torch) (1.14.0)
+Requirement already satisfied: networkx>=2.5.1 in C:\Users\ADMIN\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages (from torch) (3.6.1)
+Requirement already satisfied: jinja2 in C:\Users\ADMIN\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages (from torch) (3.1.6)
+Requirement already satisfied: fsspec>=0.8.5 in C:\Users\ADMIN\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages (from torch) (2026.4.0)
+Requirement already satisfied: aiohttp in C:\Users\ADMIN\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages (from torch_geometric) (3.14.0)
+Requirement already satisfied: numpy in C:\Users\ADMIN\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages (from torch_geometric) (2.4.4)
+Requirement already satisfied: psutil>=5.8.0 in C:\Users\ADMIN\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages (from torch_geometric) (7.2.2)
+Requirement already satisfied: pyparsing in C:\Users\ADMIN\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages (from torch_geometric) (3.3.2)
+Requirement already satisfied: requests in C:\Users\ADMIN\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages (from torch_geometric) (2.34.2)
+Requirement already satisfied: tqdm in C:\Users\ADMIN\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages (from torch_geometric) (4.68.1)
+Requirement already satisfied: xxhash in C:\Users\ADMIN\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages (from torch_geometric) (3.7.0)
+Requirement already satisfied: scipy in C:\Users\ADMIN\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages (from xgboost) (1.17.1)
+Requirement already satisfied: narwhals>=1.15 in C:\Users\ADMIN\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages (from lightgbm) (2.24.0)
+Requirement already satisfied: joblib>=1.3.0 in C:\Users\ADMIN\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages (from scikit-learn) (1.5.3)
+Requirement already satisfied: threadpoolctl>=3.2.0 in C:\Users\ADMIN\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages (from scikit-learn) (3.6.0)
+Requirement already satisfied: python-dateutil>=2.8.2 in C:\Users\ADMIN\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages (from pandas) (2.9.0.post0)
+Requirement already satisfied: tzdata in C:\Users\ADMIN\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages (from pandas) (2026.1)
+Requirement already satisfied: contourpy>=1.0.1 in C:\Users\ADMIN\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages (from matplotlib) (1.3.3)
+Requirement already satisfied: cycler>=0.10 in C:\Users\ADMIN\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages (from matplotlib) (0.12.1)
+Requirement already satisfied: fonttools>=4.28.2 in C:\Users\ADMIN\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages (from matplotlib) (4.63.0)
+Requirement already satisfied: kiwisolver>=1.3.1 in C:\Users\ADMIN\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages (from matplotlib) (1.5.0)
+Requirement already satisfied: packaging>=20.0 in C:\Users\ADMIN\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages (from matplotlib) (25.0)
+Requirement already satisfied: pillow>=9 in C:\Users\ADMIN\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages (from matplotlib) (12.3.0)
+Requirement already satisfied: six>=1.5 in C:\Users\ADMIN\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages (from python-dateutil>=2.8.2->pandas) (1.17.0)
+Requirement already satisfied: mpmath<1.4,>=1.1.0 in C:\Users\ADMIN\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages (from sympy>=1.13.3->torch) (1.3.0)
+Requirement already satisfied: aiohappyeyeballs>=2.5.0 in C:\Users\ADMIN\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages (from aiohttp->torch_geometric) (2.6.2)
+Requirement already satisfied: aiosignal>=1.4.0 in C:\Users\ADMIN\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages (from aiohttp->torch_geometric) (1.4.0)
+Requirement already satisfied: attrs>=17.3.0 in C:\Users\ADMIN\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages (from aiohttp->torch_geometric) (26.1.0)
+Requirement already satisfied: frozenlist>=1.1.1 in C:\Users\ADMIN\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages (from aiohttp->torch_geometric) (1.8.0)
+Requirement already satisfied: multidict<7.0,>=4.5 in C:\Users\ADMIN\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages (fromaiohttp->torch_geometric) (6.7.1)
+Requirement already satisfied: propcache>=0.2.0 in C:\Users\ADMIN\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages (from aiohttp->torch_geometric) (0.5.2)
+Requirement already satisfied: yarl<2.0,>=1.17.0 in C:\Users\ADMIN\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages (from aiohttp->torch_geometric) (1.24.2)
+Requirement already satisfied: idna>=2.0 in C:\Users\ADMIN\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages (from yarl<2.0,>=1.17.0->aiohttp->torch_geometric) (3.18)
+Requirement already satisfied: MarkupSafe>=2.0 in C:\Users\ADMIN\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages (from jinja2->torch) (3.0.3)
+Requirement already satisfied: charset_normalizer<4,>=2 in C:\Users\ADMIN\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages (from requests->torch_geometric) (3.4.7)
+Requirement already satisfied: urllib3<3,>=1.26 in C:\Users\ADMIN\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages (from requests->torch_geometric) (2.7.0)
+Requirement already satisfied: certifi>=2023.5.7 in C:\Users\ADMIN\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages (from requests->torch_geometric) (2026.5.20)
+Requirement already satisfied: colorama in C:\Users\ADMIN\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages (from tqdm->torch_geometric) (0.4.6)
+
+[notice] A new release of pip is available: 26.0.1 -> 26.2.1
+[notice] To update, run: C:\Users\ADMIN\AppData\Local\Python\pythoncore-3.14-64\python.exe -m pip install --upgrade pip
+
+F:\tham khao\sdh241\hk5\de an tot nghiep\GAT_NEGAT_IDS_ATA>python scripts/convert_data.py --dataset radar --data-dir data/radar --split chrono --alpha 1.0 --out-dir data/radar_chrono
+[15:18:24] INFO — Dataset=radar | csv_dir=data/radar | window=5.0s
+[15:25:24] INFO — RADAR Blackhole/101.csv [blackhole, mode=time_based, attacker=SENSOR-11] -> 300 graph
+[15:26:18] INFO — RADAR Blackhole/102.csv [blackhole, mode=time_based, attacker=SENSOR-2] -> 300 graph
+[15:28:15] INFO — RADAR Blackhole/103.csv [blackhole, mode=time_based, attacker=SENSOR-6] -> 300 graph
+[15:30:03] INFO — RADAR Blackhole/104.csv [blackhole, mode=time_based, attacker=SENSOR-15] -> 300 graph
+[15:30:41] INFO — RADAR Blackhole/105.csv [blackhole, mode=time_based, attacker=SENSOR-7] -> 300 graph
+[15:31:13] INFO — RADAR Clone_ID/101.csv [clone_id, mode=pkt_label, attacker=SENSOR-5] -> 300 graph
+[15:32:03] INFO — RADAR Clone_ID/102.csv [clone_id, mode=pkt_label, attacker=SENSOR-8] -> 300 graph
+[15:32:36] INFO — RADAR Clone_ID/103.csv [clone_id, mode=pkt_label, attacker=SENSOR-16] -> 300 graph
+[15:34:09] INFO — RADAR Clone_ID/104.csv [clone_id, mode=pkt_label, attacker=SENSOR-1] -> 300 graph
+[15:35:46] INFO — RADAR Clone_ID/105.csv [clone_id, mode=pkt_label, attacker=SENSOR-2] -> 300 graph
+[15:43:16] INFO — RADAR Continuous_Sinkhole/101.csv [continuous_sinkhole, mode=pkt_label, attacker=SENSOR-14] -> 300 graph
+[15:54:47] INFO — RADAR Continuous_Sinkhole/102.csv [continuous_sinkhole, mode=pkt_label, attacker=SENSOR-8] -> 300 graph
+[16:05:42] INFO — RADAR Continuous_Sinkhole/103.csv [continuous_sinkhole, mode=pkt_label, attacker=SENSOR-16] -> 300 graph
+[16:14:10] INFO — RADAR Continuous_Sinkhole/104.csv [continuous_sinkhole, mode=pkt_label, attacker=SENSOR-3] -> 300 graph
+[16:17:45] INFO — RADAR Continuous_Sinkhole/105.csv [continuous_sinkhole, mode=pkt_label, attacker=SENSOR-4] -> 300 graph
+[16:19:34] INFO — RADAR DIS/101.csv [dis, mode=pkt_label, attacker=N/A] -> 300 graph
+[16:22:32] INFO — RADAR DIS/102.csv [dis, mode=pkt_label, attacker=SENSOR-8] -> 300 graph
+[16:24:38] INFO — RADAR DIS/103.csv [dis, mode=pkt_label, attacker=SENSOR-16] -> 300 graph
+[16:26:57] INFO — RADAR DIS/104.csv [dis, mode=pkt_label, attacker=SENSOR-1] -> 300 graph
+[16:28:49] INFO — RADAR DIS/105.csv [dis, mode=pkt_label, attacker=SENSOR-4] -> 300 graph
+[16:30:33] INFO — RADAR Delayed_Reply/101.csv [delayed_reply, mode=pkt_label, attacker=SENSOR-5] -> 300 graph
+[16:33:27] INFO — RADAR Delayed_Reply/102.csv [delayed_reply, mode=pkt_label, attacker=SENSOR-8] -> 300 graph
+[16:35:29] INFO — RADAR Delayed_Reply/103.csv [delayed_reply, mode=pkt_label, attacker=SENSOR-16] -> 300 graph
+[16:37:38] INFO — RADAR Delayed_Reply/104.csv [delayed_reply, mode=pkt_label, attacker=SENSOR-1] -> 300 graph
+[16:39:21] INFO — RADAR Delayed_Reply/105.csv [delayed_reply, mode=pkt_label, attacker=SENSOR-2] -> 300 graph
+[16:43:14] INFO — RADAR Hello_Flood/101.csv [hello_flood, mode=pkt_label, attacker=SENSOR-5] -> 300 graph
+[16:45:02] INFO — RADAR Hello_Flood/102.csv [hello_flood, mode=pkt_label, attacker=SENSOR-8] -> 300 graph
+[16:46:34] INFO — RADAR Hello_Flood/103.csv [hello_flood, mode=pkt_label, attacker=SENSOR-16] -> 300 graph
+[16:48:47] INFO — RADAR Hello_Flood/104.csv [hello_flood, mode=pkt_label, attacker=SENSOR-1] -> 300 graph
+[16:50:24] INFO — RADAR Hello_Flood/105.csv [hello_flood, mode=pkt_label, attacker=SENSOR-4] -> 300 graph
+[16:51:08] INFO — RADAR Legitimate/101.csv [Normal, mode=normal, attacker=N/A] -> 300 graph
+[16:52:14] INFO — RADAR Legitimate/102.csv [Normal, mode=normal, attacker=N/A] -> 300 graph
+[16:53:05] INFO — RADAR Legitimate/103.csv [Normal, mode=normal, attacker=N/A] -> 300 graph
+[16:53:50] INFO — RADAR Legitimate/104.csv [Normal, mode=normal, attacker=N/A] -> 300 graph
+[16:54:26] INFO — RADAR Legitimate/105.csv [Normal, mode=normal, attacker=N/A] -> 300 graph
+[16:55:29] INFO — RADAR Legitimate/111.csv [Normal, mode=normal, attacker=N/A] -> 300 graph
+[16:58:20] INFO — RADAR Legitimate/112.csv [Normal, mode=normal, attacker=N/A] -> 300 graph
+[16:59:12] INFO — RADAR Legitimate/113.csv [Normal, mode=normal, attacker=N/A] -> 300 graph
+[17:06:10] INFO — RADAR Legitimate/114.csv [Normal, mode=normal, attacker=N/A] -> 300 graph
+[17:07:39] INFO — RADAR Legitimate/115.csv [Normal, mode=normal, attacker=N/A] -> 300 graph
+[17:13:53] INFO — RADAR Local_Repair/101.csv [local_repair, mode=pkt_label, attacker=SENSOR-14] -> 300 graph
+[17:22:28] INFO — RADAR Local_Repair/102.csv [local_repair, mode=pkt_label, attacker=SENSOR-12] -> 300 graph
+[17:27:31] INFO — RADAR Local_Repair/103.csv [local_repair, mode=pkt_label, attacker=SENSOR-5] -> 300 graph
+[17:36:10] INFO — RADAR Local_Repair/104.csv [local_repair, mode=pkt_label, attacker=SENSOR-12] -> 300 graph
+[17:39:42] INFO — RADAR Local_Repair/105.csv [local_repair, mode=pkt_label, attacker=SENSOR-9] -> 300 graph
+[17:42:01] INFO — RADAR Rank/101.csv [rank, mode=pkt_label, attacker=SENSOR-5] -> 300 graph
+[17:51:54] INFO — RADAR Rank/102.csv [rank, mode=pkt_label, attacker=SENSOR-8] -> 300 graph
+[17:55:46] INFO — RADAR Rank/103.csv [rank, mode=pkt_label, attacker=SENSOR-16] -> 300 graph
+[17:59:51] INFO — RADAR Rank/104.csv [rank, mode=pkt_label, attacker=SENSOR-1] -> 300 graph
+[18:02:01] INFO — RADAR Rank/105.csv [rank, mode=pkt_label, attacker=SENSOR-2] -> 300 graph
+[18:04:06] INFO — RADAR Replay/101.csv [replay, mode=pkt_label, attacker=SENSOR-5] -> 300 graph
+[18:11:02] INFO — RADAR Replay/102.csv [replay, mode=pkt_label, attacker=SENSOR-8] -> 300 graph
+[18:15:27] INFO — RADAR Replay/103.csv [replay, mode=pkt_label, attacker=SENSOR-16] -> 300 graph
+[18:21:50] INFO — RADAR Replay/104.csv [replay, mode=pkt_label, attacker=SENSOR-9] -> 300 graph
+[18:29:24] INFO — RADAR Replay/105.csv [replay, mode=pkt_label, attacker=SENSOR-2] -> 300 graph
+[18:42:08] INFO — RADAR Selective_Forward/101.csv [selective_forward, mode=time_based, attacker=SENSOR-11] -> 300 graph
+[18:43:22] INFO — RADAR Selective_Forward/102.csv [selective_forward, mode=time_based, attacker=SENSOR-2] -> 300 graph
+[18:45:29] INFO — RADAR Selective_Forward/103.csv [selective_forward, mode=time_based, attacker=SENSOR-6] -> 300 graph
+[18:48:04] INFO — RADAR Selective_Forward/104.csv [selective_forward, mode=time_based, attacker=SENSOR-15] -> 300 graph
+[18:49:02] INFO — RADAR Selective_Forward/105.csv [selective_forward, mode=time_based, attacker=SENSOR-7] -> 300 graph
+[18:52:42] INFO — RADAR Sinkhole/101.csv [sinkhole, mode=pkt_label, attacker=SENSOR-14] -> 300 graph
+[18:56:34] INFO — RADAR Sinkhole/102.csv [sinkhole, mode=pkt_label, attacker=SENSOR-12] -> 300 graph
+[18:57:12] INFO — RADAR Sinkhole/103.csv [sinkhole, mode=pkt_label, attacker=SENSOR-2] -> 300 graph
+[19:00:50] INFO — RADAR Sinkhole/104.csv [sinkhole, mode=pkt_label, attacker=SENSOR-3] -> 300 graph
+[19:02:45] INFO — RADAR Sinkhole/105.csv [sinkhole, mode=pkt_label, attacker=SENSOR-9] -> 300 graph
+[19:03:32] INFO — RADAR Sybil/101.csv [sybil, mode=pkt_label, attacker=SENSOR-5] -> 300 graph
+[19:04:32] INFO — RADAR Sybil/102.csv [sybil, mode=pkt_label, attacker=SENSOR-8] -> 300 graph
+[19:05:13] INFO — RADAR Sybil/103.csv [sybil, mode=pkt_label, attacker=SENSOR-16] -> 300 graph
+[19:05:50] INFO — RADAR Sybil/104.csv [sybil, mode=pkt_label, attacker=SENSOR-9] -> 300 graph
+[19:06:26] INFO — RADAR Sybil/105.csv [sybil, mode=pkt_label, attacker=SENSOR-2] -> 300 graph
+[19:07:58] WARNING —   version: pkt_label chỉ gán 1 node trên 300 graph -> CHUYỂN sang time_based (attacker=SENSOR-5)
+[19:09:13] WARNING —   version: sau khi chuyển -> 169 node được gán nhãn
+[19:09:13] INFO — RADAR Version/101.csv [version, mode=time_based, attacker=SENSOR-5] -> 300 graph
+[19:15:04] WARNING —   version: pkt_label chỉ gán 1 node trên 300 graph -> CHUYỂN sang time_based (attacker=SENSOR-8)
+[19:20:25] WARNING —   version: sau khi chuyển -> 174 node được gán nhãn
+[19:20:26] INFO — RADAR Version/102.csv [version, mode=time_based, attacker=SENSOR-8] -> 300 graph
+[19:23:12] WARNING —   version: pkt_label chỉ gán 1 node trên 300 graph -> CHUYỂN sang time_based (attacker=SENSOR-2)
+[19:25:23] WARNING —   version: sau khi chuyển -> 170 node được gán nhãn
+[19:25:23] INFO — RADAR Version/103.csv [version, mode=time_based, attacker=SENSOR-2] -> 300 graph
+[19:29:20] WARNING —   version: pkt_label chỉ gán 1 node trên 300 graph -> CHUYỂN sang time_based (attacker=SENSOR-10)
+[19:32:35] WARNING —   version: sau khi chuyển -> 174 node được gán nhãn
+[19:32:35] INFO — RADAR Version/104.csv [version, mode=time_based, attacker=SENSOR-10] -> 300 graph
+[19:35:07] WARNING —   version: pkt_label chỉ gán 1 node trên 300 graph -> CHUYỂN sang time_based (attacker=SENSOR-4)
+[19:37:38] WARNING —   version: sau khi chuyển -> 196 node được gán nhãn
+[19:37:38] INFO — RADAR Version/105.csv [version, mode=time_based, attacker=SENSOR-4] -> 300 graph
+[19:38:15] INFO — RADAR Wormhole/101.csv [wormhole, mode=pkt_label, attacker=N/A] -> 300 graph
+[19:39:13] INFO — RADAR Wormhole/102.csv [wormhole, mode=pkt_label, attacker=N/A] -> 300 graph
+[19:39:48] INFO — RADAR Wormhole/103.csv [wormhole, mode=pkt_label, attacker=N/A] -> 300 graph
+[19:40:28] INFO — RADAR Wormhole/104.csv [wormhole, mode=pkt_label, attacker=N/A] -> 300 graph
+[19:41:01] INFO — RADAR Wormhole/105.csv [wormhole, mode=pkt_label, attacker=N/A] -> 300 graph
+[19:42:12] INFO — RADAR Wormhole/107.csv [wormhole, mode=pkt_label, attacker=N/A] -> 300 graph
+[19:44:03] INFO — RADAR Wormhole/108.csv [wormhole, mode=pkt_label, attacker=N/A] -> 300 graph
+[19:45:26] INFO — RADAR Worst_Parent/101.csv [worst_parent, mode=time_based, attacker=SENSOR-5] -> 300 graph
+[19:46:16] INFO — RADAR Worst_Parent/102.csv [worst_parent, mode=time_based, attacker=SENSOR-8] -> 300 graph
+[19:46:49] INFO — RADAR Worst_Parent/103.csv [worst_parent, mode=time_based, attacker=SENSOR-16] -> 300 graph
+[19:47:24] INFO — RADAR Worst_Parent/104.csv [worst_parent, mode=time_based, attacker=SENSOR-1] -> 300 graph
+[19:47:56] INFO — RADAR Worst_Parent/105.csv [worst_parent, mode=time_based, attacker=SENSOR-2] -> 300 graph
+[19:47:56] INFO — RADAR tổng: 87 file OK, 0 bỏ, 26100 graph, lớp: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+[19:47:56] INFO —   Label modes: {'time_based': 20, 'pkt_label': 57, 'normal': 10}
+[19:47:56] INFO — Chia THEO THỜI GIAN (alpha=1.00, 7:1:2 trong từng tệp): train=18270 val=2610 test=5220 trên 87 tệp
+[19:47:56] INFO — Chia: train=18270 val=2610 test=5220
+[19:47:56] INFO — Chẩn đoán rò rỉ thời gian: δ̄ = 60.500 cửa sổ (gần 0 => mẫu test nằm liền kề mẫu train theo thời gian)
+[19:48:41] INFO — PowerScaler: node λ=[0.1, 0.5, -2.0, -0.8, 0.4, -2.0, -0.1, -0.2, 0.0, -2.0, -1.3, -2.0, 0.0, -0.2, -1.1, 0.8, -2.0, 2.0, -0.9, -2.0, 0.0, 0.0, -2.0, -2.0, 2.0, -2.0, 0.2, 1.0, 2.0]
+[19:48:41] INFO — PowerScaler: edge λ=[-0.3, -0.3, -2.0, 2.0, -2.0, -2.0, -2.0, -2.0, 1.0, 1.0]
+[19:50:23] INFO — ── KIỂM TOÁN RÒ RỈ NHÃN ──
+[19:50:23] INFO —    H(16 lớp)=0.596 | H(nhị phân)=0.353 | trần oracle nhị phân=0.592 | ngưỡng cờ nMI=0.296 (tham khảo)
+[19:50:23] INFO —    norm_rank_diff nMI=0.240  F1_nhị_phân_1_cột=0.246
+[19:50:23] INFO —    nbr_rank_avg nMI=0.239  F1_nhị_phân_1_cột=0.244
+[19:50:24] INFO —    diff_rank    nMI=0.223  F1_nhị_phân_1_cột=0.239
+[19:50:24] INFO —    rank_per_hop nMI=0.212  F1_nhị_phân_1_cột=0.336
+[19:50:24] INFO —    rank_mean    nMI=0.210  F1_nhị_phân_1_cột=0.265
+[19:50:24] INFO —    rank_vs_parent nMI=0.191  F1_nhị_phân_1_cột=0.320
+[19:50:24] INFO —    rank_min     nMI=0.149  F1_nhị_phân_1_cột=0.280
+[19:50:25] INFO —    n_recv       nMI=0.133  F1_nhị_phân_1_cột=0.287
+[19:50:25] INFO —    ctrl_data_ratio nMI=0.125  F1_nhị_phân_1_cột=0.239
+[19:50:25] INFO —    fwd_success  nMI=0.112  F1_nhị_phân_1_cột=0.241
+[19:50:25] INFO —    dio_sent     nMI=0.105  F1_nhị_phân_1_cột=0.030
+[19:50:25] INFO —    rank_nunique nMI=0.104  F1_nhị_phân_1_cột=0.311
+[19:50:26] INFO —    n_sent       nMI=0.099  F1_nhị_phân_1_cột=0.247
+[19:50:26] INFO —    fwd_ratio    nMI=0.097  F1_nhị_phân_1_cột=0.256
+[19:50:26] INFO —    iat_std      nMI=0.085  F1_nhị_phân_1_cột=0.253
+[19:50:26] INFO —    fwd_to_others nMI=0.075  F1_nhị_phân_1_cột=0.210
+[19:50:26] INFO —    graph_n_nodes nMI=0.072  F1_nhị_phân_1_cột=0.228
+[19:50:26] INFO —    dao_sent     nMI=0.071  F1_nhị_phân_1_cột=0.240
+[19:50:27] INFO —    resp_delay_median nMI=0.067  F1_nhị_phân_1_cột=0.205
+[19:50:27] INFO —    n_peers      nMI=0.063  F1_nhị_phân_1_cột=0.215
+[19:50:27] INFO —    resp_delay   nMI=0.063  F1_nhị_phân_1_cột=0.205
+[19:50:27] INFO —    resp_delay_ratio nMI=0.047  F1_nhị_phân_1_cột=0.202
+[19:50:27] INFO —    fwd_ratio_delta nMI=0.040  F1_nhị_phân_1_cột=0.212
+[19:50:27] INFO —    n_nodes_ratio nMI=0.040  F1_nhị_phân_1_cột=0.214
+[19:50:28] INFO —    iat_ratio    nMI=0.038  F1_nhị_phân_1_cột=0.250
+[19:50:28] INFO —    dis_sent     nMI=0.020  F1_nhị_phân_1_cột=0.022
+[19:50:28] INFO —    diff_version nMI=0.002  F1_nhị_phân_1_cột=0.203
+[19:50:28] INFO —    version_mean nMI=0.001  F1_nhị_phân_1_cột=0.000
+[19:50:28] INFO —    nbr_version_avg nMI=0.001  F1_nhị_phân_1_cột=0.203
+[19:50:28] INFO — Không phát hiện rò rỉ (tiêu chí quyết định: F1 gốc-cây 1 cột > 0,90).
+[19:50:28] INFO — ═══ ĐÃ LƯU ═══ train=18270 val=2610 test=5220 -> data/radar_chrono
+[19:50:28] INFO — Bước tiếp: python scripts/train.py
+
+F:\tham khao\sdh241\hk5\de an tot nghiep\GAT_NEGAT_IDS_ATA>python scripts/convert_data.py --dataset uos --data-dir data/uos --split chrono --alpha 1.0 --out-dir data/uos_chrono
+[19:54:13] INFO — Dataset=uos | csv_dir=data/uos | window=5.0s
+[19:54:13] INFO — UOS: tìm thấy 77 tệp CSV | cửa sổ = 5.0 giây
+[19:54:15] INFO — UOS DualAttackers_Medium_DualDODAG_10_20.csv [label=CÓ] -> 39 graph
+[19:54:17] INFO — UOS DualAttackers_Medium_DualDODAG_12_17.csv [label=CÓ] -> 44 graph
+[19:54:18] INFO — UOS DualAttackers_Medium_DualDODAG_7_26.csv [label=CÓ] -> 39 graph
+[19:54:20] INFO — UOS DualAttackers_Medium_DualDODAG_8_19.csv [label=CÓ] -> 42 graph
+[19:54:25] INFO — UOS DualAttackers_Medium_SingleDODAG_12_19.csv [label=CÓ] -> 195 graph
+[19:54:28] INFO — UOS DualAttackers_Medium_SingleDODAG_15_2.csv [label=CÓ] -> 49 graph
+[19:54:32] INFO — UOS DualAttackers_Medium_SingleDODAG_16_9.csv [label=CÓ] -> 85 graph
+[19:54:37] INFO — UOS DualAttackers_Medium_SingleDODAG_18_13.csv [label=CÓ] -> 143 graph
+[19:54:41] INFO — UOS DualAttackers_Medium_SingleDODAG_2_24.csv [label=CÓ] -> 203 graph
+[19:54:44] INFO — UOS DualAttackers_Medium_SingleDODAG_3_25.csv [label=CÓ] -> 62 graph
+[19:54:45] INFO — UOS DualAttackers_Small_SingleDODAG_11_12.csv [label=CÓ] -> 16 graph
+[19:54:45] INFO — UOS DualAttackers_Small_SingleDODAG_5_12.csv [label=CÓ] -> 16 graph
+[19:54:46] INFO — UOS DualAttackers_Small_SingleDODAG_5_9.csv [label=CÓ] -> 15 graph
+[19:54:46] INFO — UOS DualAttackers_Small_SingleDODAG_8_2.csv [label=CÓ] -> 20 graph
+[19:54:48] INFO — UOS Normal_Medium_DualDODAG.csv [label=KHÔNG→Normal] -> 40 graph
+[19:54:48] WARNING — Bỏ qua (rỗng): Normal_Medium_SingleDODAG.csv
+[19:54:48] INFO — UOS Normal_Small_SingleDODAG.csv [label=KHÔNG→Normal] -> 18 graph
+[19:54:49] INFO — UOS SingleAttacker_Medium_DualDODAG_10.csv [label=CÓ] -> 41 graph
+[19:54:51] INFO — UOS SingleAttacker_Medium_DualDODAG_11.csv [label=CÓ] -> 47 graph
+[19:54:53] INFO — UOS SingleAttacker_Medium_DualDODAG_12.csv [label=CÓ] -> 41 graph
+[19:54:54] INFO — UOS SingleAttacker_Medium_DualDODAG_13.csv [label=CÓ] -> 41 graph
+[19:54:55] INFO — UOS SingleAttacker_Medium_DualDODAG_15.csv [label=CÓ] -> 39 graph
+[19:54:56] INFO — UOS SingleAttacker_Medium_DualDODAG_16.csv [label=CÓ] -> 37 graph
+[19:54:58] INFO — UOS SingleAttacker_Medium_DualDODAG_17.csv [label=CÓ] -> 44 graph
+[19:55:00] INFO — UOS SingleAttacker_Medium_DualDODAG_18.csv [label=CÓ] -> 42 graph
+[19:55:01] INFO — UOS SingleAttacker_Medium_DualDODAG_19.csv [label=CÓ] -> 42 graph
+[19:55:03] INFO — UOS SingleAttacker_Medium_DualDODAG_2.csv [label=CÓ] -> 49 graph
+[19:55:05] INFO — UOS SingleAttacker_Medium_DualDODAG_20.csv [label=CÓ] -> 44 graph
+[19:55:06] INFO — UOS SingleAttacker_Medium_DualDODAG_21.csv [label=CÓ] -> 41 graph
+[19:55:08] INFO — UOS SingleAttacker_Medium_DualDODAG_22.csv [label=CÓ] -> 43 graph
+[19:55:09] INFO — UOS SingleAttacker_Medium_DualDODAG_23.csv [label=CÓ] -> 45 graph
+[19:55:11] INFO — UOS SingleAttacker_Medium_DualDODAG_24.csv [label=CÓ] -> 40 graph
+[19:55:13] INFO — UOS SingleAttacker_Medium_DualDODAG_25.csv [label=CÓ] -> 65 graph
+[19:55:15] INFO — UOS SingleAttacker_Medium_DualDODAG_26.csv [label=CÓ] -> 44 graph
+[19:55:17] INFO — UOS SingleAttacker_Medium_DualDODAG_3.csv [label=CÓ] -> 43 graph
+[19:55:19] INFO — UOS SingleAttacker_Medium_DualDODAG_4.csv [label=CÓ] -> 60 graph
+[19:55:20] INFO — UOS SingleAttacker_Medium_DualDODAG_5.csv [label=CÓ] -> 40 graph
+[19:55:22] INFO — UOS SingleAttacker_Medium_DualDODAG_6.csv [label=CÓ] -> 39 graph
+[19:55:23] INFO — UOS SingleAttacker_Medium_DualDODAG_7.csv [label=CÓ] -> 42 graph
+[19:55:24] INFO — UOS SingleAttacker_Medium_DualDODAG_8.csv [label=CÓ] -> 41 graph
+[19:55:26] INFO — UOS SingleAttacker_Medium_DualDODAG_9.csv [label=CÓ] -> 40 graph
+[19:55:28] INFO — UOS SingleAttacker_Medium_SingleDODAG_10.csv [label=CÓ] -> 47 graph
+[19:55:32] INFO — UOS SingleAttacker_Medium_SingleDODAG_11.csv [label=CÓ] -> 75 graph
+[19:55:36] INFO — UOS SingleAttacker_Medium_SingleDODAG_12.csv [label=CÓ] -> 119 graph
+[19:55:40] INFO — UOS SingleAttacker_Medium_SingleDODAG_13.csv [label=CÓ] -> 87 graph
+[19:55:42] INFO — UOS SingleAttacker_Medium_SingleDODAG_15.csv [label=CÓ] -> 45 graph
+[19:55:46] INFO — UOS SingleAttacker_Medium_SingleDODAG_16.csv [label=CÓ] -> 71 graph
+[19:55:49] INFO — UOS SingleAttacker_Medium_SingleDODAG_17.csv [label=CÓ] -> 52 graph
+[19:55:50] INFO — UOS SingleAttacker_Medium_SingleDODAG_18.csv [label=CÓ] -> 42 graph
+[19:55:55] INFO — UOS SingleAttacker_Medium_SingleDODAG_19.csv [label=CÓ] -> 139 graph
+[19:55:59] INFO — UOS SingleAttacker_Medium_SingleDODAG_2.csv [label=CÓ] -> 75 graph
+[19:56:02] INFO — UOS SingleAttacker_Medium_SingleDODAG_20.csv [label=CÓ] -> 58 graph
+[19:56:06] INFO — UOS SingleAttacker_Medium_SingleDODAG_21.csv [label=CÓ] -> 61 graph
+[19:56:09] INFO — UOS SingleAttacker_Medium_SingleDODAG_22.csv [label=CÓ] -> 69 graph
+[19:56:12] INFO — UOS SingleAttacker_Medium_SingleDODAG_23.csv [label=CÓ] -> 60 graph
+[19:56:15] INFO — UOS SingleAttacker_Medium_SingleDODAG_24.csv [label=CÓ] -> 56 graph
+[19:56:18] INFO — UOS SingleAttacker_Medium_SingleDODAG_25.csv [label=CÓ] -> 59 graph
+[19:56:22] INFO — UOS SingleAttacker_Medium_SingleDODAG_26.csv [label=CÓ] -> 67 graph
+[19:56:24] INFO — UOS SingleAttacker_Medium_SingleDODAG_3.csv [label=CÓ] -> 59 graph
+[19:56:27] INFO — UOS SingleAttacker_Medium_SingleDODAG_4.csv [label=CÓ] -> 49 graph
+[19:56:30] INFO — UOS SingleAttacker_Medium_SingleDODAG_5.csv [label=CÓ] -> 56 graph
+[19:56:32] INFO — UOS SingleAttacker_Medium_SingleDODAG_6.csv [label=CÓ] -> 42 graph
+[19:56:36] INFO — UOS SingleAttacker_Medium_SingleDODAG_7.csv [label=CÓ] -> 62 graph
+[19:56:38] INFO — UOS SingleAttacker_Medium_SingleDODAG_8.csv [label=CÓ] -> 54 graph
+[19:56:40] INFO — UOS SingleAttacker_Medium_SingleDODAG_9.csv [label=CÓ] -> 45 graph
+[19:56:41] INFO — UOS SingleAttacker_Small_SingleDODAG_10.csv [label=CÓ] -> 19 graph
+[19:56:41] INFO — UOS SingleAttacker_Small_SingleDODAG_11.csv [label=CÓ] -> 17 graph
+[19:56:42] INFO — UOS SingleAttacker_Small_SingleDODAG_12.csv [label=CÓ] -> 19 graph
+[19:56:43] INFO — UOS SingleAttacker_Small_SingleDODAG_13.csv [label=CÓ] -> 20 graph
+[19:56:43] INFO — UOS SingleAttacker_Small_SingleDODAG_2.csv [label=CÓ] -> 18 graph
+[19:56:44] INFO — UOS SingleAttacker_Small_SingleDODAG_3.csv [label=CÓ] -> 18 graph
+[19:56:44] INFO — UOS SingleAttacker_Small_SingleDODAG_4.csv [label=CÓ] -> 18 graph
+[19:56:45] INFO — UOS SingleAttacker_Small_SingleDODAG_5.csv [label=CÓ] -> 19 graph
+[19:56:45] INFO — UOS SingleAttacker_Small_SingleDODAG_6.csv [label=CÓ] -> 19 graph
+[19:56:46] INFO — UOS SingleAttacker_Small_SingleDODAG_7.csv [label=CÓ] -> 19 graph
+[19:56:46] INFO — UOS SingleAttacker_Small_SingleDODAG_8.csv [label=CÓ] -> 20 graph
+[19:56:47] INFO — UOS SingleAttacker_Small_SingleDODAG_9.csv [label=CÓ] -> 17 graph
+[19:56:47] INFO — UOS tổng: 76 file OK, 1 file bỏ qua, 3848 graph
+[19:56:47] INFO — Chia THEO THỜI GIAN (alpha=1.00, 7:1:2 trong từng tệp): train=2661 val=348 test=839 trên 76 tệp
+[19:56:47] INFO — Chia: train=2661 val=348 test=839
+[19:56:47] INFO — Chẩn đoán rò rỉ thời gian: δ̄ = 14.969 cửa sổ (gần 0 => mẫu test nằm liền kề mẫu train theo thời gian)
+[19:56:48] INFO — PowerScaler: node λ=[-0.3, -0.6, -0.2, -2.0, 0.3, -0.3, 0.3, -0.2, -0.6, -0.8, -0.2, -0.3, 1.2]
+[19:56:48] INFO — PowerScaler: edge λ=[0.2, 1.0, 0.3, 0.3, -2.0, -2.0, 0.3, -2.0, 2.0, 1.0]
+[19:56:52] INFO — ── KIỂM TOÁN RÒ RỈ NHÃN ──
+[19:56:52] INFO —    H(2 lớp)=0.599 | H(nhị phân)=0.599 | trần oracle nhị phân=1.000 | ngưỡng cờ nMI=0.500 (tham khảo)
+[19:56:52] INFO —    f6           nMI=0.464  F1_nhị_phân_1_cột=0.705
+[19:56:52] INFO —    f0           nMI=0.065  F1_nhị_phân_1_cột=0.458
+[19:56:52] INFO —    f11          nMI=0.064  F1_nhị_phân_1_cột=0.458
+[19:56:52] INFO —    f12          nMI=0.043  F1_nhị_phân_1_cột=0.360
+[19:56:52] INFO —    f8           nMI=0.032  F1_nhị_phân_1_cột=0.460
+[19:56:52] INFO —    f1           nMI=0.032  F1_nhị_phân_1_cột=0.460
+[19:56:52] INFO —    f9           nMI=0.024  F1_nhị_phân_1_cột=0.451
+[19:56:52] INFO —    f3           nMI=0.018  F1_nhị_phân_1_cột=0.453
+[19:56:52] INFO —    f4           nMI=0.012  F1_nhị_phân_1_cột=0.396
+[19:56:52] INFO —    f7           nMI=0.010  F1_nhị_phân_1_cột=0.380
+[19:56:52] INFO —    f5           nMI=0.010  F1_nhị_phân_1_cột=0.380
+[19:56:52] INFO —    f10          nMI=0.007  F1_nhị_phân_1_cột=0.382
+[19:56:52] INFO —    f2           nMI=0.003  F1_nhị_phân_1_cột=0.385
+[19:56:52] INFO — Không phát hiện rò rỉ (tiêu chí quyết định: F1 gốc-cây 1 cột > 0,90).
+[19:56:52] INFO — ═══ ĐÃ LƯU ═══ train=2661 val=348 test=839 -> data/uos_chrono
+[19:56:52] INFO — Bước tiếp: python scripts/train.py
+
+F:\tham khao\sdh241\hk5\de an tot nghiep\GAT_NEGAT_IDS_ATA>python scripts/convert_data.py --dataset rplbeh --data-dir data/rplbeh --split chrono --alpha 1.0 --out-dir data/rplbeh_chrono
+[19:57:09] INFO — Dataset=rplbeh | csv_dir=data/rplbeh | window=5.0s
+[19:57:09] INFO — RPL-Beh: bo qua window_seconds=5.0 — cua so co dinh 480 s do bo du lieu an dinh.
+[19:57:09] INFO — RPL-Beh: 158254 dong x 29 cot
+[19:57:18] INFO — RPL-Beh: 7030 do thi | node/do thi TB 22.5 (min 8, max 49) | d_n=24 d_e=10
+[19:57:19] INFO — Chia THEO THỜI GIAN (alpha=1.00, 7:1:2 trong từng tệp): train=4845 val=665 test=1520 trên 95 tệp
+[19:57:19] INFO — Chia: train=4845 val=665 test=1520
+[19:57:19] INFO — Chẩn đoán rò rỉ thời gian: δ̄ = 124.000 cửa sổ (gần 0 => mẫu test nằm liền kề mẫu train theo thời gian)
+[19:57:25] INFO — PowerScaler: node λ=[2.0, 2.0, 1.8, 1.3, 1.3, 1.2, 0.9, 0.8, 1.1, 0.9, 0.4, -0.5, 2.0, 2.0, 0.8, 0.4, 1.1, -2.0, -2.0, 0.8, -2.0, -2.0, -2.0, -2.0]
+[19:57:25] INFO — PowerScaler: edge λ=[0.0, 1.0, -1.8, 0.7, 0.7, 0.1, 0.9, -0.9, -0.2, 0.6]
+[19:57:40] INFO — ── KIỂM TOÁN RÒ RỈ NHÃN ──
+[19:57:40] INFO —    H(5 lớp)=0.625 | H(nhị phân)=0.422 | trần oracle nhị phân=0.676 | ngưỡng cờ nMI=0.338 (tham khảo)
+[19:57:40] INFO —    f23          nMI=0.308  F1_nhị_phân_1_cột=0.277
+[19:57:40] INFO —    f21          nMI=0.252  F1_nhị_phân_1_cột=0.277
+[19:57:40] INFO —    f18          nMI=0.250  F1_nhị_phân_1_cột=0.253
+[19:57:41] INFO —    f13          nMI=0.245  F1_nhị_phân_1_cột=0.135
+[19:57:41] INFO —    f1           nMI=0.174  F1_nhị_phân_1_cột=0.255
+[19:57:41] INFO —    f14          nMI=0.173  F1_nhị_phân_1_cột=0.274
+[19:57:41] INFO —    f20          nMI=0.167  F1_nhị_phân_1_cột=0.270
+[19:57:41] INFO —    f17          nMI=0.166  F1_nhị_phân_1_cột=0.345
+[19:57:41] INFO —    f12          nMI=0.150  F1_nhị_phân_1_cột=0.311
+[19:57:41] INFO —    f22          nMI=0.134  F1_nhị_phân_1_cột=0.269
+[19:57:41] INFO —    f3           nMI=0.128  F1_nhị_phân_1_cột=0.292
+[19:57:41] INFO —    f16          nMI=0.121  F1_nhị_phân_1_cột=0.266
+[19:57:41] INFO —    f4           nMI=0.107  F1_nhị_phân_1_cột=0.251
+[19:57:41] INFO —    f0           nMI=0.096  F1_nhị_phân_1_cột=0.283
+[19:57:41] INFO —    f10          nMI=0.085  F1_nhị_phân_1_cột=0.282
+[19:57:41] INFO —    f9           nMI=0.083  F1_nhị_phân_1_cột=0.330
+[19:57:41] INFO —    f15          nMI=0.081  F1_nhị_phân_1_cột=0.280
+[19:57:41] INFO —    f6           nMI=0.080  F1_nhị_phân_1_cột=0.310
+[19:57:41] INFO —    f5           nMI=0.076  F1_nhị_phân_1_cột=0.302
+[19:57:41] INFO —    f11          nMI=0.067  F1_nhị_phân_1_cột=0.230
+[19:57:41] INFO —    f8           nMI=0.062  F1_nhị_phân_1_cột=0.282
+[19:57:41] INFO —    f7           nMI=0.061  F1_nhị_phân_1_cột=0.298
+[19:57:41] INFO —    f2           nMI=0.050  F1_nhị_phân_1_cột=0.274
+[19:57:42] INFO —    f19          nMI=0.048  F1_nhị_phân_1_cột=0.248
+[19:57:42] INFO — Không phát hiện rò rỉ (tiêu chí quyết định: F1 gốc-cây 1 cột > 0,90).
+[19:57:42] INFO — ═══ ĐÃ LƯU ═══ train=4845 val=665 test=1520 -> data/rplbeh_chrono
+[19:57:42] INFO — Bước tiếp: python scripts/train.py
+
+F:\tham khao\sdh241\hk5\de an tot nghiep\GAT_NEGAT_IDS_ATA>python scripts/train_all.py --data-dir data/radar_chrono --models RF,XGBoost,LightGBM --resample off --ckpt-dir ck_trees_radar
+[20:00:48] INFO — Tải: train=18270 val=2610 test=5220 | d_n=29 d_e=10
+[20:01:06] INFO — Resample: TẮT (dùng phân bố lớp gốc)
+[20:01:23] INFO — Cân bằng lớp: --resample off | phân bố sau xử lý: {0: 306868, 1: 412, 2: 7377, 3: 5944, 4: 870, 5: 424, 6: 437, 7:469, 8: 6582, 9: 369, 10: 489, 11: 3848, 12: 7290, 13: 433, 14: 3732, 15: 450}
+[20:01:53] INFO —
+=== Random Forest ===
+[20:04:50] INFO —   RF trained in 177.6s -> ck_trees_radar\RF
+[20:04:50] INFO —
+=== XGBoost ===
+[20:07:44] INFO —   XGBoost trained in 173.1s -> ck_trees_radar\XGBoost
+[20:07:44] INFO —
+=== LightGBM ===
+[20:07:46] INFO —   LightGBM: trọng số CB có trần 3.0 | w_min=0.380 w_max=1.139 (tỉ số 3.0:1, so với 832:1 của 'balanced')
+[20:12:47] INFO —   LightGBM: accuracy trên TẬP HUẤN LUYỆN = 0.8059
+[20:12:48] INFO —   LightGBM trained in 302.0s -> ck_trees_radar\LightGBM
+[20:12:48] INFO —
+═══ BƯỚC 2 HOÀN TẤT ═══
+[20:12:48] INFO — Tất cả model đã lưu tại ck_trees_radar/
+[20:12:48] INFO — Bước tiếp: python scripts/test_all.py
+
+F:\tham khao\sdh241\hk5\de an tot nghiep\GAT_NEGAT_IDS_ATA>for A in mlp gcn egraphsage; do
+A was unexpected at this time.
+
+F:\tham khao\sdh241\hk5\de an tot nghiep\GAT_NEGAT_IDS_ATA>  python scripts/train_ata.py --data-dir data/radar_chrono --arch $A --K 3 --lambda-d 0.1 --disc mmd --epochs 120 --ckpt-dir ck_${A}_ata
+usage: train_ata.py [-h] [--config CONFIG] [--data-dir DATA_DIR] [--ckpt-dir CKPT_DIR] [--arch {edgegat,negat,mlp,gcn,egraphsage}]
+                    [--epochs EPOCHS] [--seed SEED] [--K K] [--lambda-d LAMBDA_D] [--disc {coral,mmd,cosine}]
+                    [--domain-strategy {quantile,tdc}] [--edge-score {full,edge_only}] [--edge-agg {mean_deg,mean}]
+                    [--no-edge-update] [--edge-latent EDGE_LATENT] [--node-heads NODE_HEADS] [--batch-size BATCH_SIZE]
+                    [--cls-reduction {mean,sum}] [--align-normal-only]
+train_ata.py: error: argument --arch: invalid choice: '$A' (choose from edgegat, negat, mlp, gcn, egraphsage)
+^C
+F:\tham khao\sdh241\hk5\de an tot nghiep\GAT_NEGAT_IDS_ATA>donefor A in mlp gcn egraphsage; do python scripts/train_ata.py --data-dir data/radar_chrono --arch $A --K 3 --lambda-d 0.1 --disc mmd --epochs 120 --ckpt-dir ck_${A}_ata done
+'donefor' is not recognized as an internal or external command,
+operable program or batch file.
+
+F:\tham khao\sdh241\hk5\de an tot nghiep\GAT_NEGAT_IDS_ATA>python scripts/train_ata.py --data-dir data/radar_chrono --arch mlp --K 3--lambda-d 0.5 --disc mmd --domain-strategy quantile --epochs 120 --ckpt-dir ck_mlp_ata_radar
+[20:26:51] INFO — Tải: train=18270 val=2610 test=5220 | d_n=29 d_e=10 | 16 lớp
+[20:26:51] INFO — Khoảng cách thời gian gần nhất trung bình δ̄ = 60.500 cửa sổ
+[20:26:51] INFO — ATA: 3 miền thời gian (quantile) trên 87 tệp | số đồ thị mỗi miền: [6090, 6090, 6090]
+[20:26:51] INFO — ATA-MLP: 6147 tham số | K=3 λ_d=0.5 disc=mmd chiến lược=quantile
+[20:26:55] INFO — Loss long-tail: cb_focal | counts(min=369,max=306868)
+F:\tham khao\sdh241\hk5\de an tot nghiep\GAT_NEGAT_IDS_ATA\scripts\train_ata.py:246: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\torch\csrc\autograd\generated\python_variable_methods.cpp:839.)
+  s_cls += float(loss_cls); s_ali += float(loss_ali)
+[20:27:08] INFO — Epoch   1 | L_cls 0.5799 | L_align 0.0006 | val 0.0576 (mượt 0.0576)  <-- best
+[20:27:42] INFO — Epoch   2 | L_cls 0.3258 | L_align 0.0021 | val 0.1202 (mượt 0.0826)  <-- best
+[20:28:19] INFO — Epoch   3 | L_cls 0.2950 | L_align 0.0049 | val 0.1975 (mượt 0.1286)  <-- best
+[20:28:36] INFO — Epoch   4 | L_cls 0.2751 | L_align 0.0053 | val 0.3630 (mượt 0.2223)  <-- best
+[20:28:52] INFO — Epoch   5 | L_cls 0.2582 | L_align 0.0045 | val 0.4289 (mượt 0.3050)  <-- best
+[20:29:07] INFO — Epoch   6 | L_cls 0.2462 | L_align 0.0044 | val 0.5110 (mượt 0.3874)  <-- best
+[20:29:22] INFO — Epoch   7 | L_cls 0.2362 | L_align 0.0043 | val 0.5567 (mượt 0.4551)  <-- best
+[20:29:37] INFO — Epoch   8 | L_cls 0.2302 | L_align 0.0043 | val 0.6000 (mượt 0.5131)  <-- best
+[20:29:53] INFO — Epoch   9 | L_cls 0.2260 | L_align 0.0042 | val 0.6118 (mượt 0.5525)  <-- best
+[20:30:10] INFO — Epoch  10 | L_cls 0.2219 | L_align 0.0042 | val 0.6154 (mượt 0.5777)  <-- best
+[20:30:44] INFO — Epoch  11 | L_cls 0.2194 | L_align 0.0041 | val 0.6568 (mượt 0.6094)  <-- best
+[20:31:20] INFO — Epoch  12 | L_cls 0.2171 | L_align 0.0041 | val 0.6876 (mượt 0.6407)  <-- best
+[20:31:52] INFO — Epoch  13 | L_cls 0.2148 | L_align 0.0041 | val 0.6980 (mượt 0.6636)  <-- best
+[20:32:24] INFO — Epoch  14 | L_cls 0.2134 | L_align 0.0042 | val 0.7042 (mượt 0.6798)  <-- best
+[20:33:03] INFO — Epoch  15 | L_cls 0.2116 | L_align 0.0042 | val 0.7064 (mượt 0.6905)  <-- best
+[20:33:34] INFO — Epoch  16 | L_cls 0.2109 | L_align 0.0042 | val 0.7109 (mượt 0.6986)  <-- best
+[20:33:49] INFO — Epoch  17 | L_cls 0.2093 | L_align 0.0042 | val 0.7165 (mượt 0.7058)  <-- best
+[20:34:04] INFO — Epoch  18 | L_cls 0.2084 | L_align 0.0043 | val 0.7189 (mượt 0.7110)  <-- best
+[20:34:19] INFO — Epoch  19 | L_cls 0.2072 | L_align 0.0042 | val 0.7220 (mượt 0.7154)  <-- best
+[20:34:34] INFO — Epoch  20 | L_cls 0.2058 | L_align 0.0041 | val 0.7284 (mượt 0.7206)  <-- best
+[20:34:50] INFO — Epoch  21 | L_cls 0.2057 | L_align 0.0042 | val 0.7316 (mượt 0.7250)  <-- best
+[20:35:05] INFO — Epoch  22 | L_cls 0.2047 | L_align 0.0043 | val 0.7355 (mượt 0.7292)  <-- best
+[20:35:21] INFO — Epoch  23 | L_cls 0.2043 | L_align 0.0043 | val 0.7387 (mượt 0.7330)  <-- best
+[20:35:36] INFO — Epoch  24 | L_cls 0.2035 | L_align 0.0043 | val 0.7402 (mượt 0.7359)  <-- best
+[20:35:53] INFO — Epoch  25 | L_cls 0.2028 | L_align 0.0043 | val 0.7425 (mượt 0.7385)  <-- best
+[20:36:08] INFO — Epoch  26 | L_cls 0.2025 | L_align 0.0042 | val 0.7426 (mượt 0.7401)  <-- best
+[20:36:24] INFO — Epoch  27 | L_cls 0.2019 | L_align 0.0044 | val 0.7490 (mượt 0.7437)  <-- best
+[20:36:44] INFO — Epoch  28 | L_cls 0.2013 | L_align 0.0042 | val 0.7511 (mượt 0.7467)  <-- best
+[20:37:01] INFO — Epoch  29 | L_cls 0.2010 | L_align 0.0042 | val 0.7533 (mượt 0.7493)  <-- best
+[20:37:17] INFO — Epoch  30 | L_cls 0.2002 | L_align 0.0042 | val 0.7522 (mượt 0.7505)  <-- best
+[20:37:34] INFO — Epoch  31 | L_cls 0.1998 | L_align 0.0043 | val 0.7536 (mượt 0.7517)  <-- best
+[20:37:51] INFO — Epoch  32 | L_cls 0.1998 | L_align 0.0042 | val 0.7542 (mượt 0.7527)  <-- best
+[20:38:07] INFO — Epoch  33 | L_cls 0.1991 | L_align 0.0042 | val 0.7552 (mượt 0.7537)  <-- best
+[20:38:23] INFO — Epoch  34 | L_cls 0.1989 | L_align 0.0042 | val 0.7564 (mượt 0.7548)  <-- best
+[20:38:40] INFO — Epoch  35 | L_cls 0.1980 | L_align 0.0042 | val 0.7607 (mượt 0.7572)  <-- best
+[20:38:56] INFO — Epoch  36 | L_cls 0.1981 | L_align 0.0043 | val 0.7603 (mượt 0.7584)  <-- best
+[20:39:13] INFO — Epoch  37 | L_cls 0.1977 | L_align 0.0041 | val 0.7610 (mượt 0.7595)  <-- best
+[20:39:30] INFO — Epoch  38 | L_cls 0.1971 | L_align 0.0041 | val 0.7602 (mượt 0.7597)  <-- best
+[20:39:47] INFO — Epoch  39 | L_cls 0.1974 | L_align 0.0042 | val 0.7618 (mượt 0.7605)  <-- best
+[20:40:02] INFO — Epoch  40 | L_cls 0.1965 | L_align 0.0041 | val 0.7621 (mượt 0.7612)  <-- best
+[20:40:32] INFO — Epoch  42 | L_cls 0.1961 | L_align 0.0041 | val 0.7620 (mượt 0.7613)  <-- best
+[20:40:48] INFO — Epoch  43 | L_cls 0.1958 | L_align 0.0042 | val 0.7633 (mượt 0.7621)  <-- best
+[20:41:04] INFO — Epoch  44 | L_cls 0.1959 | L_align 0.0041 | val 0.7641 (mượt 0.7629)  <-- best
+[20:41:19] INFO — Epoch  45 | L_cls 0.1954 | L_align 0.0041 | val 0.7625 (mượt 0.7627)
+[20:41:35] INFO — Epoch  46 | L_cls 0.1954 | L_align 0.0042 | val 0.7641 (mượt 0.7633)  <-- best
+[20:42:37] INFO — Epoch  50 | L_cls 0.1946 | L_align 0.0041 | val 0.7632 (mượt 0.7632)
+[20:42:55] INFO — Epoch  51 | L_cls 0.1945 | L_align 0.0041 | val 0.7649 (mượt 0.7639)  <-- best
+[20:43:12] INFO — Epoch  52 | L_cls 0.1939 | L_align 0.0041 | val 0.7661 (mượt 0.7648)  <-- best
+[20:44:00] INFO — Epoch  55 | L_cls 0.1937 | L_align 0.0040 | val 0.7607 (mượt 0.7625)
+[20:45:17] INFO — Epoch  60 | L_cls 0.1932 | L_align 0.0041 | val 0.7616 (mượt 0.7620)
+[20:46:42] INFO — Epoch  65 | L_cls 0.1922 | L_align 0.0040 | val 0.7650 (mượt 0.7640)
+[20:47:00] INFO — Epoch  66 | L_cls 0.1918 | L_align 0.0040 | val 0.7661 (mượt 0.7649)  <-- best
+[20:47:18] INFO — Epoch  67 | L_cls 0.1923 | L_align 0.0041 | val 0.7666 (mượt 0.7656)  <-- best
+[20:47:34] INFO — Epoch  68 | L_cls 0.1922 | L_align 0.0040 | val 0.7686 (mượt 0.7668)  <-- best
+[20:47:49] INFO — Epoch  69 | L_cls 0.1916 | L_align 0.0040 | val 0.7670 (mượt 0.7669)  <-- best
+[20:48:04] INFO — Epoch  70 | L_cls 0.1923 | L_align 0.0040 | val 0.7673 (mượt 0.7670)  <-- best
+[20:48:20] INFO — Epoch  71 | L_cls 0.1915 | L_align 0.0041 | val 0.7687 (mượt 0.7677)  <-- best
+[20:48:35] INFO — Epoch  72 | L_cls 0.1917 | L_align 0.0040 | val 0.7698 (mượt 0.7685)  <-- best
+[20:48:51] INFO — Epoch  73 | L_cls 0.1916 | L_align 0.0041 | val 0.7701 (mượt 0.7692)  <-- best
+[20:49:21] INFO — Epoch  75 | L_cls 0.1907 | L_align 0.0040 | val 0.7692 (mượt 0.7691)
+[20:49:37] INFO — Epoch  76 | L_cls 0.1910 | L_align 0.0040 | val 0.7694 (mượt 0.7692)  <-- best
+[20:49:52] INFO — Epoch  77 | L_cls 0.1909 | L_align 0.0040 | val 0.7699 (mượt 0.7695)  <-- best
+[20:50:08] INFO — Epoch  78 | L_cls 0.1906 | L_align 0.0040 | val 0.7702 (mượt 0.7698)  <-- best
+[20:50:25] INFO — Epoch  79 | L_cls 0.1906 | L_align 0.0040 | val 0.7707 (mượt 0.7702)  <-- best
+[20:50:42] INFO — Epoch  80 | L_cls 0.1907 | L_align 0.0039 | val 0.7696 (mượt 0.7699)
+[20:52:01] INFO — Epoch  85 | L_cls 0.1900 | L_align 0.0040 | val 0.7712 (mượt 0.7704)  <-- best
+[20:52:17] INFO — Epoch  86 | L_cls 0.1900 | L_align 0.0039 | val 0.7719 (mượt 0.7710)  <-- best
+[20:52:32] INFO — Epoch  87 | L_cls 0.1901 | L_align 0.0040 | val 0.7716 (mượt 0.7712)  <-- best
+[20:53:02] INFO — Epoch  89 | L_cls 0.1904 | L_align 0.0039 | val 0.7720 (mượt 0.7715)  <-- best
+[20:53:18] INFO — Epoch  90 | L_cls 0.1898 | L_align 0.0040 | val 0.7719 (mượt 0.7717)  <-- best
+[20:53:33] INFO — Epoch  91 | L_cls 0.1896 | L_align 0.0039 | val 0.7719 (mượt 0.7717)  <-- best
+[20:54:04] INFO — Epoch  93 | L_cls 0.1898 | L_align 0.0040 | val 0.7728 (mượt 0.7721)  <-- best
+[20:54:41] INFO — Epoch  95 | L_cls 0.1898 | L_align 0.0039 | val 0.7704 (mượt 0.7713)
+[20:56:24] INFO — Epoch 100 | L_cls 0.1893 | L_align 0.0040 | val 0.7731 (mượt 0.7722)  <-- best
+[20:56:40] INFO — Epoch 101 | L_cls 0.1894 | L_align 0.0039 | val 0.7734 (mượt 0.7727)  <-- best
+[20:56:57] INFO — Epoch 102 | L_cls 0.1892 | L_align 0.0039 | val 0.7743 (mượt 0.7733)  <-- best
+[20:57:13] INFO — Epoch 103 | L_cls 0.1892 | L_align 0.0039 | val 0.7741 (mượt 0.7736)  <-- best
+[20:57:30] INFO — Epoch 104 | L_cls 0.1891 | L_align 0.0039 | val 0.7742 (mượt 0.7739)  <-- best
+[20:57:46] INFO — Epoch 105 | L_cls 0.1891 | L_align 0.0040 | val 0.7742 (mượt 0.7740)  <-- best
+[20:58:03] INFO — Epoch 106 | L_cls 0.1892 | L_align 0.0039 | val 0.7746 (mượt 0.7742)  <-- best
+[20:59:06] INFO — Epoch 110 | L_cls 0.1889 | L_align 0.0041 | val 0.7735 (mượt 0.7737)
+[21:00:23] INFO — Epoch 115 | L_cls 0.1888 | L_align 0.0039 | val 0.7738 (mượt 0.7740)
+[21:01:45] INFO — Epoch 120 | L_cls 0.1888 | L_align 0.0040 | val 0.7744 (mượt 0.7741)
+[21:01:46] INFO — == KẾT QUẢ TEST (ATA-MLP) ==
+  Accuracy : 0.9117
+  Macro-F1 : 0.7689
+  ------------------------------------------------------------
+  Class           Prec   Recall       F1   Support
+  Normal         0.948    0.961    0.955     84093
+  blackhole      1.000    1.000    1.000       300
+  clone_id       0.714    0.833    0.769      2045
+  continuous_sinkhole   0.705    0.395    0.507      1809
+  delayed_reply   0.272    0.325    0.296       600
+  dis            1.000    1.000    1.000       300
+  hello_flood    1.000    1.000    1.000       300
+  local_repair   1.000    0.997    0.998       300
+  rank           0.984    0.356    0.523       840
+  replay         0.987    1.000    0.993       300
+  selective_forward   0.961    0.980    0.970       300
+  sinkhole       0.864    0.833    0.848      2240
+  sybil          0.643    0.594    0.617      2167
+  version        0.693    0.413    0.518       300
+  wormhole       0.311    0.314    0.312      2385
+  worst_parent   0.990    1.000    0.995       300
+[21:01:46] INFO —
+  ĐÁNH GIÁ NHỊ PHÂN (tấn công / bình thường)
+  ----------------------------------------------------------
+  Accuracy              0.9219
+  Macro-F1 (2 lớp)      0.8387
+  F1 lớp TẤN CÔNG       0.7228
+  F1 lớp Bình thường    0.9545
+  Precision (tấn công)  0.7554
+  Recall (tấn công)     0.6928
+  MCC                   +0.6783
+  ----------------------------------------------------------
+  Tỉ lệ báo động sai    0.0386   (3,249 / 84,093 nút bình thường)
+  Tỉ lệ bỏ lọt          0.3072   (4,450 / 14,486 nút tấn công)
+  ----------------------------------------------------------
+  Ma trận nhầm lẫn 2x2:  TN=80,844  FP=3,249  FN=4,450  TP=10,036
+  Lưu ý: chỉ số nhị phân LUÔN cao hơn macro-F1 đa lớp vì phép gộp
+  xoá bỏ lỗi nhầm GIỮA các loại tấn công. Phải đọc cùng nhau.
+[21:01:46] INFO — Best val macro-F1 (đã làm mượt) = 0.7742 tại epoch 106
+[21:01:46] INFO — Đã lưu -> ck_mlp_ata_radar
+
+F:\tham khao\sdh241\hk5\de an tot nghiep\GAT_NEGAT_IDS_ATA>python scripts/train_ata.py --data-dir data/radar_chrono --arch gcn --K 3--lambda-d 0.5 --disc mmd --domain-strategy quantile --epochs 120 --ckpt-dir ck_gcn_ata_radar
+[14:51:05] INFO — Tải: train=18270 val=2610 test=5220 | d_n=29 d_e=10 | 16 lớp
+[14:51:05] INFO — Khoảng cách thời gian gần nhất trung bình δ̄ = 60.500 cửa sổ
+[14:51:05] INFO — ATA: 3 miền thời gian (quantile) trên 87 tệp | số đồ thị mỗi miền: [6090, 6090, 6090]
+[14:51:05] INFO — ATA-GCN: 3698 tham số | K=3 λ_d=0.5 disc=mmd chiến lược=quantile
+[14:51:23] INFO — Loss long-tail: cb_focal | counts(min=369,max=306868)
+F:\tham khao\sdh241\hk5\de an tot nghiep\GAT_NEGAT_IDS_ATA\scripts\train_ata.py:246: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\torch\csrc\autograd\generated\python_variable_methods.cpp:839.)
+  s_cls += float(loss_cls); s_ali += float(loss_ali)
+[14:52:06] INFO — Epoch   1 | L_cls 0.5990 | L_align 0.0047 | val 0.0574 (mượt 0.0574)  <-- best
+[14:52:49] INFO — Epoch   2 | L_cls 0.3435 | L_align 0.0075 | val 0.0582 (mượt 0.0577)  <-- best
+[14:53:32] INFO — Epoch   3 | L_cls 0.3111 | L_align 0.0115 | val 0.0732 (mượt 0.0639)  <-- best
+[14:54:13] INFO — Epoch   4 | L_cls 0.2810 | L_align 0.0146 | val 0.1413 (mượt 0.0948)  <-- best
+[14:54:56] INFO — Epoch   5 | L_cls 0.2559 | L_align 0.0158 | val 0.2370 (mượt 0.1517)  <-- best
+[14:55:40] INFO — Epoch   6 | L_cls 0.2353 | L_align 0.0160 | val 0.2581 (mượt 0.1943)  <-- best
+[14:56:18] INFO — Epoch   7 | L_cls 0.2216 | L_align 0.0157 | val 0.3257 (mượt 0.2468)  <-- best
+[14:56:59] INFO — Epoch   8 | L_cls 0.2126 | L_align 0.0148 | val 0.4592 (mượt 0.3318)  <-- best
+[14:57:29] INFO — Epoch   9 | L_cls 0.2067 | L_align 0.0145 | val 0.5340 (mượt 0.4127)  <-- best
+[14:57:50] INFO — Epoch  10 | L_cls 0.2024 | L_align 0.0140 | val 0.5533 (mượt 0.4689)  <-- best
+[14:58:33] INFO — Epoch  11 | L_cls 0.1985 | L_align 0.0141 | val 0.5842 (mượt 0.5150)  <-- best
+[14:59:18] INFO — Epoch  12 | L_cls 0.1954 | L_align 0.0141 | val 0.5956 (mượt 0.5473)  <-- best
+[14:59:57] INFO — Epoch  13 | L_cls 0.1933 | L_align 0.0140 | val 0.6098 (mượt 0.5723)  <-- best
+[15:00:36] INFO — Epoch  14 | L_cls 0.1906 | L_align 0.0134 | val 0.6154 (mượt 0.5895)  <-- best
+[15:01:19] INFO — Epoch  15 | L_cls 0.1889 | L_align 0.0134 | val 0.6234 (mượt 0.6031)  <-- best
+[15:02:02] INFO — Epoch  16 | L_cls 0.1875 | L_align 0.0133 | val 0.6282 (mượt 0.6132)  <-- best
+[15:02:45] INFO — Epoch  17 | L_cls 0.1865 | L_align 0.0135 | val 0.6336 (mượt 0.6213)  <-- best
+[15:03:26] INFO — Epoch  18 | L_cls 0.1853 | L_align 0.0134 | val 0.6397 (mượt 0.6287)  <-- best
+[15:04:07] INFO — Epoch  19 | L_cls 0.1839 | L_align 0.0130 | val 0.6435 (mượt 0.6346)  <-- best
+[15:04:49] INFO — Epoch  20 | L_cls 0.1829 | L_align 0.0132 | val 0.6510 (mượt 0.6412)  <-- best
+[15:05:29] INFO — Epoch  21 | L_cls 0.1822 | L_align 0.0133 | val 0.6572 (mượt 0.6476)  <-- best
+[15:06:13] INFO — Epoch  22 | L_cls 0.1809 | L_align 0.0133 | val 0.6645 (mượt 0.6544)  <-- best
+[15:06:47] INFO — Epoch  23 | L_cls 0.1805 | L_align 0.0132 | val 0.6669 (mượt 0.6594)  <-- best
+[15:07:18] INFO — Epoch  24 | L_cls 0.1792 | L_align 0.0130 | val 0.6659 (mượt 0.6620)  <-- best
+[15:07:57] INFO — Epoch  25 | L_cls 0.1782 | L_align 0.0125 | val 0.6703 (mượt 0.6653)  <-- best
+[15:08:44] INFO — Epoch  26 | L_cls 0.1778 | L_align 0.0131 | val 0.6790 (mượt 0.6708)  <-- best
+[15:09:28] INFO — Epoch  27 | L_cls 0.1773 | L_align 0.0127 | val 0.6819 (mượt 0.6753)  <-- best
+[15:10:11] INFO — Epoch  28 | L_cls 0.1762 | L_align 0.0126 | val 0.6863 (mượt 0.6797)  <-- best
+[15:10:51] INFO — Epoch  29 | L_cls 0.1765 | L_align 0.0123 | val 0.6896 (mượt 0.6836)  <-- best
+[15:11:32] INFO — Epoch  30 | L_cls 0.1752 | L_align 0.0127 | val 0.6917 (mượt 0.6869)  <-- best
+[15:12:11] INFO — Epoch  31 | L_cls 0.1748 | L_align 0.0127 | val 0.6945 (mượt 0.6899)  <-- best
+[15:12:51] INFO — Epoch  32 | L_cls 0.1746 | L_align 0.0126 | val 0.6997 (mượt 0.6938)  <-- best
+[15:13:32] INFO — Epoch  33 | L_cls 0.1738 | L_align 0.0123 | val 0.7024 (mượt 0.6972)  <-- best
+[15:14:12] INFO — Epoch  34 | L_cls 0.1728 | L_align 0.0125 | val 0.7047 (mượt 0.7002)  <-- best
+[15:14:55] INFO — Epoch  35 | L_cls 0.1729 | L_align 0.0126 | val 0.7073 (mượt 0.7031)  <-- best
+[15:15:39] INFO — Epoch  36 | L_cls 0.1724 | L_align 0.0120 | val 0.7087 (mượt 0.7053)  <-- best
+[15:16:17] INFO — Epoch  37 | L_cls 0.1728 | L_align 0.0122 | val 0.7081 (mượt 0.7064)  <-- best
+[15:17:01] INFO — Epoch  38 | L_cls 0.1719 | L_align 0.0122 | val 0.7078 (mượt 0.7069)  <-- best
+[15:17:45] INFO — Epoch  39 | L_cls 0.1714 | L_align 0.0121 | val 0.7122 (mượt 0.7090)  <-- best
+[15:18:30] INFO — Epoch  40 | L_cls 0.1714 | L_align 0.0122 | val 0.7145 (mượt 0.7112)  <-- best
+[15:19:14] INFO — Epoch  41 | L_cls 0.1706 | L_align 0.0120 | val 0.7153 (mượt 0.7129)  <-- best
+[15:19:57] INFO — Epoch  42 | L_cls 0.1709 | L_align 0.0120 | val 0.7149 (mượt 0.7137)  <-- best
+[15:20:41] INFO — Epoch  43 | L_cls 0.1705 | L_align 0.0119 | val 0.7146 (mượt 0.7141)  <-- best
+[15:21:25] INFO — Epoch  44 | L_cls 0.1699 | L_align 0.0119 | val 0.7141 (mượt 0.7141)  <-- best
+[15:22:09] INFO — Epoch  45 | L_cls 0.1690 | L_align 0.0120 | val 0.7159 (mượt 0.7148)  <-- best
+[15:22:53] INFO — Epoch  46 | L_cls 0.1696 | L_align 0.0118 | val 0.7179 (mượt 0.7160)  <-- best
+[15:23:38] INFO — Epoch  47 | L_cls 0.1691 | L_align 0.0119 | val 0.7167 (mượt 0.7163)  <-- best
+[15:24:22] INFO — Epoch  48 | L_cls 0.1685 | L_align 0.0119 | val 0.7166 (mượt 0.7164)  <-- best
+[15:25:07] INFO — Epoch  49 | L_cls 0.1685 | L_align 0.0120 | val 0.7182 (mượt 0.7171)  <-- best
+[15:25:50] INFO — Epoch  50 | L_cls 0.1673 | L_align 0.0116 | val 0.7205 (mượt 0.7185)  <-- best
+[15:26:28] INFO — Epoch  51 | L_cls 0.1674 | L_align 0.0118 | val 0.7225 (mượt 0.7201)  <-- best
+[15:27:09] INFO — Epoch  52 | L_cls 0.1675 | L_align 0.0115 | val 0.7253 (mượt 0.7222)  <-- best
+[15:27:52] INFO — Epoch  53 | L_cls 0.1672 | L_align 0.0117 | val 0.7273 (mượt 0.7242)  <-- best
+[15:28:33] INFO — Epoch  54 | L_cls 0.1673 | L_align 0.0118 | val 0.7277 (mượt 0.7256)  <-- best
+[15:29:15] INFO — Epoch  55 | L_cls 0.1671 | L_align 0.0117 | val 0.7291 (mượt 0.7270)  <-- best
+[15:29:59] INFO — Epoch  56 | L_cls 0.1663 | L_align 0.0114 | val 0.7301 (mượt 0.7283)  <-- best
+[15:30:41] INFO — Epoch  57 | L_cls 0.1663 | L_align 0.0117 | val 0.7320 (mượt 0.7298)  <-- best
+[15:31:23] INFO — Epoch  58 | L_cls 0.1658 | L_align 0.0114 | val 0.7320 (mượt 0.7307)  <-- best
+[15:32:07] INFO — Epoch  59 | L_cls 0.1656 | L_align 0.0113 | val 0.7336 (mượt 0.7318)  <-- best
+[15:32:48] INFO — Epoch  60 | L_cls 0.1652 | L_align 0.0113 | val 0.7365 (mượt 0.7337)  <-- best
+[15:33:31] INFO — Epoch  61 | L_cls 0.1652 | L_align 0.0114 | val 0.7378 (mượt 0.7353)  <-- best
+[15:34:10] INFO — Epoch  62 | L_cls 0.1652 | L_align 0.0116 | val 0.7390 (mượt 0.7368)  <-- best
+[15:34:53] INFO — Epoch  63 | L_cls 0.1647 | L_align 0.0112 | val 0.7400 (mượt 0.7381)  <-- best
+[15:35:35] INFO — Epoch  64 | L_cls 0.1645 | L_align 0.0113 | val 0.7432 (mượt 0.7401)  <-- best
+[15:36:16] INFO — Epoch  65 | L_cls 0.1645 | L_align 0.0113 | val 0.7457 (mượt 0.7423)  <-- best
+[15:36:57] INFO — Epoch  66 | L_cls 0.1644 | L_align 0.0113 | val 0.7455 (mượt 0.7436)  <-- best
+[15:38:21] INFO — Epoch  68 | L_cls 0.1645 | L_align 0.0113 | val 0.7445 (mượt 0.7439)  <-- best
+[15:39:03] INFO — Epoch  69 | L_cls 0.1636 | L_align 0.0114 | val 0.7460 (mượt 0.7447)  <-- best
+[15:39:49] INFO — Epoch  70 | L_cls 0.1641 | L_align 0.0111 | val 0.7481 (mượt 0.7461)  <-- best
+[15:40:26] INFO — Epoch  71 | L_cls 0.1637 | L_align 0.0111 | val 0.7482 (mượt 0.7469)  <-- best
+[15:41:10] INFO — Epoch  72 | L_cls 0.1637 | L_align 0.0109 | val 0.7501 (mượt 0.7482)  <-- best
+[15:41:54] INFO — Epoch  73 | L_cls 0.1633 | L_align 0.0109 | val 0.7499 (mượt 0.7489)  <-- best
+[15:42:41] INFO — Epoch  74 | L_cls 0.1634 | L_align 0.0111 | val 0.7501 (mượt 0.7493)  <-- best
+[15:43:27] INFO — Epoch  75 | L_cls 0.1630 | L_align 0.0108 | val 0.7498 (mượt 0.7495)  <-- best
+[15:44:11] INFO — Epoch  76 | L_cls 0.1631 | L_align 0.0109 | val 0.7505 (mượt 0.7499)  <-- best
+[15:44:57] INFO — Epoch  77 | L_cls 0.1624 | L_align 0.0111 | val 0.7512 (mượt 0.7504)  <-- best
+[15:45:42] INFO — Epoch  78 | L_cls 0.1629 | L_align 0.0107 | val 0.7515 (mượt 0.7509)  <-- best
+[15:46:26] INFO — Epoch  79 | L_cls 0.1623 | L_align 0.0109 | val 0.7514 (mượt 0.7511)  <-- best
+[15:47:10] INFO — Epoch  80 | L_cls 0.1623 | L_align 0.0108 | val 0.7509 (mượt 0.7510)
+[15:47:53] INFO — Epoch  81 | L_cls 0.1625 | L_align 0.0107 | val 0.7525 (mượt 0.7516)  <-- best
+[15:48:36] INFO — Epoch  82 | L_cls 0.1618 | L_align 0.0107 | val 0.7517 (mượt 0.7517)  <-- best
+[15:50:47] INFO — Epoch  85 | L_cls 0.1620 | L_align 0.0109 | val 0.7505 (mượt 0.7511)
+[15:51:31] INFO — Epoch  86 | L_cls 0.1622 | L_align 0.0109 | val 0.7526 (mượt 0.7517)  <-- best
+[15:52:14] INFO — Epoch  87 | L_cls 0.1616 | L_align 0.0109 | val 0.7535 (mượt 0.7524)  <-- best
+[15:53:00] INFO — Epoch  88 | L_cls 0.1621 | L_align 0.0106 | val 0.7529 (mượt 0.7526)  <-- best
+[15:53:44] INFO — Epoch  89 | L_cls 0.1616 | L_align 0.0105 | val 0.7532 (mượt 0.7528)  <-- best
+[15:54:32] INFO — Epoch  90 | L_cls 0.1615 | L_align 0.0105 | val 0.7532 (mượt 0.7530)  <-- best
+[15:55:20] INFO — Epoch  91 | L_cls 0.1617 | L_align 0.0106 | val 0.7539 (mượt 0.7533)  <-- best
+[15:56:08] INFO — Epoch  92 | L_cls 0.1613 | L_align 0.0106 | val 0.7541 (mượt 0.7536)  <-- best
+[15:56:54] INFO — Epoch  93 | L_cls 0.1612 | L_align 0.0104 | val 0.7541 (mượt 0.7538)  <-- best
+[15:57:40] INFO — Epoch  94 | L_cls 0.1612 | L_align 0.0106 | val 0.7542 (mượt 0.7540)  <-- best
+[15:58:23] INFO — Epoch  95 | L_cls 0.1614 | L_align 0.0106 | val 0.7540 (mượt 0.7540)  <-- best
+[15:59:53] INFO — Epoch  97 | L_cls 0.1613 | L_align 0.0106 | val 0.7551 (mượt 0.7543)  <-- best
+[16:00:36] INFO — Epoch  98 | L_cls 0.1610 | L_align 0.0105 | val 0.7553 (mượt 0.7547)  <-- best
+[16:01:19] INFO — Epoch  99 | L_cls 0.1611 | L_align 0.0106 | val 0.7559 (mượt 0.7552)  <-- best
+[16:02:06] INFO — Epoch 100 | L_cls 0.1611 | L_align 0.0102 | val 0.7556 (mượt 0.7553)  <-- best
+[16:02:52] INFO — Epoch 101 | L_cls 0.1605 | L_align 0.0104 | val 0.7565 (mượt 0.7558)  <-- best
+[16:04:21] INFO — Epoch 103 | L_cls 0.1605 | L_align 0.0105 | val 0.7563 (mượt 0.7560)  <-- best
+[16:04:56] INFO — Epoch 104 | L_cls 0.1606 | L_align 0.0100 | val 0.7570 (mượt 0.7564)  <-- best
+[16:05:21] INFO — Epoch 105 | L_cls 0.1605 | L_align 0.0103 | val 0.7569 (mượt 0.7566)  <-- best
+[16:08:58] INFO — Epoch 110 | L_cls 0.1603 | L_align 0.0105 | val 0.7570 (mượt 0.7565)
+[16:09:42] INFO — Epoch 111 | L_cls 0.1610 | L_align 0.0104 | val 0.7569 (mượt 0.7567)  <-- best
+[16:11:50] INFO — Epoch 114 | L_cls 0.1602 | L_align 0.0105 | val 0.7574 (mượt 0.7568)  <-- best
+[16:12:33] INFO — Epoch 115 | L_cls 0.1601 | L_align 0.0102 | val 0.7567 (mượt 0.7568)
+[16:13:19] INFO — Epoch 116 | L_cls 0.1603 | L_align 0.0103 | val 0.7575 (mượt 0.7571)  <-- best
+[16:16:06] INFO — Epoch 120 | L_cls 0.1605 | L_align 0.0103 | val 0.7564 (mượt 0.7565)
+[16:16:09] INFO — == KẾT QUẢ TEST (ATA-GCN) ==
+  Accuracy : 0.8733
+  Macro-F1 : 0.7454
+  ------------------------------------------------------------
+  Class           Prec   Recall       F1   Support
+  Normal         0.968    0.885    0.925     84093
+  blackhole      0.961    0.993    0.977       300
+  clone_id       0.611    0.951    0.744      2045
+  continuous_sinkhole   0.521    0.720    0.605      1809
+  delayed_reply   0.347    0.785    0.481       600
+  dis            0.789    0.997    0.881       300
+  hello_flood    0.796    0.947    0.865       300
+  local_repair   0.867    0.997    0.927       300
+  rank           0.736    0.713    0.724       840
+  replay         0.628    0.710    0.667       300
+  selective_forward   1.000    1.000    1.000       300
+  sinkhole       0.478    0.834    0.608      2240
+  sybil          0.649    0.749    0.695      2167
+  version        0.540    0.653    0.591       300
+  wormhole       0.370    0.714    0.487      2385
+  worst_parent   0.611    0.973    0.751       300
+[16:16:09] INFO —
+  ĐÁNH GIÁ NHỊ PHÂN (tấn công / bình thường)
+  ----------------------------------------------------------
+  Accuracy              0.8770
+  Macro-F1 (2 lớp)      0.7950
+  F1 lớp TẤN CÔNG       0.6653
+  F1 lớp Bình thường    0.9247
+  Precision (tấn công)  0.5543
+  Recall (tấn công)     0.8320
+  MCC                   +0.6120
+  ----------------------------------------------------------
+  Tỉ lệ báo động sai    0.1152   (9,690 / 84,093 nút bình thường)
+  Tỉ lệ bỏ lọt          0.1680   (2,434 / 14,486 nút tấn công)
+  ----------------------------------------------------------
+  Ma trận nhầm lẫn 2x2:  TN=74,403  FP=9,690  FN=2,434  TP=12,052
+  Lưu ý: chỉ số nhị phân LUÔN cao hơn macro-F1 đa lớp vì phép gộp
+  xoá bỏ lỗi nhầm GIỮA các loại tấn công. Phải đọc cùng nhau.
+[16:16:09] INFO — Best val macro-F1 (đã làm mượt) = 0.7571 tại epoch 116
+[16:16:09] INFO — Đã lưu -> ck_gcn_ata_radar
+
+F:\tham khao\sdh241\hk5\de an tot nghiep\GAT_NEGAT_IDS_ATA>python scripts/train_ata.py --data-dir data/radar_chrono --arch egraphsage --K 3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --epochs 120 --ckpt-dir ck_egraphsage_ata_radar
+[16:32:35] INFO — Tải: train=18270 val=2610 test=5220 | d_n=29 d_e=10 | 16 lớp
+[16:32:35] INFO — Khoảng cách thời gian gần nhất trung bình δ̄ = 60.500 cửa sổ
+[16:32:35] INFO — ATA: 3 miền thời gian (quantile) trên 87 tệp | số đồ thị mỗi miền: [6090, 6090, 6090]
+[16:32:35] INFO — ATA-EGRAPHSAGE: 10834 tham số | K=3 λ_d=0.5 disc=mmd chiến lược=quantile
+[16:32:39] INFO — Loss long-tail: cb_focal | counts(min=369,max=306868)
+F:\tham khao\sdh241\hk5\de an tot nghiep\GAT_NEGAT_IDS_ATA\scripts\train_ata.py:246: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\torch\csrc\autograd\generated\python_variable_methods.cpp:839.)
+  s_cls += float(loss_cls); s_ali += float(loss_ali)
+[16:33:19] INFO — Epoch   1 | L_cls 0.4825 | L_align 0.0015 | val 0.0576 (mượt 0.0576)  <-- best
+[16:34:00] INFO — Epoch   2 | L_cls 0.3188 | L_align 0.0028 | val 0.1825 (mượt 0.1076)  <-- best
+[16:34:40] INFO — Epoch   3 | L_cls 0.2757 | L_align 0.0064 | val 0.1874 (mượt 0.1395)  <-- best
+[16:35:22] INFO — Epoch   4 | L_cls 0.2378 | L_align 0.0081 | val 0.5100 (mượt 0.2877)  <-- best
+[16:36:06] INFO — Epoch   5 | L_cls 0.2115 | L_align 0.0091 | val 0.5577 (mượt 0.3957)  <-- best
+[16:36:48] INFO — Epoch   6 | L_cls 0.1956 | L_align 0.0088 | val 0.6252 (mượt 0.4875)  <-- best
+[16:37:29] INFO — Epoch   7 | L_cls 0.1859 | L_align 0.0083 | val 0.7142 (mượt 0.5782)  <-- best
+[16:38:11] INFO — Epoch   8 | L_cls 0.1787 | L_align 0.0082 | val 0.7498 (mượt 0.6468)  <-- best
+[16:38:55] INFO — Epoch   9 | L_cls 0.1726 | L_align 0.0079 | val 0.7711 (mượt 0.6965)  <-- best
+[16:39:28] INFO — Epoch  10 | L_cls 0.1693 | L_align 0.0081 | val 0.8005 (mượt 0.7381)  <-- best
+[16:39:58] INFO — Epoch  11 | L_cls 0.1654 | L_align 0.0081 | val 0.8156 (mượt 0.7691)  <-- best
+[16:40:39] INFO — Epoch  12 | L_cls 0.1623 | L_align 0.0077 | val 0.8225 (mượt 0.7905)  <-- best
+[16:41:19] INFO — Epoch  13 | L_cls 0.1615 | L_align 0.0077 | val 0.8265 (mượt 0.8049)  <-- best
+[16:41:58] INFO — Epoch  14 | L_cls 0.1581 | L_align 0.0075 | val 0.8301 (mượt 0.8149)  <-- best
+[16:42:38] INFO — Epoch  15 | L_cls 0.1570 | L_align 0.0075 | val 0.8351 (mượt 0.8230)  <-- best
+[16:43:19] INFO — Epoch  16 | L_cls 0.1555 | L_align 0.0074 | val 0.8389 (mượt 0.8294)  <-- best
+[16:43:58] INFO — Epoch  17 | L_cls 0.1543 | L_align 0.0072 | val 0.8464 (mượt 0.8362)  <-- best
+[16:44:42] INFO — Epoch  18 | L_cls 0.1536 | L_align 0.0074 | val 0.8520 (mượt 0.8425)  <-- best
+[16:45:23] INFO — Epoch  19 | L_cls 0.1510 | L_align 0.0073 | val 0.8582 (mượt 0.8488)  <-- best
+[16:46:06] INFO — Epoch  20 | L_cls 0.1505 | L_align 0.0072 | val 0.8611 (mượt 0.8537)  <-- best
+[16:46:46] INFO — Epoch  21 | L_cls 0.1495 | L_align 0.0071 | val 0.8619 (mượt 0.8570)  <-- best
+[16:47:31] INFO — Epoch  22 | L_cls 0.1480 | L_align 0.0070 | val 0.8645 (mượt 0.8600)  <-- best
+[16:48:15] INFO — Epoch  23 | L_cls 0.1477 | L_align 0.0071 | val 0.8674 (mượt 0.8629)  <-- best
+[16:48:35] INFO — Epoch  24 | L_cls 0.1474 | L_align 0.0068 | val 0.8693 (mượt 0.8655)  <-- best
+[16:49:03] INFO — Epoch  25 | L_cls 0.1468 | L_align 0.0067 | val 0.8725 (mượt 0.8683)  <-- best
+[16:49:47] INFO — Epoch  26 | L_cls 0.1458 | L_align 0.0067 | val 0.8741 (mượt 0.8706)  <-- best
+[16:50:31] INFO — Epoch  27 | L_cls 0.1447 | L_align 0.0066 | val 0.8727 (mượt 0.8715)  <-- best
+[16:51:16] INFO — Epoch  28 | L_cls 0.1445 | L_align 0.0066 | val 0.8742 (mượt 0.8726)  <-- best
+[16:51:59] INFO — Epoch  29 | L_cls 0.1438 | L_align 0.0065 | val 0.8765 (mượt 0.8742)  <-- best
+[16:52:44] INFO — Epoch  30 | L_cls 0.1439 | L_align 0.0065 | val 0.8786 (mượt 0.8759)  <-- best
+[16:53:28] INFO — Epoch  31 | L_cls 0.1431 | L_align 0.0064 | val 0.8775 (mượt 0.8765)  <-- best
+[16:54:14] INFO — Epoch  32 | L_cls 0.1422 | L_align 0.0064 | val 0.8795 (mượt 0.8777)  <-- best
+[16:54:53] INFO — Epoch  33 | L_cls 0.1415 | L_align 0.0063 | val 0.8799 (mượt 0.8786)  <-- best
+[16:55:33] INFO — Epoch  34 | L_cls 0.1416 | L_align 0.0062 | val 0.8814 (mượt 0.8797)  <-- best
+[16:56:20] INFO — Epoch  35 | L_cls 0.1413 | L_align 0.0062 | val 0.8825 (mượt 0.8808)  <-- best
+[16:57:04] INFO — Epoch  36 | L_cls 0.1415 | L_align 0.0062 | val 0.8828 (mượt 0.8816)  <-- best
+[16:57:48] INFO — Epoch  37 | L_cls 0.1403 | L_align 0.0062 | val 0.8835 (mượt 0.8824)  <-- best
+[16:58:32] INFO — Epoch  38 | L_cls 0.1403 | L_align 0.0062 | val 0.8852 (mượt 0.8835)  <-- best
+[16:59:17] INFO — Epoch  39 | L_cls 0.1398 | L_align 0.0060 | val 0.8860 (mượt 0.8845)  <-- best
+[17:00:04] INFO — Epoch  40 | L_cls 0.1399 | L_align 0.0061 | val 0.8871 (mượt 0.8855)  <-- best
+[17:00:51] INFO — Epoch  41 | L_cls 0.1395 | L_align 0.0059 | val 0.8866 (mượt 0.8860)  <-- best
+[17:01:38] INFO — Epoch  42 | L_cls 0.1394 | L_align 0.0058 | val 0.8873 (mượt 0.8865)  <-- best
+[17:02:25] INFO — Epoch  43 | L_cls 0.1384 | L_align 0.0059 | val 0.8877 (mượt 0.8870)  <-- best
+[17:03:11] INFO — Epoch  44 | L_cls 0.1386 | L_align 0.0059 | val 0.8872 (mượt 0.8871)  <-- best
+[17:03:55] INFO — Epoch  45 | L_cls 0.1386 | L_align 0.0058 | val 0.8874 (mượt 0.8872)  <-- best
+[17:04:28] INFO — Epoch  46 | L_cls 0.1381 | L_align 0.0057 | val 0.8882 (mượt 0.8876)  <-- best
+[17:05:58] INFO — Epoch  48 | L_cls 0.1373 | L_align 0.0057 | val 0.8885 (mượt 0.8879)  <-- best
+[17:06:43] INFO — Epoch  49 | L_cls 0.1376 | L_align 0.0055 | val 0.8881 (mượt 0.8880)  <-- best
+[17:07:27] INFO — Epoch  50 | L_cls 0.1370 | L_align 0.0056 | val 0.8882 (mượt 0.8880)  <-- best
+[17:08:11] INFO — Epoch  51 | L_cls 0.1367 | L_align 0.0056 | val 0.8896 (mượt 0.8887)  <-- best
+[17:08:57] INFO — Epoch  52 | L_cls 0.1366 | L_align 0.0055 | val 0.8910 (mượt 0.8896)  <-- best
+[17:09:41] INFO — Epoch  53 | L_cls 0.1365 | L_align 0.0054 | val 0.8922 (mượt 0.8907)  <-- best
+[17:10:27] INFO — Epoch  54 | L_cls 0.1364 | L_align 0.0054 | val 0.8921 (mượt 0.8912)  <-- best
+[17:11:11] INFO — Epoch  55 | L_cls 0.1363 | L_align 0.0054 | val 0.8902 (mượt 0.8908)
+[17:11:36] INFO — Epoch  56 | L_cls 0.1360 | L_align 0.0054 | val 0.8922 (mượt 0.8914)  <-- best
+[17:11:56] INFO — Epoch  57 | L_cls 0.1356 | L_align 0.0054 | val 0.8937 (mượt 0.8923)  <-- best
+[17:12:15] INFO — Epoch  58 | L_cls 0.1353 | L_align 0.0053 | val 0.8933 (mượt 0.8927)  <-- best
+[17:13:25] INFO — Epoch  60 | L_cls 0.1353 | L_align 0.0053 | val 0.8936 (mượt 0.8929)  <-- best
+[17:17:11] INFO — Epoch  65 | L_cls 0.1345 | L_align 0.0052 | val 0.8933 (mượt 0.8927)
+[17:18:42] INFO — Epoch  67 | L_cls 0.1340 | L_align 0.0051 | val 0.8940 (mượt 0.8933)  <-- best
+[17:19:13] INFO — Epoch  68 | L_cls 0.1338 | L_align 0.0050 | val 0.8966 (mượt 0.8946)  <-- best
+[17:19:30] INFO — Epoch  69 | L_cls 0.1334 | L_align 0.0051 | val 0.8965 (mượt 0.8954)  <-- best
+[17:19:54] INFO — Epoch  70 | L_cls 0.1335 | L_align 0.0050 | val 0.8957 (mượt 0.8955)  <-- best
+[17:23:47] INFO — Epoch  75 | L_cls 0.1326 | L_align 0.0050 | val 0.8934 (mượt 0.8934)
+[17:27:32] INFO — Epoch  80 | L_cls 0.1320 | L_align 0.0048 | val 0.8960 (mượt 0.8951)
+[17:28:51] INFO — Epoch  83 | L_cls 0.1313 | L_align 0.0048 | val 0.8971 (mượt 0.8959)  <-- best
+[17:29:10] INFO — Epoch  84 | L_cls 0.1315 | L_align 0.0049 | val 0.8983 (mượt 0.8968)  <-- best
+[17:29:31] INFO — Epoch  85 | L_cls 0.1309 | L_align 0.0048 | val 0.8987 (mượt 0.8976)  <-- best
+[17:29:51] INFO — Epoch  86 | L_cls 0.1308 | L_align 0.0049 | val 0.8985 (mượt 0.8979)  <-- best
+[17:30:11] INFO — Epoch  87 | L_cls 0.1310 | L_align 0.0048 | val 0.8984 (mượt 0.8981)  <-- best
+[17:30:31] INFO — Epoch  88 | L_cls 0.1304 | L_align 0.0048 | val 0.8993 (mượt 0.8986)  <-- best
+[17:31:12] INFO — Epoch  90 | L_cls 0.1308 | L_align 0.0047 | val 0.8984 (mượt 0.8984)
+[17:33:01] INFO — Epoch  95 | L_cls 0.1303 | L_align 0.0047 | val 0.8964 (mượt 0.8971)
+[17:34:49] INFO — Epoch 100 | L_cls 0.1298 | L_align 0.0049 | val 0.8987 (mượt 0.8985)
+[17:35:12] INFO — Epoch 101 | L_cls 0.1296 | L_align 0.0047 | val 0.8995 (mượt 0.8989)  <-- best
+[17:36:40] INFO — Epoch 105 | L_cls 0.1295 | L_align 0.0048 | val 0.8972 (mượt 0.8979)
+[17:37:48] INFO — Epoch 108 | L_cls 0.1289 | L_align 0.0048 | val 0.9003 (mượt 0.8992)  <-- best
+[17:38:34] INFO — Epoch 110 | L_cls 0.1288 | L_align 0.0048 | val 0.8985 (mượt 0.8989)
+[17:39:18] INFO — Epoch 112 | L_cls 0.1289 | L_align 0.0048 | val 0.8999 (mượt 0.8993)  <-- best
+[17:39:41] INFO — Epoch 113 | L_cls 0.1293 | L_align 0.0048 | val 0.8995 (mượt 0.8994)  <-- best
+[17:40:04] INFO — Epoch 114 | L_cls 0.1291 | L_align 0.0047 | val 0.8996 (mượt 0.8995)  <-- best
+[17:40:25] INFO — Epoch 115 | L_cls 0.1288 | L_align 0.0047 | val 0.8997 (mượt 0.8995)  <-- best
+[17:40:47] INFO — Epoch 116 | L_cls 0.1287 | L_align 0.0047 | val 0.9002 (mượt 0.8998)  <-- best
+[17:41:09] INFO — Epoch 117 | L_cls 0.1290 | L_align 0.0048 | val 0.9003 (mượt 0.9000)  <-- best
+[17:41:31] INFO — Epoch 118 | L_cls 0.1289 | L_align 0.0048 | val 0.9008 (mượt 0.9003)  <-- best
+[17:42:15] INFO — Epoch 120 | L_cls 0.1286 | L_align 0.0047 | val 0.9000 (mượt 0.9001)
+[17:42:17] INFO — == KẾT QUẢ TEST (ATA-EGRAPHSAGE) ==
+  Accuracy : 0.9527
+  Macro-F1 : 0.8978
+  ------------------------------------------------------------
+  Class           Prec   Recall       F1   Support
+  Normal         0.983    0.966    0.974     84093
+  blackhole      1.000    1.000    1.000       300
+  clone_id       0.877    0.928    0.902      2045
+  continuous_sinkhole   0.711    0.790    0.749      1809
+  delayed_reply   0.461    0.945    0.620       600
+  dis            1.000    1.000    1.000       300
+  hello_flood    0.990    1.000    0.995       300
+  local_repair   1.000    0.993    0.997       300
+  rank           0.917    0.711    0.801       840
+  replay         0.997    1.000    0.998       300
+  selective_forward   1.000    1.000    1.000       300
+  sinkhole       0.882    0.848    0.865      2240
+  sybil          0.808    0.876    0.841      2167
+  version        0.875    0.867    0.871       300
+  wormhole       0.685    0.842    0.756      2385
+  worst_parent   1.000    0.993    0.997       300
+[17:42:17] INFO —
+  ĐÁNH GIÁ NHỊ PHÂN (tấn công / bình thường)
+  ----------------------------------------------------------
+  Accuracy              0.9568
+  Macro-F1 (2 lớp)      0.9171
+  F1 lớp TẤN CÔNG       0.8597
+  F1 lớp Bình thường    0.9745
+  Precision (tấn công)  0.8218
+  Recall (tấn công)     0.9014
+  MCC                   +0.8355
+  ----------------------------------------------------------
+  Tỉ lệ báo động sai    0.0337   (2,831 / 84,093 nút bình thường)
+  Tỉ lệ bỏ lọt          0.0986   (1,429 / 14,486 nút tấn công)
+  ----------------------------------------------------------
+  Ma trận nhầm lẫn 2x2:  TN=81,262  FP=2,831  FN=1,429  TP=13,057
+  Lưu ý: chỉ số nhị phân LUÔN cao hơn macro-F1 đa lớp vì phép gộp
+  xoá bỏ lỗi nhầm GIỮA các loại tấn công. Phải đọc cùng nhau.
+[17:42:17] INFO — Best val macro-F1 (đã làm mượt) = 0.9003 tại epoch 118
+[17:42:17] INFO — Đã lưu -> ck_egraphsage_ata_radar
+
+F:\tham khao\sdh241\hk5\de an tot nghiep\GAT_NEGAT_IDS_ATA>python scripts/train_ata.py --data-dir data/radar_chrono --arch edgegat --K 3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --epochs 120 --ckpt-dir ck_gat_ata_radar
+[18:03:45] INFO — Tải: train=18270 val=2610 test=5220 | d_n=29 d_e=10 | 16 lớp
+[18:03:45] INFO — Khoảng cách thời gian gần nhất trung bình δ̄ = 60.500 cửa sổ
+[18:03:45] INFO — ATA: 3 miền thời gian (quantile) trên 87 tệp | số đồ thị mỗi miền: [6090, 6090, 6090]
+[18:03:46] INFO — ATAEdgeGAT: 103956 tham số | K=3 λ_d=0.5 disc=mmd chiến lược=quantile
+[18:03:49] INFO — Loss long-tail: cb_focal | counts(min=369,max=306868)
+F:\tham khao\sdh241\hk5\de an tot nghiep\GAT_NEGAT_IDS_ATA\scripts\train_ata.py:246: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\torch\csrc\autograd\generated\python_variable_methods.cpp:839.)
+  s_cls += float(loss_cls); s_ali += float(loss_ali)
+[18:04:30] INFO — Epoch   1 | L_cls 0.4738 | L_align 0.0010 | val 0.0576 (mượt 0.0576)  <-- best
+[18:06:48] INFO — Epoch   4 | L_cls 0.2521 | L_align 0.0082 | val 0.2676 (mượt 0.1416)  <-- best
+[18:07:40] INFO — Epoch   5 | L_cls 0.2176 | L_align 0.0090 | val 0.4003 (mượt 0.2450)  <-- best
+[18:08:31] INFO — Epoch   6 | L_cls 0.1978 | L_align 0.0088 | val 0.5796 (mượt 0.3789)  <-- best
+[18:09:22] INFO — Epoch   7 | L_cls 0.1854 | L_align 0.0083 | val 0.6127 (mượt 0.4724)  <-- best
+[18:10:11] INFO — Epoch   8 | L_cls 0.1760 | L_align 0.0074 | val 0.7071 (mượt 0.5663)  <-- best
+[18:11:01] INFO — Epoch   9 | L_cls 0.1705 | L_align 0.0070 | val 0.7402 (mượt 0.6358)  <-- best
+[18:11:52] INFO — Epoch  10 | L_cls 0.1630 | L_align 0.0070 | val 0.7912 (mượt 0.6980)  <-- best
+[18:12:43] INFO — Epoch  11 | L_cls 0.1580 | L_align 0.0072 | val 0.8188 (mượt 0.7463)  <-- best
+[18:13:37] INFO — Epoch  12 | L_cls 0.1526 | L_align 0.0070 | val 0.8695 (mượt 0.7956)  <-- best
+[18:14:30] INFO — Epoch  13 | L_cls 0.1494 | L_align 0.0067 | val 0.8779 (mượt 0.8285)  <-- best
+[18:15:21] INFO — Epoch  14 | L_cls 0.1469 | L_align 0.0065 | val 0.8804 (mượt 0.8493)  <-- best
+[18:16:12] INFO — Epoch  15 | L_cls 0.1447 | L_align 0.0064 | val 0.8819 (mượt 0.8623)  <-- best
+[18:17:03] INFO — Epoch  16 | L_cls 0.1414 | L_align 0.0061 | val 0.8825 (mượt 0.8704)  <-- best
+[18:17:56] INFO — Epoch  17 | L_cls 0.1390 | L_align 0.0059 | val 0.8850 (mượt 0.8762)  <-- best
+[18:18:48] INFO — Epoch  18 | L_cls 0.1377 | L_align 0.0058 | val 0.8856 (mượt 0.8800)  <-- best
+[18:19:38] INFO — Epoch  19 | L_cls 0.1366 | L_align 0.0056 | val 0.8866 (mượt 0.8826)  <-- best
+[18:20:29] INFO — Epoch  20 | L_cls 0.1345 | L_align 0.0055 | val 0.8873 (mượt 0.8845)  <-- best
+[18:21:20] INFO — Epoch  21 | L_cls 0.1329 | L_align 0.0053 | val 0.8895 (mượt 0.8865)  <-- best
+[18:22:13] INFO — Epoch  22 | L_cls 0.1328 | L_align 0.0052 | val 0.8897 (mượt 0.8878)  <-- best
+[18:23:05] INFO — Epoch  23 | L_cls 0.1317 | L_align 0.0051 | val 0.8912 (mượt 0.8891)  <-- best
+[18:24:03] INFO — Epoch  24 | L_cls 0.1303 | L_align 0.0050 | val 0.8943 (mượt 0.8912)  <-- best
+[18:24:55] INFO — Epoch  25 | L_cls 0.1301 | L_align 0.0050 | val 0.8970 (mượt 0.8935)  <-- best
+[18:25:50] INFO — Epoch  26 | L_cls 0.1282 | L_align 0.0048 | val 0.8969 (mượt 0.8949)  <-- best
+[18:26:42] INFO — Epoch  27 | L_cls 0.1289 | L_align 0.0047 | val 0.8969 (mượt 0.8957)  <-- best
+[18:27:35] INFO — Epoch  28 | L_cls 0.1278 | L_align 0.0045 | val 0.8997 (mượt 0.8973)  <-- best
+[18:28:24] INFO — Epoch  29 | L_cls 0.1269 | L_align 0.0046 | val 0.9006 (mượt 0.8986)  <-- best
+[18:29:12] INFO — Epoch  30 | L_cls 0.1266 | L_align 0.0045 | val 0.9029 (mượt 0.9003)  <-- best
+[18:30:02] INFO — Epoch  31 | L_cls 0.1258 | L_align 0.0043 | val 0.9023 (mượt 0.9011)  <-- best
+[18:30:52] INFO — Epoch  32 | L_cls 0.1249 | L_align 0.0043 | val 0.9016 (mượt 0.9013)  <-- best
+[18:32:31] INFO — Epoch  34 | L_cls 0.1249 | L_align 0.0042 | val 0.9031 (mượt 0.9018)  <-- best
+[18:33:21] INFO — Epoch  35 | L_cls 0.1239 | L_align 0.0040 | val 0.9033 (mượt 0.9024)  <-- best
+[18:34:12] INFO — Epoch  36 | L_cls 0.1229 | L_align 0.0039 | val 0.9047 (mượt 0.9033)  <-- best
+[18:35:03] INFO — Epoch  37 | L_cls 0.1227 | L_align 0.0038 | val 0.9059 (mượt 0.9044)  <-- best
+[18:35:55] INFO — Epoch  38 | L_cls 0.1233 | L_align 0.0040 | val 0.9050 (mượt 0.9046)  <-- best
+[18:36:43] INFO — Epoch  39 | L_cls 0.1210 | L_align 0.0038 | val 0.9065 (mượt 0.9054)  <-- best
+[18:37:27] INFO — Epoch  40 | L_cls 0.1213 | L_align 0.0036 | val 0.9074 (mượt 0.9062)  <-- best
+[18:38:11] INFO — Epoch  41 | L_cls 0.1208 | L_align 0.0034 | val 0.9075 (mượt 0.9067)  <-- best
+[18:38:58] INFO — Epoch  42 | L_cls 0.1209 | L_align 0.0035 | val 0.9070 (mượt 0.9068)  <-- best
+[18:39:42] INFO — Epoch  43 | L_cls 0.1191 | L_align 0.0035 | val 0.9085 (mượt 0.9075)  <-- best
+[18:40:26] INFO — Epoch  44 | L_cls 0.1193 | L_align 0.0033 | val 0.9110 (mượt 0.9089)  <-- best
+[18:41:10] INFO — Epoch  45 | L_cls 0.1187 | L_align 0.0032 | val 0.9096 (mượt 0.9092)  <-- best
+[18:41:55] INFO — Epoch  46 | L_cls 0.1183 | L_align 0.0032 | val 0.9133 (mượt 0.9108)  <-- best
+[18:42:42] INFO — Epoch  47 | L_cls 0.1183 | L_align 0.0032 | val 0.9157 (mượt 0.9128)  <-- best
+[18:43:28] INFO — Epoch  48 | L_cls 0.1181 | L_align 0.0031 | val 0.9173 (mượt 0.9146)  <-- best
+[18:44:14] INFO — Epoch  49 | L_cls 0.1175 | L_align 0.0031 | val 0.9162 (mượt 0.9152)  <-- best
+[18:45:01] INFO — Epoch  50 | L_cls 0.1174 | L_align 0.0031 | val 0.9150 (mượt 0.9151)
+[18:46:34] INFO — Epoch  52 | L_cls 0.1169 | L_align 0.0029 | val 0.9188 (mượt 0.9163)  <-- best
+[18:47:20] INFO — Epoch  53 | L_cls 0.1166 | L_align 0.0029 | val 0.9199 (mượt 0.9177)  <-- best
+[18:48:51] INFO — Epoch  55 | L_cls 0.1160 | L_align 0.0028 | val 0.9185 (mượt 0.9179)  <-- best
+[18:49:37] INFO — Epoch  56 | L_cls 0.1152 | L_align 0.0028 | val 0.9195 (mượt 0.9185)  <-- best
+[18:50:23] INFO — Epoch  57 | L_cls 0.1151 | L_align 0.0026 | val 0.9200 (mượt 0.9191)  <-- best
+[18:51:10] INFO — Epoch  58 | L_cls 0.1155 | L_align 0.0026 | val 0.9202 (mượt 0.9196)  <-- best
+[18:51:56] INFO — Epoch  59 | L_cls 0.1146 | L_align 0.0026 | val 0.9207 (mượt 0.9200)  <-- best
+[18:52:42] INFO — Epoch  60 | L_cls 0.1150 | L_align 0.0027 | val 0.9214 (mượt 0.9206)  <-- best
+[18:53:28] INFO — Epoch  61 | L_cls 0.1151 | L_align 0.0025 | val 0.9218 (mượt 0.9211)  <-- best
+[18:56:33] INFO — Epoch  65 | L_cls 0.1130 | L_align 0.0024 | val 0.9205 (mượt 0.9198)
+[18:58:06] INFO — Epoch  67 | L_cls 0.1127 | L_align 0.0023 | val 0.9256 (mượt 0.9227)  <-- best
+[18:58:53] INFO — Epoch  68 | L_cls 0.1130 | L_align 0.0023 | val 0.9241 (mượt 0.9233)  <-- best
+[18:59:39] INFO — Epoch  69 | L_cls 0.1130 | L_align 0.0022 | val 0.9250 (mượt 0.9240)  <-- best
+[19:00:25] INFO — Epoch  70 | L_cls 0.1125 | L_align 0.0024 | val 0.9259 (mượt 0.9247)  <-- best
+[19:01:14] INFO — Epoch  71 | L_cls 0.1127 | L_align 0.0023 | val 0.9266 (mượt 0.9255)  <-- best
+[19:03:27] INFO — Epoch  74 | L_cls 0.1117 | L_align 0.0022 | val 0.9265 (mượt 0.9255)  <-- best
+[19:04:14] INFO — Epoch  75 | L_cls 0.1115 | L_align 0.0021 | val 0.9267 (mượt 0.9260)  <-- best
+[19:05:47] INFO — Epoch  77 | L_cls 0.1114 | L_align 0.0021 | val 0.9273 (mượt 0.9261)  <-- best
+[19:06:33] INFO — Epoch  78 | L_cls 0.1110 | L_align 0.0020 | val 0.9275 (mượt 0.9267)  <-- best
+[19:08:07] INFO — Epoch  80 | L_cls 0.1108 | L_align 0.0020 | val 0.9262 (mượt 0.9263)
+[19:10:24] INFO — Epoch  83 | L_cls 0.1101 | L_align 0.0020 | val 0.9270 (mượt 0.9267)  <-- best
+[19:11:08] INFO — Epoch  84 | L_cls 0.1096 | L_align 0.0019 | val 0.9278 (mượt 0.9271)  <-- best
+[19:12:17] INFO — Epoch  85 | L_cls 0.1103 | L_align 0.0020 | val 0.9261 (mượt 0.9267)
+[19:19:18] INFO — Epoch  89 | L_cls 0.1092 | L_align 0.0019 | val 0.9278 (mượt 0.9273)  <-- best
+[19:20:57] INFO — Epoch  90 | L_cls 0.1092 | L_align 0.0019 | val 0.9292 (mượt 0.9280)  <-- best
+[19:22:41] INFO — Epoch  91 | L_cls 0.1089 | L_align 0.0019 | val 0.9299 (mượt 0.9288)  <-- best
+[19:24:29] INFO — Epoch  92 | L_cls 0.1087 | L_align 0.0019 | val 0.9296 (mượt 0.9291)  <-- best
+[19:28:02] INFO — Epoch  94 | L_cls 0.1082 | L_align 0.0019 | val 0.9300 (mượt 0.9294)  <-- best
+[19:29:57] INFO — Epoch  95 | L_cls 0.1087 | L_align 0.0018 | val 0.9291 (mượt 0.9293)
+[19:39:23] INFO — Epoch 100 | L_cls 0.1075 | L_align 0.0018 | val 0.9294 (mượt 0.9293)
+[19:41:17] INFO — Epoch 101 | L_cls 0.1083 | L_align 0.0018 | val 0.9307 (mượt 0.9299)  <-- best
+[19:43:06] INFO — Epoch 102 | L_cls 0.1084 | L_align 0.0018 | val 0.9311 (mượt 0.9304)  <-- best
+[19:44:49] INFO — Epoch 103 | L_cls 0.1080 | L_align 0.0018 | val 0.9319 (mượt 0.9310)  <-- best
+[19:46:31] INFO — Epoch 104 | L_cls 0.1078 | L_align 0.0018 | val 0.9316 (mượt 0.9312)  <-- best
+[19:48:16] INFO — Epoch 105 | L_cls 0.1079 | L_align 0.0018 | val 0.9311 (mượt 0.9312)
+[19:51:46] INFO — Epoch 107 | L_cls 0.1080 | L_align 0.0017 | val 0.9321 (mượt 0.9315)  <-- best
+[19:55:11] INFO — Epoch 109 | L_cls 0.1075 | L_align 0.0017 | val 0.9315 (mượt 0.9315)  <-- best
+[19:56:56] INFO — Epoch 110 | L_cls 0.1078 | L_align 0.0018 | val 0.9314 (mượt 0.9315)
+[19:58:41] INFO — Epoch 111 | L_cls 0.1076 | L_align 0.0017 | val 0.9324 (mượt 0.9318)  <-- best
+[20:02:13] INFO — Epoch 113 | L_cls 0.1075 | L_align 0.0018 | val 0.9322 (mượt 0.9319)  <-- best
+[20:05:41] INFO — Epoch 115 | L_cls 0.1068 | L_align 0.0017 | val 0.9307 (mượt 0.9312)
+[20:14:29] INFO — Epoch 120 | L_cls 0.1074 | L_align 0.0018 | val 0.9324 (mượt 0.9316)
+[20:14:35] INFO — == KẾT QUẢ TEST (ATAEdgeGAT) ==
+  Accuracy : 0.9724
+  Macro-F1 : 0.9358
+  ------------------------------------------------------------
+  Class           Prec   Recall       F1   Support
+  Normal         0.996    0.972    0.984     84093
+  blackhole      1.000    1.000    1.000       300
+  clone_id       0.924    0.970    0.947      2045
+  continuous_sinkhole   0.752    0.923    0.829      1809
+  delayed_reply   0.469    0.935    0.625       600
+  dis            1.000    1.000    1.000       300
+  hello_flood    1.000    1.000    1.000       300
+  local_repair   1.000    1.000    1.000       300
+  rank           0.865    1.000    0.928       840
+  replay         1.000    1.000    1.000       300
+  selective_forward   1.000    1.000    1.000       300
+  sinkhole       0.942    0.984    0.963      2240
+  sybil          0.866    0.959    0.910      2167
+  version        0.765    0.987    0.862       300
+  wormhole       0.871    0.987    0.925      2385
+  worst_parent   1.000    1.000    1.000       300
+[20:14:35] INFO —
+  ĐÁNH GIÁ NHỊ PHÂN (tấn công / bình thường)
+  ----------------------------------------------------------
+  Accuracy              0.9729
+  Macro-F1 (2 lớp)      0.9489
+  F1 lớp TẤN CÔNG       0.9138
+  F1 lớp Bình thường    0.9839
+  Precision (tấn công)  0.8590
+  Recall (tấn công)     0.9760
+  MCC                   +0.9004
+  ----------------------------------------------------------
+  Tỉ lệ báo động sai    0.0276   (2,321 / 84,093 nút bình thường)
+  Tỉ lệ bỏ lọt          0.0240   (347 / 14,486 nút tấn công)
+  ----------------------------------------------------------
+  Ma trận nhầm lẫn 2x2:  TN=81,772  FP=2,321  FN=347  TP=14,139
+  Lưu ý: chỉ số nhị phân LUÔN cao hơn macro-F1 đa lớp vì phép gộp
+  xoá bỏ lỗi nhầm GIỮA các loại tấn công. Phải đọc cùng nhau.
+[20:14:35] INFO — Best val macro-F1 (đã làm mượt) = 0.9319 tại epoch 113
+[20:14:35] INFO — Đã lưu -> ck_gat_ata_radar
+
+F:\tham khao\sdh241\hk5\de an tot nghiep\GAT_NEGAT_IDS_ATA>python scripts/train_ata.py --data-dir data/radar_chrono --arch negat --K3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --epochs 120 --ckpt-dir ck_negat_ata_radar
+[20:24:45] INFO — Tải: train=18270 val=2610 test=5220 | d_n=29 d_e=10 | 16 lớp
+[20:24:45] INFO — Khoảng cách thời gian gần nhất trung bình δ̄ = 60.500 cửa sổ
+[20:24:45] INFO — ATA: 3 miền thời gian (quantile) trên 87 tệp | số đồ thị mỗi miền: [6090, 6090, 6090]
+  NE-GAT-IDS: 62,224 tham số  |  chiếu đầu vào 1,704 · kênh NÚT 14,400 · kênh CẠNH 10,656 · hợp nhất 13,968 · cập nhật cạnh 5,808 · bộ phân loại 15,088
+[20:24:45] INFO — ATA-NEGAT: 62224 tham số | K=3 λ_d=0.5 disc=mmd chiến lược=quantile
+[20:24:49] INFO — Loss long-tail: cb_focal | counts(min=369,max=306868)
+F:\tham khao\sdh241\hk5\de an tot nghiep\GAT_NEGAT_IDS_ATA\scripts\train_ata.py:246: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\torch\csrc\autograd\generated\python_variable_methods.cpp:839.)
+  s_cls += float(loss_cls); s_ali += float(loss_ali)
+[20:25:47] INFO — Epoch   1 | L_cls 0.4830 | L_align 0.0004 | val 0.0576 (mượt 0.0576)  <-- best
+[20:27:43] INFO — Epoch   3 | L_cls 0.2934 | L_align 0.0041 | val 0.1639 (mượt 0.1001)  <-- best
+[20:28:44] INFO — Epoch   4 | L_cls 0.2617 | L_align 0.0053 | val 0.2459 (mượt 0.1584)  <-- best
+[20:29:45] INFO — Epoch   5 | L_cls 0.2289 | L_align 0.0057 | val 0.3506 (mượt 0.2353)  <-- best
+[20:30:45] INFO — Epoch   6 | L_cls 0.2068 | L_align 0.0054 | val 0.3844 (mượt 0.2949)  <-- best
+[20:31:46] INFO — Epoch   7 | L_cls 0.1867 | L_align 0.0055 | val 0.5890 (mượt 0.4126)  <-- best
+[20:32:47] INFO — Epoch   8 | L_cls 0.1758 | L_align 0.0052 | val 0.7110 (mượt 0.5319)  <-- best
+[20:33:49] INFO — Epoch   9 | L_cls 0.1671 | L_align 0.0050 | val 0.7706 (mượt 0.6274)  <-- best
+[20:34:50] INFO — Epoch  10 | L_cls 0.1614 | L_align 0.0048 | val 0.7752 (mượt 0.6865)  <-- best
+[20:35:53] INFO — Epoch  11 | L_cls 0.1561 | L_align 0.0049 | val 0.8181 (mượt 0.7392)  <-- best
+[20:36:57] INFO — Epoch  12 | L_cls 0.1514 | L_align 0.0047 | val 0.8262 (mượt 0.7740)  <-- best
+[20:38:14] INFO — Epoch  13 | L_cls 0.1471 | L_align 0.0046 | val 0.8308 (mượt 0.7967)  <-- best
+[20:40:25] INFO — Epoch  14 | L_cls 0.1434 | L_align 0.0046 | val 0.8401 (mượt 0.8140)  <-- best
+[20:42:32] INFO — Epoch  15 | L_cls 0.1415 | L_align 0.0045 | val 0.8444 (mượt 0.8262)  <-- best
+[20:44:41] INFO — Epoch  16 | L_cls 0.1389 | L_align 0.0044 | val 0.8472 (mượt 0.8346)  <-- best
+[20:46:55] INFO — Epoch  17 | L_cls 0.1367 | L_align 0.0044 | val 0.8488 (mượt 0.8403)  <-- best
+[20:49:05] INFO — Epoch  18 | L_cls 0.1349 | L_align 0.0042 | val 0.8496 (mượt 0.8440)  <-- best
+[20:50:54] INFO — Epoch  19 | L_cls 0.1322 | L_align 0.0042 | val 0.8857 (mượt 0.8607)  <-- best
+[20:53:03] INFO — Epoch  20 | L_cls 0.1297 | L_align 0.0042 | val 0.8962 (mượt 0.8749)  <-- best
+[20:55:24] INFO — Epoch  21 | L_cls 0.1276 | L_align 0.0043 | val 0.9128 (mượt 0.8901)  <-- best
+[20:57:38] INFO — Epoch  22 | L_cls 0.1260 | L_align 0.0043 | val 0.9131 (mượt 0.8993)  <-- best
+[20:59:58] INFO — Epoch  23 | L_cls 0.1250 | L_align 0.0042 | val 0.9136 (mượt 0.9050)  <-- best
+[21:02:15] INFO — Epoch  24 | L_cls 0.1243 | L_align 0.0041 | val 0.9151 (mượt 0.9090)  <-- best
+[21:04:37] INFO — Epoch  25 | L_cls 0.1219 | L_align 0.0041 | val 0.9195 (mượt 0.9132)  <-- best
+[21:07:00] INFO — Epoch  26 | L_cls 0.1205 | L_align 0.0039 | val 0.9223 (mượt 0.9169)  <-- best
+[21:09:18] INFO — Epoch  27 | L_cls 0.1207 | L_align 0.0039 | val 0.9259 (mượt 0.9205)  <-- best
+[21:11:39] INFO — Epoch  28 | L_cls 0.1203 | L_align 0.0038 | val 0.9273 (mượt 0.9232)  <-- best
+[21:13:44] INFO — Epoch  29 | L_cls 0.1185 | L_align 0.0037 | val 0.9265 (mượt 0.9245)  <-- best
+[21:15:59] INFO — Epoch  30 | L_cls 0.1184 | L_align 0.0036 | val 0.9257 (mượt 0.9250)  <-- best
+[21:22:52] INFO — Epoch  33 | L_cls 0.1162 | L_align 0.0034 | val 0.9266 (mượt 0.9256)  <-- best
+[21:25:07] INFO — Epoch  34 | L_cls 0.1151 | L_align 0.0035 | val 0.9273 (mượt 0.9263)  <-- best
+[21:27:19] INFO — Epoch  35 | L_cls 0.1149 | L_align 0.0034 | val 0.9299 (mượt 0.9277)  <-- best
+[21:29:36] INFO — Epoch  36 | L_cls 0.1150 | L_align 0.0033 | val 0.9294 (mượt 0.9284)  <-- best
+[21:34:05] INFO — Epoch  38 | L_cls 0.1126 | L_align 0.0032 | val 0.9291 (mượt 0.9286)  <-- best
+[21:38:29] INFO — Epoch  40 | L_cls 0.1133 | L_align 0.0032 | val 0.9301 (mượt 0.9291)  <-- best
+[21:49:33] INFO — Epoch  45 | L_cls 0.1102 | L_align 0.0030 | val 0.9292 (mượt 0.9281)
+[22:00:11] INFO — Epoch  50 | L_cls 0.1093 | L_align 0.0028 | val 0.9282 (mượt 0.9287)
+[22:06:35] INFO — Epoch  53 | L_cls 0.1083 | L_align 0.0027 | val 0.9306 (mượt 0.9295)  <-- best
+[22:08:47] INFO — Epoch  54 | L_cls 0.1072 | L_align 0.0027 | val 0.9308 (mượt 0.9300)  <-- best
+[22:11:03] INFO — Epoch  55 | L_cls 0.1077 | L_align 0.0026 | val 0.9303 (mượt 0.9301)  <-- best
+[22:12:00] INFO — Epoch  56 | L_cls 0.1072 | L_align 0.0026 | val 0.9304 (mượt 0.9302)  <-- best
+[22:12:57] INFO — Epoch  57 | L_cls 0.1066 | L_align 0.0026 | val 0.9316 (mượt 0.9308)  <-- best
+[22:14:56] INFO — Epoch  59 | L_cls 0.1066 | L_align 0.0025 | val 0.9309 (mượt 0.9308)  <-- best
+[22:16:19] INFO — Epoch  60 | L_cls 0.1066 | L_align 0.0025 | val 0.9298 (mượt 0.9304)
+[22:18:28] INFO — Epoch  61 | L_cls 0.1061 | L_align 0.0023 | val 0.9315 (mượt 0.9309)  <-- best
+[22:20:35] INFO — Epoch  62 | L_cls 0.1062 | L_align 0.0024 | val 0.9310 (mượt 0.9309)  <-- best
+[22:22:41] INFO — Epoch  63 | L_cls 0.1055 | L_align 0.0024 | val 0.9325 (mượt 0.9316)  <-- best
+[22:24:53] INFO — Epoch  64 | L_cls 0.1054 | L_align 0.0023 | val 0.9329 (mượt 0.9321)  <-- best
+[22:27:01] INFO — Epoch  65 | L_cls 0.1057 | L_align 0.0023 | val 0.9331 (mượt 0.9325)  <-- best
+[22:37:34] INFO — Epoch  70 | L_cls 0.1042 | L_align 0.0022 | val 0.9335 (mượt 0.9328)  <-- best
+[22:39:35] INFO — Epoch  71 | L_cls 0.1043 | L_align 0.0021 | val 0.9337 (mượt 0.9332)  <-- best
+[22:41:39] INFO — Epoch  72 | L_cls 0.1039 | L_align 0.0021 | val 0.9338 (mượt 0.9334)  <-- best
+[22:43:13] INFO — Epoch  73 | L_cls 0.1039 | L_align 0.0020 | val 0.9342 (mượt 0.9337)  <-- best
+[22:47:37] INFO — Epoch  75 | L_cls 0.1033 | L_align 0.0020 | val 0.9344 (mượt 0.9339)  <-- best
+[22:49:41] INFO — Epoch  76 | L_cls 0.1034 | L_align 0.0020 | val 0.9342 (mượt 0.9340)  <-- best
+[22:52:00] INFO — Epoch  77 | L_cls 0.1030 | L_align 0.0020 | val 0.9348 (mượt 0.9343)  <-- best
+[22:58:31] INFO — Epoch  80 | L_cls 0.1032 | L_align 0.0019 | val 0.9361 (mượt 0.9349)  <-- best
+[23:00:37] INFO — Epoch  81 | L_cls 0.1028 | L_align 0.0019 | val 0.9362 (mượt 0.9354)  <-- best
+[23:02:45] INFO — Epoch  82 | L_cls 0.1023 | L_align 0.0019 | val 0.9386 (mượt 0.9367)  <-- best
+[23:04:54] INFO — Epoch  83 | L_cls 0.1023 | L_align 0.0019 | val 0.9381 (mượt 0.9373)  <-- best
+[23:07:02] INFO — Epoch  84 | L_cls 0.1019 | L_align 0.0019 | val 0.9414 (mượt 0.9389)  <-- best
+[23:09:09] INFO — Epoch  85 | L_cls 0.1021 | L_align 0.0018 | val 0.9412 (mượt 0.9398)  <-- best
+[23:11:15] INFO — Epoch  86 | L_cls 0.1021 | L_align 0.0018 | val 0.9405 (mượt 0.9401)  <-- best
+[23:13:22] INFO — Epoch  87 | L_cls 0.1018 | L_align 0.0018 | val 0.9431 (mượt 0.9413)  <-- best
+[23:15:30] INFO — Epoch  88 | L_cls 0.1014 | L_align 0.0018 | val 0.9428 (mượt 0.9419)  <-- best
+[23:17:37] INFO — Epoch  89 | L_cls 0.1016 | L_align 0.0017 | val 0.9420 (mượt 0.9420)  <-- best
+[23:19:44] INFO — Epoch  90 | L_cls 0.1016 | L_align 0.0017 | val 0.9411 (mượt 0.9416)
+[23:23:58] INFO — Epoch  92 | L_cls 0.1012 | L_align 0.0017 | val 0.9447 (mượt 0.9429)  <-- best
+[23:25:58] INFO — Epoch  93 | L_cls 0.1013 | L_align 0.0017 | val 0.9466 (mượt 0.9444)  <-- best
+[23:30:14] INFO — Epoch  95 | L_cls 0.1006 | L_align 0.0017 | val 0.9396 (mượt 0.9417)
+[23:39:58] INFO — Epoch 100 | L_cls 0.1005 | L_align 0.0016 | val 0.9409 (mượt 0.9406)
+[23:49:59] INFO — Epoch 105 | L_cls 0.1000 | L_align 0.0016 | val 0.9425 (mượt 0.9421)
+[23:57:56] INFO — Epoch 110 | L_cls 0.0997 | L_align 0.0016 | val 0.9430 (mượt 0.9427)
+[00:08:56] INFO — Epoch 115 | L_cls 0.0997 | L_align 0.0016 | val 0.9421 (mượt 0.9423)
+[00:19:12] INFO — Epoch 120 | L_cls 0.0993 | L_align 0.0015 | val 0.9430 (mượt 0.9424)
+[00:19:17] INFO — == KẾT QUẢ TEST (ATA-NEGAT) ==
+  Accuracy : 0.9773
+  Macro-F1 : 0.9440
+  ------------------------------------------------------------
+  Class           Prec   Recall       F1   Support
+  Normal         0.996    0.978    0.987     84093
+  blackhole      1.000    1.000    1.000       300
+  clone_id       0.947    0.986    0.966      2045
+  continuous_sinkhole   0.825    0.939    0.878      1809
+  delayed_reply   0.493    0.945    0.648       600
+  dis            1.000    1.000    1.000       300
+  hello_flood    1.000    1.000    1.000       300
+  local_repair   1.000    0.997    0.998       300
+  rank           0.932    0.988    0.959       840
+  replay         1.000    0.997    0.998       300
+  selective_forward   1.000    0.997    0.998       300
+  sinkhole       0.912    0.992    0.950      2240
+  sybil          0.924    0.946    0.935      2167
+  version        0.789    0.937    0.857       300
+  wormhole       0.883    0.977    0.928      2385
+  worst_parent   1.000    1.000    1.000       300
+[00:19:17] INFO —
+  ĐÁNH GIÁ NHỊ PHÂN (tấn công / bình thường)
+  ----------------------------------------------------------
+  Accuracy              0.9777
+  Macro-F1 (2 lớp)      0.9573
+  F1 lớp TẤN CÔNG       0.9277
+  F1 lớp Bình thường    0.9868
+  Precision (tấn công)  0.8845
+  Recall (tấn công)     0.9755
+  MCC                   +0.9161
+  ----------------------------------------------------------
+  Tỉ lệ báo động sai    0.0220   (1,846 / 84,093 nút bình thường)
+  Tỉ lệ bỏ lọt          0.0245   (355 / 14,486 nút tấn công)
+  ----------------------------------------------------------
+  Ma trận nhầm lẫn 2x2:  TN=82,247  FP=1,846  FN=355  TP=14,131
+  Lưu ý: chỉ số nhị phân LUÔN cao hơn macro-F1 đa lớp vì phép gộp
+  xoá bỏ lỗi nhầm GIỮA các loại tấn công. Phải đọc cùng nhau.
+[00:19:17] INFO — Best val macro-F1 (đã làm mượt) = 0.9444 tại epoch 93
+[00:19:17] INFO — Đã lưu -> ck_negat_ata_radar
+
+F:\tham khao\sdh241\hk5\de an tot nghiep\GAT_NEGAT_IDS_ATA>python scripts/test_all.py  --data-dir data/radar_chrono
+[00:43:31] INFO — Test set: 5220 graph | 16 lớp
+[00:43:31] INFO —
+============================================================
+[00:43:31] INFO — >>> Testing: RF
+[00:43:43] INFO —   Accuracy: 0.9593 | Macro-F1: 0.8826 | Predict time: 0.832s
+[00:43:43] INFO —   SO SÁNH VỚI NHÃN THẬT (ground truth):
+[00:43:43] INFO —
+    Normal                 total= 84093  correct= 83362  wrong=  731  acc=0.991  F1=0.979
+    blackhole              total=   300  correct=   300  wrong=    0  acc=1.000  F1=1.000
+    clone_id               total=  2045  correct=  1742  wrong=  303  acc=0.852  F1=0.890
+    continuous_sinkhole    total=  1809  correct=  1276  wrong=  533  acc=0.705  F1=0.783
+    delayed_reply          total=   600  correct=   145  wrong=  455  acc=0.242  F1=0.326
+    dis                    total=   300  correct=   300  wrong=    0  acc=1.000  F1=1.000
+    hello_flood            total=   300  correct=   300  wrong=    0  acc=1.000  F1=1.000
+    local_repair           total=   300  correct=   300  wrong=    0  acc=1.000  F1=1.000
+    rank                   total=   840  correct=   633  wrong=  207  acc=0.754  F1=0.803
+    replay                 total=   300  correct=   296  wrong=    4  acc=0.987  F1=0.993
+    selective_forward      total=   300  correct=   300  wrong=    0  acc=1.000  F1=1.000
+    sinkhole               total=  2240  correct=  1889  wrong=  351  acc=0.843  F1=0.884
+    sybil                  total=  2167  correct=  1791  wrong=  376  acc=0.826  F1=0.854
+    version                total=   300  correct=   255  wrong=   45  acc=0.850  F1=0.916
+    wormhole               total=  2385  correct=  1373  wrong= 1012  acc=0.576  F1=0.694
+    worst_parent           total=   300  correct=   300  wrong=    0  acc=1.000  F1=1.000
+[00:43:43] INFO —
+============================================================
+[00:43:43] INFO — >>> Testing: XGBoost
+[00:43:53] INFO —   Accuracy: 0.9674 | Macro-F1: 0.8892 | Predict time: 0.860s
+[00:43:53] INFO —   SO SÁNH VỚI NHÃN THẬT (ground truth):
+[00:43:53] INFO —
+    Normal                 total= 84093  correct= 83805  wrong=  288  acc=0.997  F1=0.983
+    blackhole              total=   300  correct=   300  wrong=    0  acc=1.000  F1=1.000
+    clone_id               total=  2045  correct=  1767  wrong=  278  acc=0.864  F1=0.902
+    continuous_sinkhole    total=  1809  correct=  1319  wrong=  490  acc=0.729  F1=0.826
+    delayed_reply          total=   600  correct=    43  wrong=  557  acc=0.072  F1=0.125
+    dis                    total=   300  correct=   300  wrong=    0  acc=1.000  F1=0.998
+    hello_flood            total=   300  correct=   300  wrong=    0  acc=1.000  F1=1.000
+    local_repair           total=   300  correct=   300  wrong=    0  acc=1.000  F1=0.998
+    rank                   total=   840  correct=   604  wrong=  236  acc=0.719  F1=0.831
+    replay                 total=   300  correct=   300  wrong=    0  acc=1.000  F1=1.000
+    selective_forward      total=   300  correct=   300  wrong=    0  acc=1.000  F1=1.000
+    sinkhole               total=  2240  correct=  1906  wrong=  334  acc=0.851  F1=0.918
+    sybil                  total=  2167  correct=  1973  wrong=  194  acc=0.910  F1=0.896
+    version                total=   300  correct=   296  wrong=    4  acc=0.987  F1=0.993
+    wormhole               total=  2385  correct=  1557  wrong=  828  acc=0.653  F1=0.769
+    worst_parent           total=   300  correct=   297  wrong=    3  acc=0.990  F1=0.985
+[00:43:53] INFO —
+============================================================
+[00:43:53] INFO — >>> Testing: LightGBM
+[00:44:09] INFO —   Accuracy: 0.8221 | Macro-F1: 0.4728 | Predict time: 7.249s
+[00:44:09] INFO —   SO SÁNH VỚI NHÃN THẬT (ground truth):
+[00:44:09] INFO —
+    Normal                 total= 84093  correct= 73354  wrong=10739  acc=0.872  F1=0.906
+    blackhole              total=   300  correct=   136  wrong=  164  acc=0.453  F1=0.493
+    clone_id               total=  2045  correct=  1444  wrong=  601  acc=0.706  F1=0.548
+    continuous_sinkhole    total=  1809  correct=   649  wrong= 1160  acc=0.359  F1=0.269
+    delayed_reply          total=   600  correct=    84  wrong=  516  acc=0.140  F1=0.155
+    dis                    total=   300  correct=   143  wrong=  157  acc=0.477  F1=0.524
+    hello_flood            total=   300  correct=   201  wrong=   99  acc=0.670  F1=0.535
+    local_repair           total=   300  correct=   193  wrong=  107  acc=0.643  F1=0.510
+    rank                   total=   840  correct=   327  wrong=  513  acc=0.389  F1=0.257
+    replay                 total=   300  correct=   286  wrong=   14  acc=0.953  F1=0.657
+    selective_forward      total=   300  correct=   188  wrong=  112  acc=0.627  F1=0.477
+    sinkhole               total=  2240  correct=  1416  wrong=  824  acc=0.632  F1=0.654
+    sybil                  total=  2167  correct=  1172  wrong=  995  acc=0.541  F1=0.416
+    version                total=   300  correct=    98  wrong=  202  acc=0.327  F1=0.227
+    wormhole               total=  2385  correct=  1164  wrong= 1221  acc=0.488  F1=0.405
+    worst_parent           total=   300  correct=   185  wrong=  115  acc=0.617  F1=0.532
+[00:44:09] INFO —
+============================================================
+[00:44:09] INFO — >>> Testing: MLP
+[00:44:10] INFO —   Accuracy: 0.9117 | Macro-F1: 0.7689 | Predict time: 0.725s
+[00:44:10] INFO —   SO SÁNH VỚI NHÃN THẬT (ground truth):
+[00:44:10] INFO —
+    Normal                 total= 84093  correct= 80844  wrong= 3249  acc=0.961  F1=0.955
+    blackhole              total=   300  correct=   300  wrong=    0  acc=1.000  F1=1.000
+    clone_id               total=  2045  correct=  1704  wrong=  341  acc=0.833  F1=0.769
+    continuous_sinkhole    total=  1809  correct=   715  wrong= 1094  acc=0.395  F1=0.507
+    delayed_reply          total=   600  correct=   195  wrong=  405  acc=0.325  F1=0.296
+    dis                    total=   300  correct=   300  wrong=    0  acc=1.000  F1=1.000
+    hello_flood            total=   300  correct=   300  wrong=    0  acc=1.000  F1=1.000
+    local_repair           total=   300  correct=   299  wrong=    1  acc=0.997  F1=0.998
+    rank                   total=   840  correct=   299  wrong=  541  acc=0.356  F1=0.523
+    replay                 total=   300  correct=   300  wrong=    0  acc=1.000  F1=0.993
+    selective_forward      total=   300  correct=   294  wrong=    6  acc=0.980  F1=0.970
+    sinkhole               total=  2240  correct=  1866  wrong=  374  acc=0.833  F1=0.848
+    sybil                  total=  2167  correct=  1287  wrong=  880  acc=0.594  F1=0.617
+    version                total=   300  correct=   124  wrong=  176  acc=0.413  F1=0.518
+    wormhole               total=  2385  correct=   749  wrong= 1636  acc=0.314  F1=0.312
+    worst_parent           total=   300  correct=   300  wrong=    0  acc=1.000  F1=0.995
+[00:44:10] INFO —
+============================================================
+[00:44:10] INFO — >>> Testing: GCN
+[00:44:11] INFO —   Accuracy: 0.8733 | Macro-F1: 0.7454 | Predict time: 0.856s
+[00:44:11] INFO —   SO SÁNH VỚI NHÃN THẬT (ground truth):
+[00:44:11] INFO —
+    Normal                 total= 84093  correct= 74403  wrong= 9690  acc=0.885  F1=0.925
+    blackhole              total=   300  correct=   298  wrong=    2  acc=0.993  F1=0.977
+    clone_id               total=  2045  correct=  1944  wrong=  101  acc=0.951  F1=0.744
+    continuous_sinkhole    total=  1809  correct=  1302  wrong=  507  acc=0.720  F1=0.605
+    delayed_reply          total=   600  correct=   471  wrong=  129  acc=0.785  F1=0.481
+    dis                    total=   300  correct=   299  wrong=    1  acc=0.997  F1=0.881
+    hello_flood            total=   300  correct=   284  wrong=   16  acc=0.947  F1=0.865
+    local_repair           total=   300  correct=   299  wrong=    1  acc=0.997  F1=0.927
+    rank                   total=   840  correct=   599  wrong=  241  acc=0.713  F1=0.724
+    replay                 total=   300  correct=   213  wrong=   87  acc=0.710  F1=0.667
+    selective_forward      total=   300  correct=   300  wrong=    0  acc=1.000  F1=1.000
+    sinkhole               total=  2240  correct=  1869  wrong=  371  acc=0.834  F1=0.608
+    sybil                  total=  2167  correct=  1622  wrong=  545  acc=0.749  F1=0.695
+    version                total=   300  correct=   196  wrong=  104  acc=0.653  F1=0.591
+    wormhole               total=  2385  correct=  1702  wrong=  683  acc=0.714  F1=0.487
+    worst_parent           total=   300  correct=   292  wrong=    8  acc=0.973  F1=0.751
+[00:44:11] INFO —
+============================================================
+[00:44:11] INFO — >>> Testing: E-GraphSAGE
+[00:44:12] INFO —   Accuracy: 0.9527 | Macro-F1: 0.8978 | Predict time: 0.830s
+[00:44:12] INFO —   SO SÁNH VỚI NHÃN THẬT (ground truth):
+[00:44:12] INFO —
+    Normal                 total= 84093  correct= 81262  wrong= 2831  acc=0.966  F1=0.974
+    blackhole              total=   300  correct=   300  wrong=    0  acc=1.000  F1=1.000
+    clone_id               total=  2045  correct=  1898  wrong=  147  acc=0.928  F1=0.902
+    continuous_sinkhole    total=  1809  correct=  1430  wrong=  379  acc=0.790  F1=0.749
+    delayed_reply          total=   600  correct=   567  wrong=   33  acc=0.945  F1=0.620
+    dis                    total=   300  correct=   300  wrong=    0  acc=1.000  F1=1.000
+    hello_flood            total=   300  correct=   300  wrong=    0  acc=1.000  F1=0.995
+    local_repair           total=   300  correct=   298  wrong=    2  acc=0.993  F1=0.997
+    rank                   total=   840  correct=   597  wrong=  243  acc=0.711  F1=0.801
+    replay                 total=   300  correct=   300  wrong=    0  acc=1.000  F1=0.998
+    selective_forward      total=   300  correct=   300  wrong=    0  acc=1.000  F1=1.000
+    sinkhole               total=  2240  correct=  1899  wrong=  341  acc=0.848  F1=0.865
+    sybil                  total=  2167  correct=  1899  wrong=  268  acc=0.876  F1=0.841
+    version                total=   300  correct=   260  wrong=   40  acc=0.867  F1=0.871
+    wormhole               total=  2385  correct=  2009  wrong=  376  acc=0.842  F1=0.756
+    worst_parent           total=   300  correct=   298  wrong=    2  acc=0.993  F1=0.997
+[00:44:12] INFO —
+============================================================
+[00:44:12] INFO — >>> Testing: EdgeGAT
+[00:44:15] INFO —   Accuracy: 0.9724 | Macro-F1: 0.9358 | Predict time: 3.352s
+[00:44:15] INFO —   SO SÁNH VỚI NHÃN THẬT (ground truth):
+[00:44:15] INFO —
+    Normal                 total= 84093  correct= 81772  wrong= 2321  acc=0.972  F1=0.984
+    blackhole              total=   300  correct=   300  wrong=    0  acc=1.000  F1=1.000
+    clone_id               total=  2045  correct=  1983  wrong=   62  acc=0.970  F1=0.947
+    continuous_sinkhole    total=  1809  correct=  1670  wrong=  139  acc=0.923  F1=0.829
+    delayed_reply          total=   600  correct=   561  wrong=   39  acc=0.935  F1=0.625
+    dis                    total=   300  correct=   300  wrong=    0  acc=1.000  F1=1.000
+    hello_flood            total=   300  correct=   300  wrong=    0  acc=1.000  F1=1.000
+    local_repair           total=   300  correct=   300  wrong=    0  acc=1.000  F1=1.000
+    rank                   total=   840  correct=   840  wrong=    0  acc=1.000  F1=0.928
+    replay                 total=   300  correct=   300  wrong=    0  acc=1.000  F1=1.000
+    selective_forward      total=   300  correct=   300  wrong=    0  acc=1.000  F1=1.000
+    sinkhole               total=  2240  correct=  2205  wrong=   35  acc=0.984  F1=0.963
+    sybil                  total=  2167  correct=  2078  wrong=   89  acc=0.959  F1=0.910
+    version                total=   300  correct=   296  wrong=    4  acc=0.987  F1=0.862
+    wormhole               total=  2385  correct=  2354  wrong=   31  acc=0.987  F1=0.925
+    worst_parent           total=   300  correct=   300  wrong=    0  acc=1.000  F1=1.000
+[00:44:15] INFO —
+============================================================
+[00:44:15] INFO — >>> Testing: NE-GAT
+[00:44:19] INFO —   Accuracy: 0.9773 | Macro-F1: 0.9440 | Predict time: 3.079s
+[00:44:19] INFO —   SO SÁNH VỚI NHÃN THẬT (ground truth):
+[00:44:19] INFO —
+    Normal                 total= 84093  correct= 82247  wrong= 1846  acc=0.978  F1=0.987
+    blackhole              total=   300  correct=   300  wrong=    0  acc=1.000  F1=1.000
+    clone_id               total=  2045  correct=  2017  wrong=   28  acc=0.986  F1=0.966
+    continuous_sinkhole    total=  1809  correct=  1699  wrong=  110  acc=0.939  F1=0.878
+    delayed_reply          total=   600  correct=   567  wrong=   33  acc=0.945  F1=0.648
+    dis                    total=   300  correct=   300  wrong=    0  acc=1.000  F1=1.000
+    hello_flood            total=   300  correct=   300  wrong=    0  acc=1.000  F1=1.000
+    local_repair           total=   300  correct=   299  wrong=    1  acc=0.997  F1=0.998
+    rank                   total=   840  correct=   830  wrong=   10  acc=0.988  F1=0.959
+    replay                 total=   300  correct=   299  wrong=    1  acc=0.997  F1=0.998
+    selective_forward      total=   300  correct=   299  wrong=    1  acc=0.997  F1=0.998
+    sinkhole               total=  2240  correct=  2223  wrong=   17  acc=0.992  F1=0.950
+    sybil                  total=  2167  correct=  2051  wrong=  116  acc=0.946  F1=0.935
+    version                total=   300  correct=   281  wrong=   19  acc=0.937  F1=0.857
+    wormhole               total=  2385  correct=  2330  wrong=   55  acc=0.977  F1=0.928
+    worst_parent           total=   300  correct=   300  wrong=    0  acc=1.000  F1=1.000
+[00:44:19] INFO —
+======================================================================
+[00:44:19] INFO — BẢNG SO SÁNH 8 MODELS — GROUND TRUTH VERIFICATION
+[00:44:19] INFO — ======================================================================
+[00:44:19] INFO —   Model                 Acc    MacroF1     Params    Pred(s)
+[00:44:19] INFO —   ----------------------------------------------------------
+[00:44:19] INFO —   RF                 0.9593     0.8826       tree      0.832
+[00:44:19] INFO —   XGBoost            0.9674     0.8892       tree      0.860
+[00:44:19] INFO —   LightGBM           0.8221     0.4728       tree      7.249
+[00:44:19] INFO —   MLP                0.9117     0.7689       6147      0.725
+[00:44:19] INFO —   GCN                0.8733     0.7454       3698      0.856
+[00:44:19] INFO —   E-GraphSAGE        0.9527     0.8978      10834      0.830
+[00:44:19] INFO —   EdgeGAT            0.9724     0.9358     103956      3.352
+[00:44:19] INFO —   NE-GAT             0.9773     0.9440      62224      3.079
+[00:44:19] INFO —
+  XẾP HẠNG:
+[00:44:19] INFO —     #1 NE-GAT           macroF1=0.9440
+[00:44:19] INFO —     #2 EdgeGAT          macroF1=0.9358
+[00:44:19] INFO —     #3 E-GraphSAGE      macroF1=0.8978
+[00:44:19] INFO —     #4 XGBoost          macroF1=0.8892
+[00:44:19] INFO —     #5 RF               macroF1=0.8826
+[00:44:19] INFO —     #6 MLP              macroF1=0.7689
+[00:44:19] INFO —     #7 GCN              macroF1=0.7454
+[00:44:19] INFO —     #8 LightGBM         macroF1=0.4728
+[00:44:19] INFO —
+  GROUND TRUTH tổng (#1 NE-GAT):
+[00:44:19] INFO —     Tổng node test: 98579 | Đúng: 96342 | Sai: 2237 | Accuracy: 0.9773
+[00:44:19] INFO —
+Đã lưu -> test_comparison.json
+[00:44:19] INFO — Đã lưu bản sao -> checkpoints\test_comparison.json
+[00:44:19] INFO — ═══ BƯỚC 3 HOÀN TẤT ═══
+
+
