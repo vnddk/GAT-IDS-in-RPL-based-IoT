@@ -1,0 +1,64 @@
+
+F:\tham khao\sdh241\hk5\de an tot nghiep\gat_ids_CMT>python scripts/run_all_viz.py --data-dir data/rplguard_chrono --ckpt-dir checkpoints_rplguard --gt-dir ck_gtids_rplguard --out-dir viz/rplguard --tag rplguard
+[08:50:16] INFO — Bộ rplguard | test = 90 đồ thị | 3 lớp
+[08:50:16] INFO —
+==============================================================
+[08:50:16] INFO — >>> RF
+[08:50:18] INFO —   ma trận nhầm lẫn -> cm_rplguard_RF.png
+[08:50:22] INFO —   t-SNE (tầng cuối, 1 bảng) -> tsne_rplguard_RF.png
+[08:50:22] INFO —
+==============================================================
+[08:50:22] INFO — >>> XGBoost
+[08:50:23] INFO —   ma trận nhầm lẫn -> cm_rplguard_XGBoost.png
+[08:50:24] INFO —   t-SNE (tầng cuối, 1 bảng) -> tsne_rplguard_XGBoost.png
+[08:50:24] INFO —
+==============================================================
+[08:50:24] INFO — >>> LightGBM
+[08:50:25] INFO —   ma trận nhầm lẫn -> cm_rplguard_LightGBM.png
+[08:50:27] INFO —   t-SNE (tầng cuối, 1 bảng) -> tsne_rplguard_LightGBM.png
+[08:50:27] INFO —
+==============================================================
+[08:50:27] INFO — >>> MLP
+[08:50:27] INFO —   ma trận nhầm lẫn -> cm_rplguard_MLP.png
+[08:50:30] INFO —   t-SNE (tầng cuối, 1 bảng) -> tsne_rplguard_MLP.png
+[08:50:30] INFO —
+==============================================================
+[08:50:30] INFO — >>> GCN
+[08:50:30] INFO —   ma trận nhầm lẫn -> cm_rplguard_GCN.png
+[08:50:35] INFO —   t-SNE (tầng cuối, 1 bảng) -> tsne_rplguard_GCN.png
+[08:50:35] INFO —
+==============================================================
+[08:50:35] INFO — >>> E-GraphSAGE
+[08:50:35] INFO —   ma trận nhầm lẫn -> cm_rplguard_E-GraphSAGE.png
+[08:50:38] INFO —   t-SNE (tầng cuối, 1 bảng) -> tsne_rplguard_E-GraphSAGE.png
+[08:50:38] INFO —
+==============================================================
+[08:50:38] INFO — >>> GAT-Transformer
+[08:50:38] WARNING —   bỏ qua (chưa huấn luyện hoặc thiếu tệp)
+[08:50:38] INFO —
+==============================================================
+[08:50:38] INFO — >>> EdgeGAT
+[08:50:39] INFO —   ma trận nhầm lẫn -> cm_rplguard_EdgeGAT.png
+[08:50:48] INFO —   t-SNE (từng tầng, 3 bảng) -> tsne_rplguard_EdgeGAT.png
+[08:50:48] INFO —
+==============================================================
+[08:50:48] INFO — >>> NE-GAT
+[08:50:49] INFO —   ma trận nhầm lẫn -> cm_rplguard_NE-GAT.png
+[08:50:59] INFO —   t-SNE (từng tầng, 3 bảng) -> tsne_rplguard_NE-GAT.png
+[08:50:59] INFO —
+==============================================================
+[08:50:59] INFO — TÓM TẮT — bộ rplguard
+[08:50:59] INFO —   mô hình                  Acc  macro-F1 | Normal  blackho greyhol | t-SNE
+[08:50:59] INFO —   LightGBM              0.9963    0.9915 | 0.9980  1.0000  0.9765  | 1 bảng
+[08:50:59] INFO —   NE-GAT                0.9949    0.9880 | 0.9971  1.0000  0.9668  | 3 bảng
+[08:50:59] INFO —   XGBoost               0.9934    0.9844 | 0.9963  1.0000  0.9569  | 1 bảng
+[08:50:59] INFO —   MLP                   0.9890    0.9733 | 0.9939  1.0000  0.9261  | 1 bảng
+[08:50:59] INFO —   E-GraphSAGE           0.9846    0.9640 | 0.9914  1.0000  0.9005  | 1 bảng
+[08:50:59] INFO —   EdgeGAT               0.9525    0.8414 | 0.9733  0.7429  0.8081  | 3 bảng
+[08:50:59] INFO —   RF                    0.9473    0.8261 | 0.9713  1.0000  0.5068  | 1 bảng
+[08:50:59] INFO —   GCN                   0.9020    0.6802 | 0.9456  0.7238  0.3713  | 1 bảng
+[08:50:59] INFO —   ── đối chiếu: yêu cầu 9 | thành công 8 | chưa huấn luyện 1 | LỖI 0
+[08:50:59] WARNING —   chưa huấn luyện: GAT-Transformer
+[08:50:59] INFO — Đã lưu tất cả vào viz/rplguard
+
+F:\tham khao\sdh241\hk5\de an tot nghiep\gat_ids_CMT>

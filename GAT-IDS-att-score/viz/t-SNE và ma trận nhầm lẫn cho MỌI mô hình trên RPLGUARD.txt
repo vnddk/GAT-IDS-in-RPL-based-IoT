@@ -1,0 +1,66 @@
+
+F:\tham khao\sdh241\hk5\de an tot nghiep\gat_ids_cont>python scripts/run_all_viz.py --data-dir data/rplguard_chrono --ckpt-dir checkpoints_rplguard --gt-dir ck_gtids_rplguard --out-dir viz/rplguard --tag rplguard
+[08:36:59] INFO — Bộ rplguard | test = 90 đồ thị | 3 lớp
+[08:36:59] INFO —
+==============================================================
+[08:36:59] INFO — >>> RF
+[08:37:00] INFO —   ma trận nhầm lẫn -> cm_rplguard_RF.png
+[08:37:04] INFO —   t-SNE (tầng cuối, 1 bảng) -> tsne_rplguard_RF.png
+[08:37:04] INFO —
+==============================================================
+[08:37:04] INFO — >>> XGBoost
+[08:37:05] INFO —   ma trận nhầm lẫn -> cm_rplguard_XGBoost.png
+[08:37:07] INFO —   t-SNE (tầng cuối, 1 bảng) -> tsne_rplguard_XGBoost.png
+[08:37:07] INFO —
+==============================================================
+[08:37:07] INFO — >>> LightGBM
+[08:37:07] INFO —   ma trận nhầm lẫn -> cm_rplguard_LightGBM.png
+[08:37:09] INFO —   t-SNE (tầng cuối, 1 bảng) -> tsne_rplguard_LightGBM.png
+[08:37:09] INFO —
+==============================================================
+[08:37:09] INFO — >>> MLP
+[08:37:10] INFO —   ma trận nhầm lẫn -> cm_rplguard_MLP.png
+[08:37:12] INFO —   t-SNE (tầng cuối, 1 bảng) -> tsne_rplguard_MLP.png
+[08:37:12] INFO —
+==============================================================
+[08:37:12] INFO — >>> GCN
+[08:37:12] INFO —   ma trận nhầm lẫn -> cm_rplguard_GCN.png
+[08:37:15] INFO —   t-SNE (tầng cuối, 1 bảng) -> tsne_rplguard_GCN.png
+[08:37:15] INFO —
+==============================================================
+[08:37:15] INFO — >>> E-GraphSAGE
+[08:37:16] INFO —   ma trận nhầm lẫn -> cm_rplguard_E-GraphSAGE.png
+[08:37:19] INFO —   t-SNE (tầng cuối, 1 bảng) -> tsne_rplguard_E-GraphSAGE.png
+[08:37:19] INFO —
+==============================================================
+[08:37:19] INFO — >>> GAT-Transformer
+F:\tham khao\sdh241\hk5\de an tot nghiep\gat_ids_cont\scripts\..\src\models\gat_transformer.py:96: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.norm_first was True
+  self.encoder = nn.TransformerEncoder(enc_layer, num_layers=num_layers)
+[08:37:19] INFO —   ma trận nhầm lẫn -> cm_rplguard_GAT-Transformer.png
+[08:37:22] INFO —   t-SNE (tầng cuối, 1 bảng) -> tsne_rplguard_GAT-Transformer.png
+[08:37:22] INFO —
+==============================================================
+[08:37:22] INFO — >>> EdgeGAT
+[08:37:22] INFO —   ma trận nhầm lẫn -> cm_rplguard_EdgeGAT.png
+[08:37:32] INFO —   t-SNE (từng tầng, 3 bảng) -> tsne_rplguard_EdgeGAT.png
+[08:37:32] INFO —
+==============================================================
+[08:37:32] INFO — >>> NE-GAT
+[08:37:33] INFO —   ma trận nhầm lẫn -> cm_rplguard_NE-GAT.png
+[08:37:43] INFO —   t-SNE (từng tầng, 3 bảng) -> tsne_rplguard_NE-GAT.png
+[08:37:43] INFO —
+==============================================================
+[08:37:43] INFO — TÓM TẮT — bộ rplguard
+[08:37:43] INFO —   RF                 accuracy=0.9473  | 1 bảng t-SNE
+[08:37:43] INFO —   XGBoost            accuracy=0.9934  | 1 bảng t-SNE
+[08:37:43] INFO —   LightGBM           accuracy=0.9963  | 1 bảng t-SNE
+[08:37:43] INFO —   MLP                accuracy=0.9890  | 1 bảng t-SNE
+[08:37:43] INFO —   GCN                accuracy=0.9020  | 1 bảng t-SNE
+[08:37:43] INFO —   E-GraphSAGE        accuracy=0.9846  | 1 bảng t-SNE
+[08:37:43] INFO —   GAT-Transformer    accuracy=0.9956  | 1 bảng t-SNE
+[08:37:43] INFO —   EdgeGAT            accuracy=0.9525  | 3 bảng t-SNE
+[08:37:43] INFO —   NE-GAT             accuracy=0.9949  | 3 bảng t-SNE
+[08:37:43] INFO —   ── đối chiếu: yêu cầu 9 | thành công 9 | chưa huấn luyện 0 | LỖI 0
+[08:37:43] INFO — Đã lưu tất cả vào viz/rplguard
+
+F:\tham khao\sdh241\hk5\de an tot nghiep\gat_ids_cont>

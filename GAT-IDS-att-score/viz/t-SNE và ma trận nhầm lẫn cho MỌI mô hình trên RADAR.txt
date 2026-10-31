@@ -1,0 +1,61 @@
+
+F:\tham khao\sdh241\hk5\de an tot nghiep\gat_ids_cont>python scripts/run_all_viz.py --data-dir data/radar_chrono --ckpt-dir checkpoints_radar --gt-dir ck_gtids_radar --out-dir viz/radar --tag radar
+[08:29:00] INFO — Bộ radar | test = 5220 đồ thị | 16 lớp
+[08:29:00] INFO —
+==============================================================
+[08:29:00] INFO — >>> RF
+[08:29:12] INFO —   ma trận nhầm lẫn -> cm_radar_RF.png
+[08:29:21] INFO —   t-SNE (tầng cuối, 1 bảng) -> tsne_radar_RF.png
+[08:29:21] INFO —
+==============================================================
+[08:29:21] INFO — >>> XGBoost
+[08:29:30] INFO —   ma trận nhầm lẫn -> cm_radar_XGBoost.png
+[08:29:38] INFO —   t-SNE (tầng cuối, 1 bảng) -> tsne_radar_XGBoost.png
+[08:29:38] INFO —
+==============================================================
+[08:29:38] INFO — >>> LightGBM
+[08:30:04] INFO —   ma trận nhầm lẫn -> cm_radar_LightGBM.png
+[08:30:10] INFO —   t-SNE (tầng cuối, 1 bảng) -> tsne_radar_LightGBM.png
+[08:30:10] INFO —
+==============================================================
+[08:30:10] INFO — >>> MLP
+[08:30:12] INFO —   ma trận nhầm lẫn -> cm_radar_MLP.png
+[08:30:21] INFO —   t-SNE (tầng cuối, 1 bảng) -> tsne_radar_MLP.png
+[08:30:21] INFO —
+==============================================================
+[08:30:21] INFO — >>> GCN
+[08:30:23] INFO —   ma trận nhầm lẫn -> cm_radar_GCN.png
+[08:30:32] INFO —   t-SNE (tầng cuối, 1 bảng) -> tsne_radar_GCN.png
+[08:30:32] INFO —
+==============================================================
+[08:30:32] INFO — >>> E-GraphSAGE
+[08:30:34] INFO —   ma trận nhầm lẫn -> cm_radar_E-GraphSAGE.png
+[08:30:42] INFO —   t-SNE (tầng cuối, 1 bảng) -> tsne_radar_E-GraphSAGE.png
+[08:30:42] INFO —
+==============================================================
+[08:30:42] INFO — >>> GAT-Transformer
+[08:30:42] WARNING —   bỏ qua (chưa huấn luyện hoặc thiếu tệp)
+[08:30:42] INFO —
+==============================================================
+[08:30:42] INFO — >>> EdgeGAT
+[08:30:42] WARNING —   bỏ qua (chưa huấn luyện hoặc thiếu tệp)
+[08:30:42] INFO —
+==============================================================
+[08:30:42] INFO — >>> NE-GAT
+[08:30:45] INFO —   ma trận nhầm lẫn -> cm_radar_NE-GAT.png
+[08:31:22] INFO —   t-SNE (từng tầng, 4 bảng) -> tsne_radar_NE-GAT.png
+[08:31:22] INFO —
+==============================================================
+[08:31:22] INFO — TÓM TẮT — bộ radar
+[08:31:22] INFO —   RF                 accuracy=0.9593  | 1 bảng t-SNE
+[08:31:22] INFO —   XGBoost            accuracy=0.9674  | 1 bảng t-SNE
+[08:31:22] INFO —   LightGBM           accuracy=0.8221  | 1 bảng t-SNE
+[08:31:22] INFO —   MLP                accuracy=0.9302  | 1 bảng t-SNE
+[08:31:22] INFO —   GCN                accuracy=0.9216  | 1 bảng t-SNE
+[08:31:22] INFO —   E-GraphSAGE        accuracy=0.9654  | 1 bảng t-SNE
+[08:31:22] INFO —   NE-GAT             accuracy=0.9776  | 4 bảng t-SNE
+[08:31:22] INFO —   ── đối chiếu: yêu cầu 9 | thành công 7 | chưa huấn luyện 2 | LỖI 0
+[08:31:22] WARNING —   chưa huấn luyện: GAT-Transformer, EdgeGAT
+[08:31:22] INFO — Đã lưu tất cả vào viz/radar
+
+F:\tham khao\sdh241\hk5\de an tot nghiep\gat_ids_cont>

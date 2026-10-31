@@ -1,0 +1,64 @@
+Microsoft Windows [Version 10.0.26300.9711]
+(c) Microsoft Corporation. All rights reserved.
+
+F:\tham khao\sdh241\hk5\de an tot nghiep\gat_ids_CMT>python scripts/run_all_viz.py --data-dir data/radar_chrono --ckpt-dir checkpoints_radar --gt-dir ck_gtids_radar --out-dir viz/radar --tag radar
+[08:44:59] INFO — Bộ radar | test = 5220 đồ thị | 16 lớp
+[08:44:59] INFO —
+==============================================================
+[08:44:59] INFO — >>> RF
+[08:45:09] INFO —   ma trận nhầm lẫn -> cm_radar_RF.png
+[08:45:19] INFO —   t-SNE (tầng cuối, 1 bảng) -> tsne_radar_RF.png
+[08:45:19] INFO —
+==============================================================
+[08:45:19] INFO — >>> XGBoost
+[08:45:28] INFO —   ma trận nhầm lẫn -> cm_radar_XGBoost.png
+[08:45:37] INFO —   t-SNE (tầng cuối, 1 bảng) -> tsne_radar_XGBoost.png
+[08:45:37] INFO —
+==============================================================
+[08:45:37] INFO — >>> LightGBM
+[08:46:02] INFO —   ma trận nhầm lẫn -> cm_radar_LightGBM.png
+[08:46:09] INFO —   t-SNE (tầng cuối, 1 bảng) -> tsne_radar_LightGBM.png
+[08:46:09] INFO —
+==============================================================
+[08:46:09] INFO — >>> MLP
+[08:46:10] INFO —   ma trận nhầm lẫn -> cm_radar_MLP.png
+[08:46:19] INFO —   t-SNE (tầng cuối, 1 bảng) -> tsne_radar_MLP.png
+[08:46:19] INFO —
+==============================================================
+[08:46:19] INFO — >>> GCN
+[08:46:22] INFO —   ma trận nhầm lẫn -> cm_radar_GCN.png
+[08:46:31] INFO —   t-SNE (tầng cuối, 1 bảng) -> tsne_radar_GCN.png
+[08:46:31] INFO —
+==============================================================
+[08:46:31] INFO — >>> E-GraphSAGE
+[08:46:32] INFO —   ma trận nhầm lẫn -> cm_radar_E-GraphSAGE.png
+[08:46:41] INFO —   t-SNE (tầng cuối, 1 bảng) -> tsne_radar_E-GraphSAGE.png
+[08:46:41] INFO —
+==============================================================
+[08:46:41] INFO — >>> GAT-Transformer
+[08:46:41] WARNING —   bỏ qua (chưa huấn luyện hoặc thiếu tệp)
+[08:46:41] INFO —
+==============================================================
+[08:46:41] INFO — >>> EdgeGAT
+[08:46:41] WARNING —   bỏ qua (chưa huấn luyện hoặc thiếu tệp)
+[08:46:41] INFO —
+==============================================================
+[08:46:41] INFO — >>> NE-GAT
+[08:46:44] INFO —   ma trận nhầm lẫn -> cm_radar_NE-GAT.png
+[08:47:18] INFO —   t-SNE (từng tầng, 4 bảng) -> tsne_radar_NE-GAT.png
+[08:47:18] INFO —
+==============================================================
+[08:47:18] INFO — TÓM TẮT — bộ radar
+[08:47:18] INFO —   mô hình                  Acc  macro-F1 | Normal  blackho clone_i continu delayed dis     hello_f local_r rank    replay  selecti sinkhol sybil   version wormhol worst_p | t-SNE
+[08:47:18] INFO —   NE-GAT                0.9776    0.9458 | 0.9870  1.0000  0.9576  0.8857  0.6539  1.0000  1.0000  0.9983  0.9580  0.9967  0.9983  0.9624  0.9348  0.8780  0.9222  1.0000  | 4 bảng
+[08:47:18] INFO —   E-GraphSAGE           0.9654    0.9214 | 0.9817  1.0000  0.9254  0.7694  0.6391  1.0000  1.0000  0.9967  0.8256  0.9983  1.0000  0.9455  0.8850  0.9646  0.8108  1.0000  | 1 bảng
+[08:47:18] INFO —   XGBoost               0.9674    0.8892 | 0.9830  1.0000  0.9020  0.8264  0.1254  0.9983  1.0000  0.9983  0.8314  1.0000  1.0000  0.9183  0.8962  0.9933  0.7691  0.9851  | 1 bảng
+[08:47:18] INFO —   RF                    0.9593    0.8826 | 0.9788  1.0000  0.8904  0.7831  0.3258  1.0000  1.0000  1.0000  0.8033  0.9933  1.0000  0.8835  0.8537  0.9156  0.6938  1.0000  | 1 bảng
+[08:47:18] INFO —   GCN                   0.9216    0.8480 | 0.9546  1.0000  0.8041  0.6709  0.5810  0.9217  0.9868  0.9934  0.7880  0.8670  1.0000  0.7204  0.8046  0.8481  0.6463  0.9816  | 1 bảng
+[08:47:18] INFO —   MLP                   0.9302    0.8444 | 0.9623  1.0000  0.8231  0.7480  0.3326  1.0000  1.0000  1.0000  0.8197  1.0000  0.9967  0.8993  0.8118  0.7190  0.3983  1.0000  | 1 bảng
+[08:47:18] INFO —   LightGBM              0.8221    0.4728 | 0.9062  0.4928  0.5483  0.2687  0.1551  0.5238  0.5346  0.5099  0.2572  0.6575  0.4766  0.6540  0.4165  0.2269  0.4045  0.5316  | 1 bảng
+[08:47:18] INFO —   ── đối chiếu: yêu cầu 9 | thành công 7 | chưa huấn luyện 2 | LỖI 0
+[08:47:18] WARNING —   chưa huấn luyện: GAT-Transformer, EdgeGAT
+[08:47:18] INFO — Đã lưu tất cả vào viz/radar
+
+F:\tham khao\sdh241\hk5\de an tot nghiep\gat_ids_CMT>

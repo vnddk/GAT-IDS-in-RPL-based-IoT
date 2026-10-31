@@ -1,0 +1,63 @@
+
+F:\tham khao\sdh241\hk5\de an tot nghiep\gat_ids_CMT>python scripts/run_all_viz.py --data-dir data/rplbeh_chrono --ckpt-dir checkpoints_rplbeh --gt-dir ck_gtids_rplbeh --out-dir viz/rplbeh --tag rplbeh
+[08:48:00] INFO — Bộ rplbeh | test = 1520 đồ thị | 5 lớp
+[08:48:00] INFO —
+==============================================================
+[08:48:00] INFO — >>> RF
+[08:48:02] INFO —   ma trận nhầm lẫn -> cm_rplbeh_RF.png
+[08:48:10] INFO —   t-SNE (tầng cuối, 1 bảng) -> tsne_rplbeh_RF.png
+[08:48:10] INFO —
+==============================================================
+[08:48:10] INFO — >>> XGBoost
+[08:48:12] INFO —   ma trận nhầm lẫn -> cm_rplbeh_XGBoost.png
+[08:48:20] INFO —   t-SNE (tầng cuối, 1 bảng) -> tsne_rplbeh_XGBoost.png
+[08:48:20] INFO —
+==============================================================
+[08:48:20] INFO — >>> LightGBM
+[08:48:24] INFO —   ma trận nhầm lẫn -> cm_rplbeh_LightGBM.png
+[08:48:32] INFO —   t-SNE (tầng cuối, 1 bảng) -> tsne_rplbeh_LightGBM.png
+[08:48:32] INFO —
+==============================================================
+[08:48:32] INFO — >>> MLP
+[08:48:33] INFO —   ma trận nhầm lẫn -> cm_rplbeh_MLP.png
+[08:48:42] INFO —   t-SNE (tầng cuối, 1 bảng) -> tsne_rplbeh_MLP.png
+[08:48:42] INFO —
+==============================================================
+[08:48:42] INFO — >>> GCN
+[08:48:43] INFO —   ma trận nhầm lẫn -> cm_rplbeh_GCN.png
+[08:48:52] INFO —   t-SNE (tầng cuối, 1 bảng) -> tsne_rplbeh_GCN.png
+[08:48:52] INFO —
+==============================================================
+[08:48:52] INFO — >>> E-GraphSAGE
+[08:48:53] INFO —   ma trận nhầm lẫn -> cm_rplbeh_E-GraphSAGE.png
+[08:49:02] INFO —   t-SNE (tầng cuối, 1 bảng) -> tsne_rplbeh_E-GraphSAGE.png
+[08:49:02] INFO —
+==============================================================
+[08:49:02] INFO — >>> GAT-Transformer
+[08:49:02] WARNING —   bỏ qua (chưa huấn luyện hoặc thiếu tệp)
+[08:49:02] INFO —
+==============================================================
+[08:49:02] INFO — >>> EdgeGAT
+[08:49:02] WARNING —   bỏ qua (chưa huấn luyện hoặc thiếu tệp)
+[08:49:02] INFO —
+==============================================================
+[08:49:02] INFO — >>> NE-GAT
+[08:49:03] INFO —   ma trận nhầm lẫn -> cm_rplbeh_NE-GAT.png
+[08:49:39] INFO —   t-SNE (từng tầng, 4 bảng) -> tsne_rplbeh_NE-GAT.png
+[08:49:39] INFO —
+==============================================================
+[08:49:39] INFO — TÓM TẮT — bộ rplbeh
+[08:49:39] INFO —   mô hình                  Acc  macro-F1 | Normal  VNA     DRA     DISA    SFA     | t-SNE
+[08:49:39] INFO —   LightGBM              0.8855    0.6467 | 0.9346  0.5516  0.7152  0.6170  0.4150  | 1 bảng
+[08:49:39] INFO —   XGBoost               0.8877    0.6380 | 0.9363  0.5550  0.7037  0.6101  0.3850  | 1 bảng
+[08:49:39] INFO —   E-GraphSAGE           0.8391    0.5975 | 0.9046  0.5072  0.5865  0.6171  0.3719  | 1 bảng
+[08:49:39] INFO —   MLP                   0.8186    0.5809 | 0.8906  0.5196  0.5679  0.5802  0.3461  | 1 bảng
+[08:49:39] INFO —   NE-GAT                0.8015    0.5615 | 0.8798  0.4851  0.5923  0.5653  0.2850  | 4 bảng
+[08:49:39] INFO —   RF                    0.8807    0.5286 | 0.9336  0.3457  0.5783  0.4703  0.3154  | 1 bảng
+[08:49:39] INFO —   GCN                   0.7388    0.4636 | 0.8387  0.4064  0.4205  0.3892  0.2634  | 1 bảng
+[08:49:39] WARNING —   Xếp hạng theo ACCURACY (XGBoost dẫn đầu) KHÁC xếp hạng theo MACRO-F1 (LightGBM dẫn đầu). Với dữ liệu mất cân bằng lớp, macro-F1 mới là chỉ số nên báo cáo.
+[08:49:39] INFO —   ── đối chiếu: yêu cầu 9 | thành công 7 | chưa huấn luyện 2 | LỖI 0
+[08:49:39] WARNING —   chưa huấn luyện: GAT-Transformer, EdgeGAT
+[08:49:39] INFO — Đã lưu tất cả vào viz/rplbeh
+
+F:\tham khao\sdh241\hk5\de an tot nghiep\gat_ids_CMT>
