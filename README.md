@@ -2,8 +2,6 @@
 
 **Phát hiện xâm nhập trong mạng IoT định tuyến RPL bằng mạng nơ-ron đồ thị có chú ý, huấn luyện với căn chỉnh miền thời gian thích nghi (ATA).**
 
-Khung phần mềm cho luận văn thạc sĩ — Khoa Điện – Điện tử, Trường Đại học Bách khoa, ĐHQG TP.HCM.
-
 ---
 
 ## Ý tưởng cốt lõi
