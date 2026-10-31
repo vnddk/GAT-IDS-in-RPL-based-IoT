@@ -96,7 +96,6 @@ Toán tử `min` là cố ý: rò rỉ mang tính **cực trị**, chỉ cần m
 
 Chênh **55 lần**. Giá trị 60,5 khớp chính xác với giá trị giải tích `(31+90)/2`, xác nhận cài đặt đúng như thiết kế.
 
-> **Cạm bẫy về đơn vị.** δ̄ của ba bộ dữ liệu **không so trực tiếp được với nhau**, vì `win_idx` có đơn vị khác nhau: RADAR và UOS đếm theo cửa sổ 5 giây, RPL-Beh theo chỉ số phút. Quy về giây: 302 s, 75 s và 7.440 s. δ̄ cũng tỉ lệ thuận với số cửa sổ mỗi tệp theo `δ̄ ≈ 0,2·n`, nên nó là chỉ số **tương đối**, không phải ngưỡng tuyệt đối.
 
 ### Kiểm toán rò rỉ nhãn
 
@@ -140,53 +139,6 @@ python scripts/train_ata.py --data-dir data/radar_chrono --arch negat \
 python scripts/test_all.py --data-dir data/radar_chrono --ckpt-dir ck_negat_ata --binary
 ```
 
-Sau Bước 1, **kiểm ngay hai dòng trong log**:
-
-- `Chẩn đoán rò rỉ thời gian: δ̄ = …` — phải lớn hơn 2 rõ rệt.
-- `Không phát hiện rò rỉ` hoặc `WARNING — Đặc trưng RÒ RỈ` — nếu có cảnh báo, phải xử lý trước khi huấn luyện.
-
-Xem [`LENH_CHAY_ATA.md`](LENH_CHAY_ATA.md) cho toàn bộ luồng lệnh, gồm quét siêu tham số, ablation và chạy nhiều hạt giống.
-
----
-
-## Cấu trúc mã nguồn
-
-```
-src/
-├── data/
-│   ├── radar_builder.py       Dựng đồ thị DODAG từ nhật ký gói tin RADAR
-│   ├── uos_builder.py         Bộ UOS — xử lý ba schema CSV khác nhau
-│   ├── rplbeh_builder.py      Bộ RPL-Beh — đảo hoán vị seed 42, cắt lại 95 mô phỏng
-│   ├── iotrpl_builder.py      Bộ IoT-RPL (đã loại khỏi kết luận, xem bên dưới)
-│   ├── feature_audit.py       Kiểm toán rò rỉ nhãn hai tiêu chí
-│   ├── transforms.py          Yeo–Johnson, chỉ fit trên tập huấn luyện
-│   └── loader.py              Đăng ký bộ dữ liệu, chia tập, tái lấy mẫu
-├── models/
-│   ├── edge_gat.py            GAT-IDS
-│   ├── ne_gat.py              NE-GAT-IDS hai kênh
-│   ├── gnn_baselines.py       MLP, GCN, E-GraphSAGE
-│   └── tabular_baselines.py   Random Forest, XGBoost, LightGBM
-└── utils/
-    ├── ata.py                 Độ đo chênh lệch, dựng miền, chia theo thời gian, δ̄
-    ├── binary_eval.py         Đánh giá nhị phân
-    ├── losses.py              Class-Balanced Focal có chặn trần trọng số
-    ├── engine.py              Vòng lặp huấn luyện, EMA, dừng sớm
-    └── metrics.py             macro-F1, báo cáo theo lớp
-
-scripts/
-├── convert_data.py                  Bước 1
-├── train_all.py                     Bước 2 — bảy mô hình, không ATA
-├── train_ata.py                     Bước 2b — huấn luyện có ATA
-├── test_all.py                      Bước 3 — đánh giá đa lớp + nhị phân
-├── tsne_compare.py                  So sánh không gian đặc trưng cuối
-├── tsne_layers.py                   Trực quan hoá theo từng tầng
-├── attention_per_class.py           Trọng số chú ý + GNNExplainer
-├── feature_importance_per_class.py  Tầm quan trọng đặc trưng theo lớp
-├── xai_simple.py                    Biểu đồ đối chiếu mô hình với dữ liệu
-├── ablation_edge_attention.py       Ablation đặc trưng cạnh
-└── PATCH_bo_ro_ri.py                Loại đặc trưng bị kiểm toán gắn cờ
-```
-
 ---
 
 ## Bộ dữ liệu
@@ -196,73 +148,8 @@ Kho này **không phân phối lại dữ liệu**. Ba bộ đều là dữ li�
 | Bộ | Số lớp | Ghi chú |
 |:---|---:|:---|
 | **RADAR** | 16 | Bộ chính. Duy nhất có đủ bốn nhóm thông tin: độ lệch rank, độ lệch phiên bản, thống kê chuyển tiếp, chất lượng liên kết |
-| **UOS_IOTSH_2024** | 2 | 49 trên 78 tệp công bố chỉ chứa **hai byte** và không có dữ liệu; builder tự bỏ qua |
-| **RPL-Beh** | 5 | CSV đã bị xáo trộn bằng `df.sample(random_state=42)`; builder đảo ngược được và cắt lại 95 mô phỏng |
-| **IoT-RPL 2021** | 5 | **Đã loại khỏi mọi kết luận** — xem bên dưới |
 
-### Vì sao IoT-RPL bị loại
-
-Kiểm toán gắn cờ đặc trưng `send_share` với F1 gốc-cây một cột đạt 0,914. Sau khi loại đặc trưng đó và huấn luyện lại, **ba họ mô hình khác hẳn nhau về nguyên lý** vẫn cùng đạt độ chính xác tuyệt đối 1,0000.
-
-Nguyên nhân gốc nằm ở **thiết kế** bộ dữ liệu: mỗi nút tấn công giữ nguyên một vai trò ở mọi tệp mô phỏng, nên bất kỳ tổ hợp đặc trưng nào đủ nhận ra danh tính một nút cũng tiết lộ nhãn. Có một lập luận khép kín: cách xử lý chuẩn mực là chia theo **thực thể**, nhưng mỗi loại tấn công chỉ gắn với đúng một nút, nên giữ nút đó ra khỏi tập huấn luyện đồng nghĩa lớp đó biến mất. Phép chia đúng đắn **bất khả thi về mặt cấu trúc**, và chính sự bất khả thi ấy là bằng chứng.
-
-### Về việc khôi phục thứ tự thời gian của RPL-Beh
-
-`dataset_generation.py` của tác giả gốc kết thúc bằng `df.sample(frac=1, random_state=42)`. pandas dùng `numpy.RandomState` nên hoán vị tái lập được chính xác. Sau khi đảo, `node_id` tăng nghiêm ngặt trong mọi interval:
-
-| | Nguyên trạng | Sau khi đảo |
-|:---|---:|---:|
-| Tỉ lệ `node_id` tăng khi cùng `time_sec` | 0,4951 | **1,000000** |
-| Số vi phạm đơn điệu | — | **0 / 151.224** |
-
-Ngoài ra, cả 95/95 mô phỏng có cửa sổ cách đều đúng 8 đơn vị, từ 8 tới 592. `time_sec` là chỉ số **phút**, nên 8 phút = 480 giây = đúng Capture Interval trong bài báo gốc. Đây là một miền thời gian liên tục, dùng được cho ATA.
-
-**Hạn chế còn lại của bộ này:** đặc trưng láng giềng đã bị tác giả gốc lấy trung bình (`np.mean` trong `generate_csv()`), nên thông tin theo **từng** láng giềng không khôi phục được từ CSV. Vì vậy bộ này không phù hợp để chứng minh giá trị của kênh cạnh.
-
----
-
-## Kết quả
-
-Bộ RADAR, chia theo thời gian, δ̄ = 60,5. Tập kiểm thử 5.220 đồ thị / 98.579 nút. Mọi mô hình dùng cùng tập, cùng phép chia, cùng hạt giống.
-
-| # | Mô hình | Macro-F1 | Accuracy | Tham số |
-|:--|:---|---:|---:|---:|
-| 1 | **NE-GAT-IDS + ATA** | **0,9440** | 0,9773 | 62.224 |
-| 2 | GAT-IDS + ATA | 0,9358 | 0,9724 | 103.956 |
-| 3 | E-GraphSAGE + ATA | 0,8978 | 0,9527 | 10.834 |
-| 4 | XGBoost | 0,8892 | 0,9674 | cây |
-| 5 | Random Forest | 0,8826 | 0,9593 | cây |
-| 6 | MLP + ATA | 0,7689 | 0,9117 | 6.147 |
-| 7 | GCN + ATA | 0,7454 | 0,8733 | 3.698 |
-| 8 | LightGBM | 0,4728 | 0,8221 | cây |
-
-Kết quả tách thành **ba nhóm rõ rệt**: đồ thị có đặc trưng cạnh (0,90–0,94), mô hình cây (0,88–0,89), nơ-ron không dùng cạnh (0,75–0,77).
-
-Điểm đáng chú ý nhất: **GCN có cấu trúc đồ thị nhưng thua cả MLP**. Không phải cứ có cấu trúc đồ thị là tốt — điều tạo khác biệt là cơ chế chú ý học được cộng với đặc trưng liên kết.
-
-Hai lưu ý về cách đọc bảng. XGBoost có accuracy **cao hơn** E-GraphSAGE nhưng macro-F1 **thấp hơn**: accuracy thưởng cho việc đoán tốt lớp đa số, macro-F1 phạt việc bỏ sót lớp thiểu số. Còn LightGBM 0,4728 là hệ quả của việc tắt tái lấy mẫu để đồng nhất giao thức — nó là mô hình duy nhất không còn cơ chế xử lý mất cân bằng nào, chứ không phải giới hạn của thuật toán.
-
----
-
-## Giới hạn hiện tại
-
-Phần này liệt kê những gì khung này **chưa** chứng minh được. Đọc trước khi trích dẫn bất kỳ con số nào ở trên.
-
-**Một hạt giống duy nhất.** Mọi con số đến từ một lần chạy. Chênh lệch giữa NE-GAT-IDS và GAT-IDS là 0,0082 điểm macro-F1 — chưa phân biệt được hiệu ứng thật với dao động ngẫu nhiên. Cần tối thiểu năm hạt giống và báo cáo độ lệch chuẩn.
-
-**Chưa có nhánh đối chứng không ATA.** Chưa chạy `--K 1 --lambda-d 0` trên cùng tập chia theo thời gian, nên **chưa đo được đóng góp riêng của ATA** — chỉ biết cả hai mô hình đều hoạt động tốt khi *có* ATA.
-
-**Chênh lệch dung lượng 41%.** NE-GAT-IDS thắng với ít tham số hơn nên kết luận mạnh hơn. Nhưng để loại hẳn yếu tố này, cần thêm biến thể nâng chiều cho tương đương tham số.
-
-**Chỉ có bộ RADAR.** UOS và RPL-Beh đã chuyển đổi xong nhưng chưa huấn luyện đầy đủ.
-
-**Chỉ dữ liệu mô phỏng.** Chưa có bằng chứng trên phần cứng thực với nhiễu vô tuyến và mất gói thật.
-
-**Biểu diễn theo cửa sổ làm mất thứ tự sự kiện.** Phép gộp giữ các đại lượng bất biến thứ tự nhưng mất trình tự trong cửa sổ, nên các tấn công có chữ ký thuần tuý phụ thuộc trình tự ở thế bất lợi. Kết quả nhất quán với nhận định này: `delayed_reply` có F1 thấp nhất ở cả hai mô hình.
-
-**Nguồn công bố của RADAR và UOS chưa xác minh.** Hai bộ này được dùng làm dữ liệu chính nhưng tài liệu gốc chưa được xác minh; không nên trích dẫn phỏng đoán.
-
-**EMA có thiên lệch khởi tạo.** Bộ đệm EMA khởi tạo từ trọng số ngẫu nhiên với ρ = 0,995. Với tập nhỏ như UOS (4 bước/epoch), sau 20 epoch vẫn còn 67% trọng số khởi tạo, gây hiện tượng chỉ số kiểm định phẳng giả tạo ở các epoch đầu. Khắc phục bằng hiệu chỉnh thiên lệch kiểu Adam, nhưng việc đó sẽ thay đổi mọi con số đã báo cáo.
+| **RPL-Beh** | 
 
 ---
 
@@ -279,14 +166,13 @@ Phần này liệt kê những gì khung này **chưa** chứng minh được. �
 - Corso và cộng sự (2020). *Principal Neighbourhood Aggregation for Graph Nets.* NeurIPS.
 - Izmailov và cộng sự (2018). *Averaging Weights Leads to Wider Optima and Better Generalization.* UAI.
 - Yeo, Johnson (2000). *A New Family of Power Transformations to Improve Normality or Symmetry.* Biometrika.
-- Rousseeuw (1987). *Silhouettes: A Graphical Aid to the Interpretation and Validation of Cluster Analysis.* J. Comput. Appl. Math.
 - Phan, Dang Le, Vu, Vo (2026). *Split-Aware Learning for IoT Intrusion Detection under Temporal Domain Shift.*
 
 ---
 
 ## Tác giả
 
-**Đồng Duy Khang** — MSHV 2470165, Kỹ thuật Viễn thông
+**Đồng Duy Khang** — Kỹ thuật Viễn thông
 Hướng dẫn: **TS. Võ Quế Sơn**
 Khoa Điện – Điện tử, Trường Đại học Bách khoa, ĐHQG TP.HCM
 
