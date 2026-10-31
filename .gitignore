@@ -1,0 +1,28 @@
+# Dữ liệu — KHÔNG commit. Ba bộ đều là dữ liệu bên thứ ba có giấy phép riêng.
+data/
+*.csv
+*.pt
+
+# Checkpoint và kết quả chạy
+checkpoints/
+ck_*/
+*.json
+!configs/*.json
+
+# Hình sinh ra khi chạy
+*.png
+hinh_xai/
+tsne_*.png
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# Hệ điều hành và IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

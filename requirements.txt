@@ -1,0 +1,10 @@
+torch>=2.0
+torch-geometric>=2.4
+numpy>=1.24
+pyyaml>=6.0
+# tùy chọn (nếu muốn dùng thay cho metrics tự cài / FL framework):
+# scikit-learn>=1.3
+# flwr>=1.7
+# pandas>=2.0   # cần khi cắm CSV thật
+matplotlib>=3.7        # trực quan hoá t-SNE theo tầng
+lightgbm>=4.0          # baseline cây
