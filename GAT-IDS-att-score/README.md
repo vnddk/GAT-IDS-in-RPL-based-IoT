@@ -148,15 +148,14 @@ Phiên bản v3.33. Mọi lệnh chạy từ thư mục gốc framework.
 ## 0. Điều kiện tiên quyết
 
 ```bash
-pip install torch torch_geometric xgboost lightgbm scikit-learn pandas matplotlib
+pip install torch torch_geometric xgboost scikit-learn pandas matplotlib
 ```
 
 Cấu trúc thư mục dữ liệu:
 
 ```
 data/radar/     <- các thư mục kịch bản tấn công, mỗi thư mục chứa *.csv
-data/uos/       <- các tệp log của bộ UOS_IOTSH_2024
-data/rplbeh/    <- RPL-IDS-Beh.csv  (tải từ kho HUNSR/RPL-IDS-Behavior-Dataset)
+data/rplbeh/    <- RPL-IDS-Beh.csv  (tải từ kho HUNSR/RPL-IDS-Behavior-Dataset. Chỉnh lại dataset generator.py để phân lại dữ liệu theo trình tự thời gian so với tác giả ban đầu)
 ```
 
 ---
@@ -168,9 +167,6 @@ Ba bộ dữ liệu dùng **cùng một chiến lược chia** để so sánh đ
 ```bash
 # ── RADAR (16 lớp) ──
 python scripts/convert_data.py --dataset radar --data-dir data/radar --split chrono --alpha 1.0 --out-dir data/radar_chrono
-
-# ── UOS (2 lớp) ──
-python scripts/convert_data.py --dataset uos --data-dir data/uos --split chrono --alpha 1.0 --out-dir data/uos_chrono
 
 # ── RPL-Beh (5 lớp) ──
 python scripts/convert_data.py --dataset rplbeh --data-dir data/rplbeh --split chrono --alpha 1.0 --out-dir data/rplbeh_chrono
@@ -306,44 +302,6 @@ python scripts/train_ata.py --data-dir data/radar_chrono --arch egraphsage --hid
 
 
 
-
-#--> For UOS DATASET
-```
-python scripts/train_ata.py --data-dir data/uos_chrono --arch mlp --K 3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --epochs 120 --ckpt-dir ck_mlp_ata_uos
-python scripts/train_ata.py --data-dir data/uos_chrono --arch gcn --K 3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --epochs 120 --ckpt-dir ck_gcn_ata_uos
-python scripts/train_ata.py --data-dir data/uos_chrono --arch egraphsage --K 3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --epochs 120 --ckpt-dir ck_egraphsage_ata_uos
-```
-Baseline			≈ 62k (bằng NE-GAT)					≈ 104k (bằng GAT-IDS)
-E-GraphSAGE			--hidden-dim 184 → 60.882			--hidden-dim 256 → 102.354
-MLP					--hidden-dim 216 → 61.755			--hidden-dim 288 → 102.867
-GCN					--hidden-dim 960 → 62.066			không đạt được
-
-python scripts/train_ata.py --data-dir data/uos_chrono --arch mlp --hidden-dim 216 --K 3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --epochs 120 --seed 42 --ckpt-dir ck_mlp_ata_uos_seed42
-python scripts/train_ata.py --data-dir data/uos_chrono --arch mlp --hidden-dim 216 --K 3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --epochs 120 --seed 43 --ckpt-dir ck_mlp_ata_uos_seed43
-python scripts/train_ata.py --data-dir data/uos_chrono --arch mlp --hidden-dim 216 --K 3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --epochs 120 --seed 44 --ckpt-dir ck_mlp_ata_uos_seed44
-python scripts/train_ata.py --data-dir data/uos_chrono --arch mlp --hidden-dim 216 --K 3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --epochs 120 --seed 45 --ckpt-dir ck_mlp_ata_uos_seed45
-python scripts/train_ata.py --data-dir data/uos_chrono --arch mlp --hidden-dim 216 --K 3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --epochs 120 --seed 46 --ckpt-dir ck_mlp_ata_uos_seed46
-
-
-
-python scripts/train_ata.py --data-dir data/uos_chrono --arch gcn --hidden-dim 960 --K 3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --epochs 120 --seed 42 --ckpt-dir ck_gcn_ata_uos_seed42
-python scripts/train_ata.py --data-dir data/uos_chrono --arch gcn --hidden-dim 960 --K 3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --epochs 120 --seed 43 --ckpt-dir ck_gcn_ata_uos_seed43
-python scripts/train_ata.py --data-dir data/uos_chrono --arch gcn --hidden-dim 960 --K 3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --epochs 120 --seed 44 --ckpt-dir ck_gcn_ata_uos_seed44
-python scripts/train_ata.py --data-dir data/uos_chrono --arch gcn --hidden-dim 960 --K 3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --epochs 120 --seed 45 --ckpt-dir ck_gcn_ata_uos_seed45
-python scripts/train_ata.py --data-dir data/uos_chrono --arch gcn --hidden-dim 960 --K 3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --epochs 120 --seed 46 --ckpt-dir ck_gcn_ata_uos_seed46
-
-
-python scripts/train_ata.py --data-dir data/uos_chrono --arch egraphsage --hidden-dim 184 --K 3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --epochs 120 --seed 42 --ckpt-dir ck_esage_uos_seed42
-python scripts/train_ata.py --data-dir data/uos_chrono --arch egraphsage --hidden-dim 184 --K 3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --epochs 120 --seed 43 --ckpt-dir ck_esage_uos_seed43
-python scripts/train_ata.py --data-dir data/uos_chrono --arch egraphsage --hidden-dim 184 --K 3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --epochs 120 --seed 44 --ckpt-dir ck_esage_uos_seed44
-python scripts/train_ata.py --data-dir data/uos_chrono --arch egraphsage --hidden-dim 184 --K 3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --epochs 120 --seed 45 --ckpt-dir ck_esage_uos_seed45
-python scripts/train_ata.py --data-dir data/uos_chrono --arch egraphsage --hidden-dim 184 --K 3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --epochs 120 --seed 46 --ckpt-dir ck_esage_uos_seed46
-
-
-
-
-
-
 #--> For RPL-Beh DATASET
 ```
 python scripts/train_ata.py --data-dir data/uos_chrono --arch mlp --K 3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --epochs 120 --ckpt-dir ck_mlp_ata_rplbeh
@@ -447,12 +405,6 @@ python scripts/train_ata.py --data-dir data/radar_chrono --arch negat --K 3 --la
 [ATA with no shuffle in batch(k)]python scripts/train_ata.py --data-dir data/radar_chrono --arch negat --K 3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --epochs 120 --no-shuffle --ckpt-dir ck_negat_ata_noshuffle_radar
 [NO ATA] python scripts/train_ata.py --data-dir data/radar_chrono --arch negat --K 1 --lambda-d 0 --disc mmd --domain-strategy quantile --epochs 120 --no-shuffle --ckpt-dir ck_negat_noata_radar
 ```
-
-#--> For UOS DATASET
-```bash
-# GAT-IDS + ATA
-python scripts/train_ata.py --data-dir data/uos_chrono --arch edgegat --K 3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --epochs 120 --ckpt-dir ck_gat_ata_uos
-[NO ATA]: python scripts/train_ata.py --data-dir data/uos_chrono --arch edgegat --K 1 --lambda-d 0 --disc mmd --domain-strategy quantile --epochs 120 --no-shuffle --ckpt-dir ck_gat_noata_uos
 
 # NE-GAT-IDS + ATA
 python scripts/train_ata.py --data-dir data/uos_chrono --arch negat --K 3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --epochs 120 --ckpt-dir ck_negat_ata_uos
@@ -630,7 +582,7 @@ python scripts/train_ata.py --data-dir data/radar_chrono --arch edgegat --K 3 --
 python scripts/train_ata.py --data-dir data/radar_chrono --arch edgegat --K 3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --seed 44 --epochs 120 --ckpt-dir ck_gat_ata_radar
 python scripts/train_ata.py --data-dir data/radar_chrono --arch edgegat --K 3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --seed 45 --epochs 120 --ckpt-dir ck_gat_ata_radar
 python scripts/train_ata.py --data-dir data/radar_chrono --arch edgegat --K 3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --seed 46 --epochs 120 --ckpt-dir ck_gat_ata_radar
----
+
 
 --- NEGAT-IDS
 ------------- RADAR DATASET
@@ -639,33 +591,28 @@ python scripts/train_ata.py --data-dir data/radar_chrono --arch negat --K 3 --la
 python scripts/train_ata.py --data-dir data/radar_chrono --arch negat --K 3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --seed 44 --epochs 120 --ckpt-dir ck_negat_ata_radar
 python scripts/train_ata.py --data-dir data/radar_chrono --arch negat --K 3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --seed 45 --epochs 120 --ckpt-dir ck_negat_ata_radar
 python scripts/train_ata.py --data-dir data/radar_chrono --arch negat --K 3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --seed 46 --epochs 120 --ckpt-dir ck_negat_ata_radar
-------------- UOS DATASET
-python scripts/train_ata.py --data-dir data/uos_chrono --arch negat --K 3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --seed 42 --epochs 120 --ckpt-dir ck_negat_ata_uos
-python scripts/train_ata.py --data-dir data/uos_chrono --arch negat --K 3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --seed 43 --epochs 120 --ckpt-dir ck_negat_ata_uos
-python scripts/train_ata.py --data-dir data/uos_chrono --arch negat --K 3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --seed 44 --epochs 120 --ckpt-dir ck_negat_ata_uos
-python scripts/train_ata.py --data-dir data/uos_chrono --arch negat --K 3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --seed 45 --epochs 120 --ckpt-dir ck_negat_ata_uos
-python scripts/train_ata.py --data-dir data/uos_chrono --arch negat --K 3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --seed 46 --epochs 120 --ckpt-dir ck_negat_ata_uos
+
 ------------- RPL-BEH DATASET
 python scripts/train_ata.py --data-dir data/rplbeh_chrono --arch negat --K 3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --seed 42 --epochs 120 --ckpt-dir ck_negat_ata_rplbeh
 python scripts/train_ata.py --data-dir data/rplbeh_chrono --arch negat --K 3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --seed 43 --epochs 120 --ckpt-dir ck_negat_ata_rplbeh
 python scripts/train_ata.py --data-dir data/rplbeh_chrono --arch negat --K 3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --seed 44 --epochs 120 --ckpt-dir ck_negat_ata_rplbeh
 python scripts/train_ata.py --data-dir data/rplbeh_chrono --arch negat --K 3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --seed 45 --epochs 120 --ckpt-dir ck_negat_ata_rplbeh
 python scripts/train_ata.py --data-dir data/rplbeh_chrono --arch negat --K 3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --seed 46 --epochs 120 --ckpt-dir ck_negat_ata_rplbeh
----
+
 ------------- RPLGUARD DATASET
 python scripts/train_ata.py --data-dir data/rplguard_chrono --arch negat --K 3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --seed 42 --epochs 120 --ckpt-dir ck_negat_ata_rplguard_seed42
 python scripts/train_ata.py --data-dir data/rplguard_chrono --arch negat --K 3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --seed 43 --epochs 120 --ckpt-dir ck_negat_ata_rplguard_seed43
 python scripts/train_ata.py --data-dir data/rplguard_chrono --arch negat --K 3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --seed 44 --epochs 120 --ckpt-dir ck_negat_ata_rplguard_seed44
 python scripts/train_ata.py --data-dir data/rplguard_chrono --arch negat --K 3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --seed 45 --epochs 120 --ckpt-dir ck_negat_ata_rplguard_seed45
 python scripts/train_ata.py --data-dir data/rplguard_chrono --arch negat --K 3 --lambda-d 0.5 --disc mmd --domain-strategy quantile --seed 46 --epochs 120 --ckpt-dir ck_negat_ata_rplguard_seed46
----
+
 ---
 
 
 ## 8. Trình tự tối thiểu cho một bộ dữ liệu
 
 ```bash
-D=radar                      # đổi thành uos hoặc rplbeh
+D=radar                      # đổi thành radar hoặc rplbeh
 python scripts/convert_data.py --dataset $D --data-dir data/$D \
        --split chrono --alpha 1.0 --out-dir data/${D}_chrono
 python scripts/train_all.py --data-dir data/${D}_chrono \
@@ -685,6 +632,8 @@ python scripts/tsne_compare.py --data-dir data/${D}_chrono \
 
 
 ##################### GAT-TRANSFORMER-IDS 
+Dựa trên ý tưởng của : Self-Supervised Learning of Graph Representations
+for Network Intrusion Detection - Lorenzo Guerra1
 
 Giảm tham số
 Cấu hình	Tổng	Khối MAE	Giảm
