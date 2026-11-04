@@ -155,7 +155,7 @@ Cấu trúc thư mục dữ liệu:
 
 ```
 data/radar/     <- các thư mục kịch bản tấn công, mỗi thư mục chứa *.csv
-data/rplbeh/    <- RPL-IDS-Beh.csv  (tải từ kho HUNSR/RPL-IDS-Behavior-Dataset. Chỉnh lại dataset generator.py để phân lại dữ liệu theo trình tự thời gian so với tác giả ban đầu)
+data/rplbeh/    <- RPL-IDS-Beh.csv  (tải từ kho HUNSR/RPL-IDS-Behavior-Dataset. Chỉnh lại dataset generator.py để phân lại dữ liệu theo trình tự thời gian so với tác giả ban đầu và cmt hàm shuffle trong hàm main của src/data/rplbeh_builder.py)
 ```
 
 ---
