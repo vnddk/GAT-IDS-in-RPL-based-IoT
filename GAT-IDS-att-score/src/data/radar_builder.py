@@ -432,11 +432,11 @@ def _bld(w, ai, label_mode, attacker_node, attack_start_s, window_seconds):
         ei = torch.arange(n).repeat(2, 1)
         ea = torch.zeros((n, N_EDGE_FEATS), dtype=torch.float32)
         _g = Data(x=torch.tensor(nf), edge_index=ei, edge_attr=ea, y=torch.tensor(yl))
-    # ĐỊNH DANH NÚT — bắt buộc để nối cùng một thiết bị qua các cửa sổ
-    # liên tiếp. Không có trường này thì không dựng được chuỗi thời gian
-    # cho mỗi nút, vì thứ tự nút trong mỗi đồ thị là thứ tự sắp xếp cục bộ.
-    #_g.node_ids = torch.tensor(nl, dtype=torch.long)
-    return _g, nl
+        # ĐỊNH DANH NÚT — bắt buộc để nối cùng một thiết bị qua các cửa sổ
+        # liên tiếp. Không có trường này thì không dựng được chuỗi thời gian
+        # cho mỗi nút, vì thứ tự nút trong mỗi đồ thị là thứ tự sắp xếp cục bộ.
+        #_g.node_ids = list(nl)  # RADAR identifiers are strings
+        return _g, nl
 
     sl, dl, ef = [], [], []
     for (u, v), st in ps.items():
@@ -457,7 +457,7 @@ def _bld(w, ai, label_mode, attacker_node, attack_start_s, window_seconds):
     # ĐỊNH DANH NÚT — bắt buộc để nối cùng một thiết bị qua các cửa sổ
     # liên tiếp. Không có trường này thì không dựng được chuỗi thời gian
     # cho mỗi nút, vì thứ tự nút trong mỗi đồ thị là thứ tự sắp xếp cục bộ.
-    #_g.node_ids = torch.tensor(nl, dtype=torch.long)
+    #_g.node_ids = list(nl)
     return _g, nl
 
 
