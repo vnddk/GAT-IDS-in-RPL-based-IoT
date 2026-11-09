@@ -73,7 +73,7 @@ class BuildConfig:
     csv_path: str
     out_dir: str = "data/rplbeh"
     shuffle_seed: int = 42          # random_state ma tac gia dung
-    add_self_loops: bool = True
+    add_self_loops: bool = False
     bidirectional: bool = True      # them ca canh cha->con
     connect_orphans: bool = True    # node mat cha -> noi vao node co rank nho nhat
     min_graph_size: int = 4         # bo do thi qua nho
